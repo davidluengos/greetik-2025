@@ -1,0 +1,27 @@
+.git
+/.gitignore
+.env
+exclude.txt
+/vendor
+/node_modules
+/public/storage
+/public/hot
+/public/mix-manifest.json
+/public/js/*.map
+/public/css/*.map
+/tests
+/public/.htaccess  # si tu .htaccess de producción es diferente
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+
+
+#subir cambios a repositorio
+# abrir ubuntu desktop
+#cd /mnt/w/xampp_php82/htdocs/greetik-2025
+#rsync -avz --force --progress --exclude-from=exclude.txt ./. greetikcom@5.135.232.246:/home/greetikcom/public_html/new/
+#introducir usuario y contraseña de registros greetik
+
+#abrir putty greetikcom, con contraseña de registros greetik
+#cd public_html/maindomain o el subdominio que corresponda
+#php artisan optimize
