@@ -1,0 +1,621 @@
+.icon-wrap-services {
+    font-size: 2em;
+    height: 60px;
+    width: 60px;
+    margin: 10px auto 10px auto;
+    line-height: 60px;
+    text-align: center;
+    color: #fff;
+}
+
+/* Service Cards Wrapper */
+.service-card-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+/* Service Cards */
+.service-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 30px 20px;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+    float: none !important;
+    clear: both;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: grey;
+    border-width: 2px;
+}
+
+.service-card h3 {
+    margin: 20px 0 15px 0;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.service-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+/* Fix para el grid de servicios */
+.price-container .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px 40px -15px; /* Agregado margen inferior para separar filas */
+}
+
+.price-container .row > [class*="col-"] {
+    float: none !important;
+    display: flex;
+    padding: 0 15px;
+    margin-bottom: 10px; /* Espacio adicional entre tarjetas */
+}
+
+/* Espaciado adicional para el contenedor de servicios */
+.price-container {
+    padding-bottom: 60px !important; /* Más espacio antes del CTA */
+}
+
+/* CTA section con margen superior adicional */
+.cta-section {
+    margin-top: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Grid específico de servicios */
+.services-grid {
+    row-gap: 30px !important; /* Separación entre filas */
+}
+
+.services-grid > [class*="col-"] {
+    margin-bottom: 0; /* Resetear el margin-bottom ya que usamos row-gap */
+}
+
+/* ===== SECCIÓN DE TECNOLOGÍAS ===== */
+
+.technologies-section {
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+}
+
+.tech-card {
+    background: #fff;
+    border: 2px solid #f3f4f6;
+    border-radius: 16px;
+    padding: 25px 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+    margin-top: 10px;
+}
+
+.tech-card:hover {
+    transform: translateY(-8px);
+    border-color: #3b82f6;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+}
+
+.tech-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    height: 60px; /* Altura fija para consistencia */
+}
+
+.tech-img {
+    max-width: 60px;
+    max-height: 60px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
+}
+
+.tech-card:hover .tech-img {
+    transform: scale(1.15);
+    filter: drop-shadow(0 4px 15px rgba(0,0,0,0.2));
+}
+
+/* Fallback para imágenes que no cargan */
+.tech-img:not([src]), .tech-img[src=""] {
+    display: none;
+}
+
+.tech-img:not([src])::after, .tech-img[src=""]::after {
+    content: "📦";
+    font-size: 3rem;
+    display: block;
+}
+
+.tech-card h5 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #374151;
+    letter-spacing: 0.5px;
+}
+
+.tech-card:hover h5 {
+    color: #1f2937;
+}
+
+/* Tarjeta destacada para especialidades */
+.tech-card-featured {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border-color: #2563eb !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.tech-card-featured::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.1);
+    z-index: 1;
+}
+
+.tech-card-featured .tech-logo,
+.tech-card-featured h5,
+.tech-card-featured .tech-badge {
+    position: relative;
+    z-index: 2;
+}
+
+.tech-card-featured h5 {
+    color: white !important;
+    font-weight: 700;
+}
+
+.tech-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tech-card-featured:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+}
+
+/* Responsive para tecnologías */
+@media (max-width: 768px) {
+    .tech-card {
+        padding: 20px 10px;
+        min-height: 120px;
+    }
+    
+    .tech-logo svg {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .tech-card h5 {
+        font-size: 0.85rem;
+    }
+    
+    .tech-badge {
+        font-size: 0.6rem;
+        padding: 3px 6px;
+    }
+}
+
+/* ===== ESTILOS UNIFICADOS PARA TARJETAS DE SERVICIOS ===== */
+
+/* API/REST - Azul */
+.service-api {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border: none !important;
+    color: white;
+}
+
+.service-api .icon-wrap-services {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.service-api .icon-wrap-services i {
+    color: #ffffff;
+}
+
+.service-api h2 {
+    color: #ffffff;
+}
+
+.service-api p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Diseño Gráfico - Rosa/Violeta */
+.service-design {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border: none !important;
+    color: white;
+}
+
+.service-design .icon-wrap-services {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.service-design .icon-wrap-services i {
+    color: #ffffff;
+}
+
+.service-design h2 {
+    color: #ffffff;
+}
+
+.service-design p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Badge para servicios especiales (opcional) */
+.service-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive para nuevas tarjetas */
+@media (max-width: 768px) {
+    .service-badge {
+        font-size: 0.65rem;
+        padding: 4px 8px;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+/* ===== TEMAS DE COLORES PARA TARJETAS DE SERVICIOS ===== */
+
+/* Desarrollo Web - Verde */
+.service-web {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none !important;
+    color: white;
+}
+
+.service-web .icon-wrap-services {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.service-web .icon-wrap-services i {
+    color: #ffffff;
+}
+
+.service-web h2 {
+    color: #ffffff;
+}
+
+.service-web p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* E-commerce - Naranja */
+.service-ecommerce {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    border: none !important;
+    color: white;
+}
+
+.service-ecommerce .icon-wrap-services {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.service-ecommerce .icon-wrap-services i {
+    color: #ffffff;
+}
+
+.service-ecommerce h2 {
+    color: #ffffff;
+}
+
+.service-ecommerce p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Aplicaciones Móviles - Teal */
+.service-apps {
+    background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
+    border: none !important;
+    color: white;
+}
+
+.service-apps .icon-wrap-services {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.service-apps .icon-wrap-services i {
+    color: #ffffff;
+}
+
+.service-apps h2 {
+    color: #ffffff;
+}
+
+.service-apps p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Mantenimiento y Soporte - Amarillo */
+.service-support {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    border: none !important;
+    color: white;
+}
+
+.service-support .icon-wrap-services {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.service-support .icon-wrap-services i {
+    color: #ffffff;
+}
+
+.service-support h2 {
+    color: #ffffff;
+}
+
+.service-support p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===== ESTILOS PARA BOTONES DE SERVICIOS ===== */
+
+/* Botones dentro de las tarjetas de servicios */
+.service-card .btn {
+    padding: 12px 24px !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    border-radius: 25px !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    border: 2px solid white !important;
+    background: white !important;
+    color: #333 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-top: auto !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.service-card .btn:hover {
+    background: #f8f9fa !important;
+    border-color: #fff !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+    color: #000 !important;
+}
+
+/* ===== BOTÓN CTA PRINCIPAL ===== */
+
+.cta-section {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+    position: relative;
+    overflow: hidden;
+    padding: 30px 20px !important;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.cta-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-section h2 {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 1.5rem !important;
+    color: white !important;
+}
+
+.cta-section p {
+    font-size: 1.2rem !important;
+    margin-bottom: 2rem !important;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white !important;
+}
+
+.cta-section .btn,
+.btn-cta {
+    padding: 18px 40px !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    border-radius: 35px !important;
+    background: #e74c3c !important;
+    color: white !important;
+    border: none !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4) !important;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none !important;
+}
+
+.cta-section .btn::before,
+.btn-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+
+.cta-section .btn:hover::before,
+.btn-cta:hover::before {
+    left: 100%;
+}
+
+.cta-section .btn:hover,
+.btn-cta:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 35px rgba(231, 76, 60, 0.6) !important;
+    background: #c0392b !important;
+}
+
+/* Responsive para botones */
+@media (max-width: 768px) {
+    .service-card .btn {
+        padding: 10px 20px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .cta-section h2 {
+        font-size: 2rem !important;
+    }
+    
+    .cta-section p {
+        font-size: 1rem !important;
+    }
+    
+    .cta-section .btn,
+    .btn-cta {
+        padding: 15px 30px !important;
+        font-size: 1rem !important;
+    }
+}
+
+/* ===== RESPONSIVE PARA SLIDER ===== */
+
+/* Tablets y móviles grandes */
+@media (max-width: 768px) {
+    .da-slide p {
+        width: 80% !important;
+        height: auto !important;
+        max-height: 120px !important;
+        font-size: 16px !important;
+        line-height: 22px !important;
+        top: 200px !important;
+        margin-left: 0 !important;
+        left: 10% !important;
+        overflow: visible !important;
+    }
+    
+    .da-slide h2 {
+        font-size: 28px !important;
+        margin-left: 0 !important;
+        left: 10% !important;
+        width: 80% !important;
+        white-space: normal !important;
+    }
+    
+    .da-slide h3 {
+        font-size: 18px !important;
+        margin-left: 0 !important;
+        left: 10% !important;
+        width: 80% !important;
+        white-space: normal !important;
+        top: 110px !important;
+    }
+    
+    .da-slide .da-link {
+        margin-left: 0 !important;
+        left: 10% !important;
+        top: 320px !important;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    .da-slide p {
+        width: 90% !important;
+        height: auto !important;
+        max-height: 140px !important;
+        font-size: 14px !important;
+        line-height: 20px !important;
+        top: 170px !important;
+        left: 5% !important;
+    }
+    
+    .da-slide h2 {
+        font-size: 24px !important;
+        left: 5% !important;
+        width: 90% !important;
+        top: 40px !important;
+    }
+    
+    .da-slide h3 {
+        font-size: 16px !important;
+        left: 5% !important;
+        width: 90% !important;
+        top: 90px !important;
+    }
+    
+    .da-slide .da-link {
+        left: 5% !important;
+        top: 330px !important;
+        font-size: 16px !important;
+        padding: 8px 4px !important;
+        width: 100px !important;
+    }
+}
