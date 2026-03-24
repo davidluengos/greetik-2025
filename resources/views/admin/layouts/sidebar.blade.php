@@ -22,6 +22,41 @@
     </div>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.services.index') }}">
+            <i class="fas fa-fw fa-concierge-bell"></i>
+            <span>Servicios</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.projects.index') }}">
+            <i class="fas fa-fw fa-box"></i>
+            <span>Productos</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.portfolio-items.index') }}">
+            <i class="fas fa-fw fa-images"></i>
+            <span>Portfolio</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.posts.index') }}">
+            <i class="fas fa-fw fa-newspaper"></i>
+            <span>Posts</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.tags.index') }}">
+            <i class="fas fa-fw fa-tags"></i>
+            <span>Tags</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
