@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class PortfolioItem extends Model
@@ -32,5 +33,14 @@ class PortfolioItem extends Model
             'published_at' => 'datetime',
             'extra' => 'array',
         ];
+    }
+
+    public function scopePublished(Builder $query): Builder
+    {
+        return $query
+            ->where('is_active', true)
+            ->where(function (Builder $builder): void {
+                $builder->whereNull('published_at')->orWhere('published_at', '<=', now());
+            });
     }
 }

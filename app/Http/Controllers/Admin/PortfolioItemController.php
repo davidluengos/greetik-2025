@@ -7,6 +7,7 @@ use App\Models\PortfolioItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class PortfolioItemController extends Controller
 {
@@ -65,6 +66,7 @@ class PortfolioItemController extends Controller
                 'nullable',
                 'string',
                 'max:255',
+                Rule::notIn(['portfolio']),
                 Rule::unique('portfolio_items', 'slug')->ignore($portfolioItemId),
             ],
             'excerpt' => ['nullable', 'string', 'max:255'],
@@ -79,6 +81,11 @@ class PortfolioItemController extends Controller
         ]);
 
         $data['slug'] = Str::slug($data['slug'] ?? $data['title']);
+        if ($data['slug'] === 'portfolio') {
+            throw ValidationException::withMessages([
+                'title' => 'Ese titulo o slug genera la URL reservada /portfolio. Añade un distintivo o cambia el slug.',
+            ]);
+        }
         $data['is_active'] = $request->boolean('is_active');
         $data['menu_order'] = $data['menu_order'] ?? 0;
         $data['extra'] = isset($data['extra']) ? json_decode($data['extra'], true) : null;

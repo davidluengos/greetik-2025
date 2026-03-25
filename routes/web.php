@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\PortfolioController;
 use App\Http\Controllers\Front\PostController;
 use App\Http\Controllers\Front\SeccionesController;
 use App\Http\Controllers\Front\SitePageController;
@@ -17,6 +18,11 @@ Route::get('/servicios', [SeccionesController::class, 'indexServicios'])->name('
 Route::get('/sobre-nosotros', [SitePageController::class, 'sobreNosotros'])->name('about');
 Route::get('/contacto', [SitePageController::class, 'contacto'])->name('contacto');
 Route::get('/productos/{slug}', [SeccionesController::class, 'showProducto'])->name('productos.show');
+
+Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
+Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])
+    ->where('slug', '[a-zA-Z0-9\-]+')
+    ->name('portfolio.show');
 
 Route::get('/{slug}', [SitePageController::class, 'showLegalPage'])
     ->whereIn('slug', SitePage::legalSlugs())

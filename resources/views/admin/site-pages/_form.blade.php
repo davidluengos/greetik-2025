@@ -2,6 +2,15 @@
     $x = $page->extra ?? [];
 @endphp
 
+@if ($page->slug === 'portfolio')
+    <div class="alert alert-info small">
+        Este contenido es la introduccion de la galeria publica en
+        <a href="{{ route('portfolio.index') }}" target="_blank" rel="noopener">/portfolio</a>.
+        Los proyectos se administran en
+        <a href="{{ route('admin.portfolio-items.index') }}">Portfolio &raquo; elementos</a>.
+    </div>
+@endif
+
 <div class="form-group">
     <label for="title">Titulo de pagina</label>
     <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"

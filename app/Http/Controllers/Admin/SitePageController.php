@@ -16,10 +16,11 @@ class SitePageController extends Controller
             ->orderByRaw("CASE slug
                 WHEN 'sobre-nosotros' THEN 0
                 WHEN 'contacto' THEN 1
-                WHEN 'aviso-legal' THEN 2
-                WHEN 'politica-de-privacidad' THEN 3
-                WHEN 'politica-de-cookies' THEN 4
-                WHEN 'terminos-y-condiciones' THEN 5
+                WHEN 'portfolio' THEN 2
+                WHEN 'aviso-legal' THEN 3
+                WHEN 'politica-de-privacidad' THEN 4
+                WHEN 'politica-de-cookies' THEN 5
+                WHEN 'terminos-y-condiciones' THEN 6
                 ELSE 99 END")
             ->orderBy('title')
             ->get();

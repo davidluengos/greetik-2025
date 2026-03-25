@@ -21,6 +21,7 @@
     <link href="{{ asset('front/css/style-responsive.css') }}" rel="stylesheet" />
     <link href="{{ asset('front/css/parallax-slider/parallax-slider.css') }}" rel="stylesheet" />
     <link href="{{ asset('front/css/custom.css') }}" rel="stylesheet" />
+    @stack('styles')
 
     <script src="{{ asset('front/js/parallax-slider/modernizr.custom.28468.js') }}"></script>
   </head>

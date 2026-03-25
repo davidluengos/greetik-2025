@@ -22,6 +22,7 @@ class SitePage extends Model
         return match ($this->slug) {
             'sobre-nosotros' => route('about'),
             'contacto' => route('contacto'),
+            'portfolio' => route('portfolio.index'),
             default => in_array($this->slug, self::legalSlugs(), true)
                 ? route('legal.page', ['slug' => $this->slug])
                 : null,

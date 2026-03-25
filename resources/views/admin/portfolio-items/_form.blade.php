@@ -28,6 +28,7 @@
     <div class="form-group col-md-6">
         <label for="category">Categoria</label>
         <input type="text" class="form-control" id="category" name="category" value="{{ old('category', $portfolioItem->category) }}">
+        <small class="form-text text-muted">Usada como filtro en la galeria publica (ej. web, app, branding).</small>
     </div>
     <div class="form-group col-md-6">
         <label for="client">Cliente</label>
@@ -52,8 +53,8 @@
 </div>
 
 <div class="form-group">
-    <label for="body">Contenido</label>
-    <textarea class="form-control" id="body" name="body" rows="6">{{ old('body', $portfolioItem->body) }}</textarea>
+    <label for="body">Contenido (pagina de detalle)</label>
+    <textarea class="form-control" id="body" name="body" rows="8">{{ old('body', $portfolioItem->body) }}</textarea>
 </div>
 
 <div class="form-group">
@@ -70,3 +71,27 @@
 
 <button class="btn btn-primary" type="submit">Guardar</button>
 <a href="{{ route('admin.portfolio-items.index') }}" class="btn btn-secondary">Cancelar</a>
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        (function () {
+            if (typeof tinymce === 'undefined') {
+                return;
+            }
+            tinymce.remove('#body');
+            tinymce.init({
+                selector: '#body',
+                height: 360,
+                menubar: 'file edit view insert format tools table help',
+                plugins: 'code link lists table image fullscreen preview searchreplace wordcount',
+                toolbar: 'undo redo | blocks | bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table | code fullscreen preview',
+                block_formats: 'Parrafo=p; Encabezado 2=h2; Encabezado 3=h3; Encabezado 4=h4; Cita=blockquote',
+                branding: false,
+                promotion: false,
+                relative_urls: false,
+                convert_urls: false
+            });
+        })();
+    </script>
+@endpush

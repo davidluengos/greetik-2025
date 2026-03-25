@@ -3,9 +3,15 @@
 @section('title', 'Portfolio - Admin')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h1 class="h3 mb-0 text-gray-800">Portfolio</h1>
-        <a href="{{ route('admin.portfolio-items.create') }}" class="btn btn-primary btn-sm">Nuevo elemento</a>
+        <div class="d-flex flex-wrap gap-2">
+            @php($portfolioIntro = \App\Models\SitePage::query()->where('slug', 'portfolio')->first())
+            @if ($portfolioIntro)
+                <a href="{{ route('admin.site-pages.edit', $portfolioIntro) }}" class="btn btn-outline-secondary btn-sm">Texto de bienvenida</a>
+            @endif
+            <a href="{{ route('admin.portfolio-items.create') }}" class="btn btn-primary btn-sm">Nuevo elemento</a>
+        </div>
     </div>
 
     @if (session('status'))
