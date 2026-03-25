@@ -36,6 +36,13 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.site-pages.index') }}">
+            <i class="fas fa-fw fa-file-alt"></i>
+            <span>Paginas del sitio</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.product-forms.index') }}">
             <i class="fas fa-fw fa-clipboard-list"></i>
             <span>Formularios</span>
