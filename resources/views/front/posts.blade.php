@@ -1,38 +1,63 @@
 @extends('front.layouts.app')
 
-@section('title', 'Acme | Home')
+@section('title', 'Acme | Blog')
 
 @section('content')
+<div class="breadcrumbs">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-sm-4">
+        <h1>Blog</h1>
+      </div>
+      <div class="col-lg-8 col-sm-8">
+        <ol class="breadcrumb pull-right">
+          <li><a href="{{ route('home') }}">Home</a></li>
+          <li class="active">Blog</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- Posts Section -->
+<div class="container">
+  @php($postRows = $posts->values()->chunk(2))
 
-@foreach ($posts as $post)
-    <article class="post">
-        <p>{{ $post->id }}</p>
-        
-        <a href="{{ route('posts.show', ['slug' => Str::slug($post->title) . '-' . $post->id]) }}">
-            <h2>{{ $post->title }}</h2>
-        </a>
-
-        <!-- Post Body, mostrar texto enriquecido, solo los primeros 100 caracteres -->
-        <div class="post-body">
-            {!! $post->body !!}
+  @forelse ($postRows as $row)
+    <div class="row blog-two-row">
+      @foreach ($row as $columnIndex => $post)
+        @php($authorName = (blank($post->user) || is_numeric($post->user)) ? 'Admin' : $post->user)
+        <div class="col-md-6 blog-two-col">
+          <div class="{{ $columnIndex === 0 ? 'blog-left' : 'blog-right' }} wow {{ $columnIndex === 0 ? 'fadeInLeft' : 'fadeInRight' }} blog-two-card">
+            <div class="blog-content">
+              <h3>
+                <a href="{{ route('posts.show', ['slug' => \Illuminate\Support\Str::slug($post->title) . '-' . $post->id]) }}">
+                  {{ $post->title }}
+                </a>
+              </h3>
+              <p>{{ \Illuminate\Support\Str::limit(html_entity_decode(strip_tags($post->body), ENT_QUOTES | ENT_HTML5, 'UTF-8'), 260) }}</p>
+            </div>
+            <div class="blog-two-info">
+              <p>
+                <i class="fa fa-user"></i>
+                {{ $authorName }}
+                |
+                <i class="fa fa-calendar"></i>
+                {{ optional($post->publishdate ?? $post->createdat)->format('d/m/Y') }}
+              </p>
+            </div>
+            <a class="btn btn-primary" href="{{ route('posts.show', ['slug' => \Illuminate\Support\Str::slug($post->title) . '-' . $post->id]) }}">
+              Leer mas
+            </a>
+          </div>
         </div>
-
-    </article>
-    
-@endforeach
-
+      @endforeach
+    </div>
+  @empty
+    <div class="row">
+      <div class="col-md-12">
+        <p>No hay entradas publicadas.</p>
+      </div>
+    </div>
+  @endforelse
+</div>
 @endsection
-
-@push('scripts')
-<script>
-  $(function() {
-    $('#da-slider').cslider({
-      autoplay    : true,
-      bgincrement : 100
-    });
-  });
-</script>
-@endpush
-<!-- Nota: Asegúrate de no incluir las etiquetas <html>, <head>, <body>, <header> o <footer> aquí, ya que esas partes ya están en el layout -->
