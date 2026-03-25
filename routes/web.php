@@ -12,6 +12,7 @@ Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 Route::get('/post/{slug}', [PostController::class, 'show'])->name('posts.show');
 
 Route::get('/servicios', [SeccionesController::class, 'indexServicios'])->name('servicios.index');
+Route::get('/productos/{slug}', [SeccionesController::class, 'showProducto'])->name('productos.show');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard.home');

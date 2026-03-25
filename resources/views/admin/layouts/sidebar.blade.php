@@ -36,6 +36,20 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.product-forms.index') }}">
+            <i class="fas fa-fw fa-clipboard-list"></i>
+            <span>Formularios</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.pricing-tables.index') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tablas de precios</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.portfolio-items.index') }}">
             <i class="fas fa-fw fa-images"></i>
             <span>Portfolio</span>

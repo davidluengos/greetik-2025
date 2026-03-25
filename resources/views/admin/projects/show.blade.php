@@ -13,6 +13,20 @@
             <p><strong>Titulo:</strong> {{ $project->title }}</p>
             <p><strong>Slug:</strong> {{ $project->slug }}</p>
             <p><strong>Web:</strong> {{ $project->website_url }}</p>
+            <p><strong>Formulario:</strong>
+                @if ($project->productForm)
+                    <a href="{{ route('admin.product-forms.edit', $project->productForm) }}">{{ $project->productForm->name }}</a>
+                @else
+                    <span class="text-muted">Ninguno</span>
+                @endif
+            </p>
+            <p><strong>Tabla de precios:</strong>
+                @if ($project->pricingTable)
+                    <a href="{{ route('admin.pricing-tables.edit', $project->pricingTable) }}">{{ $project->pricingTable->name }}</a>
+                @else
+                    <span class="text-muted">Ninguna</span>
+                @endif
+            </p>
             <p><strong>Extracto:</strong> {{ $project->excerpt }}</p>
             <p><strong>Contenido:</strong><br>{!! nl2br(e($project->body)) !!}</p>
             <p><strong>Activo:</strong> {{ $project->is_active ? 'Si' : 'No' }}</p>

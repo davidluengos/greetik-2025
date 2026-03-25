@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use App\Models\Service;
 use App\Models\Technology;
 
@@ -23,5 +24,16 @@ class SeccionesController extends Controller
             ->get();
 
         return view('front.servicios', compact('services', 'technologies'));
+    }
+
+    public function showProducto(string $slug)
+    {
+        $project = Project::query()
+            ->where('is_active', true)
+            ->where('slug', $slug)
+            ->with(['productForm', 'pricingTable'])
+            ->firstOrFail();
+
+        return view('front.producto', compact('project'));
     }
 }

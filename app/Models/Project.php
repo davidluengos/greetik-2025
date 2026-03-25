@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Project extends Model
 {
@@ -17,6 +18,8 @@ class Project extends Model
         'menu_order',
         'published_at',
         'extra',
+        'product_form_id',
+        'pricing_table_id',
     ];
 
     protected function casts(): array
@@ -27,5 +30,15 @@ class Project extends Model
             'published_at' => 'datetime',
             'extra' => 'array',
         ];
+    }
+
+    public function productForm(): BelongsTo
+    {
+        return $this->belongsTo(ProductForm::class);
+    }
+
+    public function pricingTable(): BelongsTo
+    {
+        return $this->belongsTo(PricingTable::class);
     }
 }

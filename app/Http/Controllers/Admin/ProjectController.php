@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PricingTable;
+use App\Models\ProductForm;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -21,7 +23,7 @@ class ProjectController extends Controller
     {
         $project = new Project();
 
-        return view('admin.projects.create', compact('project'));
+        return view('admin.projects.create', $this->projectFormLists($project));
     }
 
     public function store(Request $request)
@@ -34,12 +36,14 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
+        $project->load(['productForm', 'pricingTable']);
+
         return view('admin.projects.show', compact('project'));
     }
 
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        return view('admin.projects.edit', $this->projectFormLists($project));
     }
 
     public function update(Request $request, Project $project)
@@ -59,6 +63,11 @@ class ProjectController extends Controller
 
     private function validatedData(Request $request, ?int $projectId = null): array
     {
+        $request->merge([
+            'product_form_id' => $request->filled('product_form_id') ? $request->integer('product_form_id') : null,
+            'pricing_table_id' => $request->filled('pricing_table_id') ? $request->integer('pricing_table_id') : null,
+        ]);
+
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => [
@@ -74,6 +83,8 @@ class ProjectController extends Controller
             'menu_order' => ['nullable', 'integer', 'min:0'],
             'published_at' => ['nullable', 'date'],
             'extra' => ['nullable', 'json'],
+            'product_form_id' => ['nullable', 'integer', 'exists:product_forms,id'],
+            'pricing_table_id' => ['nullable', 'integer', 'exists:pricing_tables,id'],
         ]);
 
         $data['slug'] = Str::slug($data['slug'] ?? $data['title']);
@@ -82,5 +93,16 @@ class ProjectController extends Controller
         $data['extra'] = isset($data['extra']) ? json_decode($data['extra'], true) : null;
 
         return $data;
+    }
+
+    /**
+     * @return array{project: Project, productForms: \Illuminate\Support\Collection, pricingTables: \Illuminate\Support\Collection}
+     */
+    private function projectFormLists(Project $project): array
+    {
+        $productForms = ProductForm::query()->orderBy('name')->get(['id', 'name', 'is_active']);
+        $pricingTables = PricingTable::query()->orderBy('name')->get(['id', 'name', 'is_active']);
+
+        return compact('project', 'productForms', 'pricingTables');
     }
 }
