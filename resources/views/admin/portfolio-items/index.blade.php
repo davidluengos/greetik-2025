@@ -6,7 +6,9 @@
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h1 class="h3 mb-0 text-gray-800">Portfolio</h1>
         <div class="d-flex flex-wrap gap-2">
-            @php($portfolioIntro = \App\Models\SitePage::query()->where('slug', 'portfolio')->first())
+            @php
+                $portfolioIntro = \App\Models\SitePage::query()->where('slug', 'portfolio')->first();
+            @endphp
             @if ($portfolioIntro)
                 <a href="{{ route('admin.site-pages.edit', $portfolioIntro) }}" class="btn btn-outline-secondary btn-sm">Texto de bienvenida</a>
             @endif

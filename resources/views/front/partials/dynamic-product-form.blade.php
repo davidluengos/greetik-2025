@@ -1,4 +1,6 @@
-@php($idPrefix = $idPrefix ?? 'pf')
+@php
+    $idPrefix = $idPrefix ?? 'pf';
+@endphp
 @if ($formModel && $formModel->is_active)
     <div class="panel panel-default product-form-block {{ $wrapperClass ?? '' }}">
         <div class="panel-heading">

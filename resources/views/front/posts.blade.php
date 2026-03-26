@@ -20,12 +20,16 @@
 </div>
 
 <div class="container">
-  @php($postRows = $posts->values()->chunk(2))
+  @php
+    $postRows = $posts->values()->chunk(2);
+  @endphp
 
   @forelse ($postRows as $row)
     <div class="row blog-two-row">
       @foreach ($row as $columnIndex => $post)
-        @php($authorName = (blank($post->user) || is_numeric($post->user)) ? 'Admin' : $post->user)
+        @php
+          $authorName = (blank($post->user) || is_numeric($post->user)) ? 'Admin' : $post->user;
+        @endphp
         <div class="col-md-6 blog-two-col">
           <div class="{{ $columnIndex === 0 ? 'blog-left' : 'blog-right' }} wow {{ $columnIndex === 0 ? 'fadeInLeft' : 'fadeInRight' }} blog-two-card">
             <div class="blog-content">

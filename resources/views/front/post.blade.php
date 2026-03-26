@@ -21,7 +21,9 @@
 </div>
 
 <div class="container">
-  @php($authorName = (blank($post->user) || is_numeric($post->user)) ? 'Greetik' : $post->user)
+  @php
+    $authorName = (blank($post->user) || is_numeric($post->user)) ? 'Greetik' : $post->user;
+  @endphp
   <div class="row">
     <div class="col-lg-9">
       <div class="blog-item">
