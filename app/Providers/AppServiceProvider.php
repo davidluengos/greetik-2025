@@ -39,6 +39,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(ProductForm::class, ManageContentPolicy::class);
         Gate::policy(PricingTable::class, ManageContentPolicy::class);
         Gate::policy(SitePage::class, ManageContentPolicy::class);
-        View::composer('front.layouts.header', FrontHeaderComposer::class);
+        View::composer(['front.layouts.header', 'front.layouts.footer'], FrontHeaderComposer::class);
     }
 }

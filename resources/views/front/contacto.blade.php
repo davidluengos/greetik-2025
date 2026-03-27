@@ -60,6 +60,12 @@
                         @endforeach
                     </section>
                 @endif
+                @if (!empty($x['email']))
+                    <section class="contact-infos">
+                        <h4>Email</h4>
+                        <p><i class="fa fa-envelope"></i> <a href="mailto:{{ $x['email'] }}">{{ $x['email'] }}</a></p>
+                    </section>
+                @endif
             </div>
             <div class="col-lg-7 col-sm-7 address">
                 @if (!empty($page->body))

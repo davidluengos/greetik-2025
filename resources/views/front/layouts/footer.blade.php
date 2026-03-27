@@ -34,6 +34,18 @@
       <div class="col-md-3 col-sm-6 footer-col">
         <h4 class="footer-title"><i class="fa fa-envelope-o footer-title-icon" aria-hidden="true"></i> Contacto rápido</h4>
         <p class="footer-text">Desarrollo web profesional para empresas y negocios.</p>
+        @if (!empty($contactPhoneHref) && !empty($contactPhone))
+          <p class="footer-contact-line">
+            <i class="fa fa-phone footer-link-icon" aria-hidden="true"></i>
+            <a href="{{ $contactPhoneHref }}">{{ $contactPhone }}</a>
+          </p>
+        @endif
+        @if (!empty($contactEmail))
+          <p class="footer-contact-line">
+            <i class="fa fa-envelope footer-link-icon" aria-hidden="true"></i>
+            <a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a>
+          </p>
+        @endif
         <a class="footer-cta" href="{{ route('contacto') }}"><i class="fa fa-envelope footer-link-icon" aria-hidden="true"></i>Hablemos de tu proyecto</a>
       </div>
     </div>
@@ -56,3 +68,9 @@
     </div>
   </div>
 </footer>
+
+@if (!empty($contactWhatsappHref))
+  <a href="{{ $contactWhatsappHref }}" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <i class="fa fa-whatsapp"></i>
+  </a>
+@endif

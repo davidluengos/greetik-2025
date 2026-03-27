@@ -679,6 +679,46 @@
     white-space: nowrap;
 }
 
+.header-contact-strip {
+    background: #ffffff;
+    border-bottom: 0;
+}
+
+.header-contact-list {
+    margin: 0;
+    padding: 7px 0;
+    text-align: right;
+}
+
+.header-contact-list li {
+    padding-left: 14px;
+}
+
+.header-contact-list a {
+    color: #475168;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.header-contact-list a i {
+    color: #6b7280;
+    margin-right: 6px;
+}
+
+.header-contact-list a:hover {
+    color: #2f3c4f;
+}
+
+.head-section .navbar {
+    min-height: 66px;
+}
+
+.head-section .navbar-nav > li {
+    padding-top: 19px;
+    padding-bottom: 14px;
+}
+
 .footer-directory {
     background: #111827;
     color: #cbd5e1;
@@ -736,6 +776,20 @@
     line-height: 1.55;
 }
 
+.footer-directory .footer-contact-line {
+    margin-bottom: 8px;
+    color: #e2e8f0;
+}
+
+.footer-directory .footer-contact-line a {
+    color: #e2e8f0;
+    text-decoration: none;
+}
+
+.footer-directory .footer-contact-line a:hover {
+    color: #93c5fd;
+}
+
 .footer-directory .footer-cta {
     display: inline-block;
     color: #93c5fd;
@@ -747,6 +801,13 @@
 .footer-directory .footer-cta:focus {
     color: #dbeafe;
     text-decoration: underline;
+}
+
+.footer-directory .footer-response-time {
+    margin-top: 8px;
+    margin-bottom: 0;
+    color: #94a3b8;
+    font-size: 13px;
 }
 
 .footer-small-contrast {
@@ -783,6 +844,31 @@
     color: #ffffff;
 }
 
+.whatsapp-float {
+    position: fixed;
+    right: 18px;
+    bottom: 20px;
+    z-index: 999;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #25d366;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 31px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-float:hover,
+.whatsapp-float:focus {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.34);
+}
+
 @media (max-width: 767px) {
     .footer-small-contrast .text-right {
         text-align: left;
@@ -790,6 +876,14 @@
 
     .footer-small-contrast .social-link-footer li {
         margin: 6px 8px 0 0;
+    }
+
+    .whatsapp-float {
+        width: 52px;
+        height: 52px;
+        font-size: 28px;
+        right: 14px;
+        bottom: 14px;
     }
 }
 

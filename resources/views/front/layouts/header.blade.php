@@ -1,4 +1,19 @@
 <header class="head-section">
+  @if ((!empty($contactPhoneHref) && !empty($contactPhone)) || !empty($contactEmail))
+    <div class="header-contact-strip hidden-xs">
+      <div class="container">
+        <ul class="header-contact-list list-inline">
+          @if (!empty($contactPhoneHref) && !empty($contactPhone))
+            <li><a href="{{ $contactPhoneHref }}"><i class="fa fa-phone"></i> {{ $contactPhone }}</a></li>
+          @endif
+          @if (!empty($contactEmail))
+            <li><a href="mailto:{{ $contactEmail }}"><i class="fa fa-envelope"></i> {{ $contactEmail }}</a></li>
+          @endif
+        </ul>
+      </div>
+    </div>
+  @endif
+
   <div class="navbar navbar-default navbar-static-top container">
     <div class="navbar-header">
       <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">

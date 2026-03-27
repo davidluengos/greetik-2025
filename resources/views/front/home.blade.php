@@ -15,7 +15,7 @@
                         <h3><i>{{ $hero['subtitle'] }}</i></h3>
                         <p>{{ $hero['text'] }}</p>
                         
-                        <a href="{{ $hero['primary_cta_url'] }}" class="btn btn-info btn-lg da-link">{{ $hero['primary_cta_text'] }}</a>
+                        <a href="{{ $hero['primary_cta_url'] }}" class="btn btn-info btn-lg da-link">Solicita presupuesto en 24h</a>
                         <div class="da-img">
                             <img src="{{ asset($hero['image']) }}" alt="{{ $hero['title'] }}" />
                         </div>
@@ -59,8 +59,8 @@
                 </div>
 
                 <div class="text-center" style="margin-top: 20px;">
-                    <a href="/servicios" class="btn btn-primary">
-                        Ver todos los servicios
+                    <a href="{{ route('contacto') }}" class="btn btn-primary">
+                        Solicitar presupuesto
                     </a>
                 </div>
             </div>

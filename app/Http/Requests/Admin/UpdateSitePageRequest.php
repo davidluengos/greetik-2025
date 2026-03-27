@@ -36,6 +36,7 @@ class UpdateSitePageRequest extends FormRequest
             'hours' => ['nullable', 'string'],
             'phones_title' => ['nullable', 'string', 'max:120'],
             'phones_text' => ['nullable', 'string'],
+            'email' => ['nullable', 'email', 'max:255'],
             'form_heading' => ['nullable', 'string', 'max:255'],
             'map_embed' => ['nullable', 'string'],
             'product_form_id' => ['nullable', 'integer', Rule::exists('product_forms', 'id')],

@@ -28,6 +28,7 @@ class SitePageUpdater
             $extra['hours'] = $data['hours'] ?? '';
             $extra['phones_title'] = $data['phones_title'] ?? '';
             $extra['phones'] = $this->buildPhones((string) ($data['phones_text'] ?? ''));
+            $extra['email'] = $data['email'] ?? '';
             $extra['form_heading'] = $data['form_heading'] ?? '';
             $extra['map_embed'] = $data['map_embed'] ?? '';
             $extra['product_form_id'] = $data['product_form_id'] ?? null;

@@ -107,6 +107,14 @@
         <textarea class="form-control" id="phones_text" name="phones_text" rows="3">{{ old('phones_text', isset($x['phones']) && is_array($x['phones']) ? implode("\n", $x['phones']) : '') }}</textarea>
     </div>
     <div class="form-group">
+        <label for="email">Email de contacto</label>
+        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
+            value="{{ old('email', $x['email'] ?? '') }}" placeholder="hola@tu-dominio.com">
+        @error('email')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="form-group">
         <label for="form_heading">Titulo sobre el formulario</label>
         <input type="text" class="form-control" id="form_heading" name="form_heading"
             value="{{ old('form_heading', $x['form_heading'] ?? '') }}">
