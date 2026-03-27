@@ -679,6 +679,120 @@
     white-space: nowrap;
 }
 
+.footer-directory {
+    background: #111827;
+    color: #cbd5e1;
+    padding: 50px 0 35px;
+}
+
+.footer-directory .footer-col {
+    margin-bottom: 22px;
+}
+
+.footer-directory .footer-title {
+    color: #f8fafc;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 14px;
+    letter-spacing: 0.3px;
+}
+
+.footer-directory .footer-title-icon {
+    margin-right: 6px;
+    color: #93c5fd;
+}
+
+.footer-directory .footer-tree {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-directory .footer-tree li {
+    margin-bottom: 8px;
+}
+
+.footer-directory .footer-tree a {
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-directory .footer-link-icon {
+    width: 12px;
+    margin-right: 8px;
+    color: #93c5fd;
+}
+
+.footer-directory .footer-tree a:hover,
+.footer-directory .footer-tree a:focus {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+.footer-directory .footer-text {
+    color: #cbd5e1;
+    margin-bottom: 12px;
+    line-height: 1.55;
+}
+
+.footer-directory .footer-cta {
+    display: inline-block;
+    color: #93c5fd;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.footer-directory .footer-cta:hover,
+.footer-directory .footer-cta:focus {
+    color: #dbeafe;
+    text-decoration: underline;
+}
+
+.footer-small-contrast {
+    background: #0b1220;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.footer-small-contrast .copyright p {
+    color: #94a3b8;
+    margin: 10px 0;
+}
+
+.footer-small-contrast .social-link-footer {
+    margin: 6px 0 0;
+}
+
+.footer-small-contrast .social-link-footer li {
+    float: none;
+    display: inline-block;
+    margin: 0 0 0 8px;
+}
+
+.footer-small-contrast .social-link-footer li a {
+    background: #1f2937;
+    color: #e2e8f0;
+    width: 38px;
+    height: 38px;
+    line-height: 18px;
+    padding: 10px;
+}
+
+.footer-small-contrast .social-link-footer li a:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+@media (max-width: 767px) {
+    .footer-small-contrast .text-right {
+        text-align: left;
+    }
+
+    .footer-small-contrast .social-link-footer li {
+        margin: 6px 8px 0 0;
+    }
+}
+
 .portfolio-page-intro {
     margin-bottom: 10px;
 }
