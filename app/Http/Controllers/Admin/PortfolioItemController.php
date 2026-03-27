@@ -3,19 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StorePortfolioItemRequest;
+use App\Http\Requests\Admin\UpdatePortfolioItemRequest;
 use App\Models\PortfolioItem;
-use Illuminate\Http\Request;
+use App\Models\SitePage;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class PortfolioItemController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(PortfolioItem::class, 'portfolio_item');
+    }
+
     public function index()
     {
         $portfolioItems = PortfolioItem::orderBy('menu_order')->orderBy('title')->paginate(15);
+        $portfolioIntroPage = SitePage::query()->where('slug', 'portfolio')->first();
 
-        return view('admin.portfolio-items.index', compact('portfolioItems'));
+        return view('admin.portfolio-items.index', compact('portfolioItems', 'portfolioIntroPage'));
     }
 
     public function create()
@@ -25,9 +32,9 @@ class PortfolioItemController extends Controller
         return view('admin.portfolio-items.create', compact('portfolioItem'));
     }
 
-    public function store(Request $request)
+    public function store(StorePortfolioItemRequest $request)
     {
-        $data = $this->validatedData($request);
+        $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
         PortfolioItem::create($data);
 
         return redirect()->route('admin.portfolio-items.index')->with('status', 'Elemento de portfolio creado correctamente.');
@@ -43,9 +50,9 @@ class PortfolioItemController extends Controller
         return view('admin.portfolio-items.edit', compact('portfolioItem'));
     }
 
-    public function update(Request $request, PortfolioItem $portfolioItem)
+    public function update(UpdatePortfolioItemRequest $request, PortfolioItem $portfolioItem)
     {
-        $data = $this->validatedData($request, $portfolioItem->id);
+        $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
         $portfolioItem->update($data);
 
         return redirect()->route('admin.portfolio-items.index')->with('status', 'Elemento de portfolio actualizado correctamente.');
@@ -58,35 +65,15 @@ class PortfolioItemController extends Controller
         return redirect()->route('admin.portfolio-items.index')->with('status', 'Elemento de portfolio eliminado.');
     }
 
-    private function validatedData(Request $request, ?int $portfolioItemId = null): array
+    private function validatedData(array $data, bool $isActive): array
     {
-        $data = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'slug' => [
-                'nullable',
-                'string',
-                'max:255',
-                Rule::notIn(['portfolio']),
-                Rule::unique('portfolio_items', 'slug')->ignore($portfolioItemId),
-            ],
-            'excerpt' => ['nullable', 'string', 'max:255'],
-            'body' => ['nullable', 'string'],
-            'image' => ['nullable', 'string', 'max:255'],
-            'category' => ['nullable', 'string', 'max:255'],
-            'client' => ['nullable', 'string', 'max:255'],
-            'completed_at' => ['nullable', 'date'],
-            'menu_order' => ['nullable', 'integer', 'min:0'],
-            'published_at' => ['nullable', 'date'],
-            'extra' => ['nullable', 'json'],
-        ]);
-
         $data['slug'] = Str::slug($data['slug'] ?? $data['title']);
         if ($data['slug'] === 'portfolio') {
             throw ValidationException::withMessages([
                 'title' => 'Ese titulo o slug genera la URL reservada /portfolio. Añade un distintivo o cambia el slug.',
             ]);
         }
-        $data['is_active'] = $request->boolean('is_active');
+        $data['is_active'] = $isActive;
         $data['menu_order'] = $data['menu_order'] ?? 0;
         $data['extra'] = isset($data['extra']) ? json_decode($data['extra'], true) : null;
 

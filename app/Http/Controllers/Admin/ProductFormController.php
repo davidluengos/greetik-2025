@@ -3,11 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreProductFormRequest;
+use App\Http\Requests\Admin\UpdateProductFormRequest;
 use App\Models\ProductForm;
-use Illuminate\Http\Request;
+use App\Support\ProductForms\DefaultProductFormFields;
 
 class ProductFormController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(ProductForm::class, 'product_form');
+    }
+
     public function index()
     {
         $forms = ProductForm::query()
@@ -24,9 +31,9 @@ class ProductFormController extends Controller
         return view('admin.product-forms.create', compact('form'));
     }
 
-    public function store(Request $request)
+    public function store(StoreProductFormRequest $request)
     {
-        $data = $this->validatedData($request);
+        $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
         ProductForm::create($data);
 
         return redirect()->route('admin.product-forms.index')->with('status', 'Formulario creado correctamente.');
@@ -42,9 +49,9 @@ class ProductFormController extends Controller
         return view('admin.product-forms.edit', ['form' => $product_form]);
     }
 
-    public function update(Request $request, ProductForm $product_form)
+    public function update(UpdateProductFormRequest $request, ProductForm $product_form)
     {
-        $data = $this->validatedData($request);
+        $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
         $product_form->update($data);
 
         return redirect()->route('admin.product-forms.index')->with('status', 'Formulario actualizado correctamente.');
@@ -57,33 +64,14 @@ class ProductFormController extends Controller
         return redirect()->route('admin.product-forms.index')->with('status', 'Formulario eliminado.');
     }
 
-    private function validatedData(Request $request): array
+    private function validatedData(array $data, bool $isActive): array
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'title' => ['required', 'string', 'max:255'],
-            'intro' => ['nullable', 'string'],
-            'action_url' => ['nullable', 'string', 'max:500'],
-            'button_label' => ['nullable', 'string', 'max:120'],
-            'fields' => ['nullable', 'json'],
-        ]);
-
-        $data['is_active'] = $request->boolean('is_active');
+        $data['is_active'] = $isActive;
         $data['action_url'] = $data['action_url'] ?: '/contacto';
         $data['button_label'] = $data['button_label'] ?: 'Enviar';
         $decoded = isset($data['fields']) ? json_decode($data['fields'], true) : null;
-        $data['fields'] = is_array($decoded) && $decoded !== [] ? $decoded : self::defaultFields();
+        $data['fields'] = is_array($decoded) && $decoded !== [] ? $decoded : DefaultProductFormFields::get();
 
         return $data;
-    }
-
-    public static function defaultFields(): array
-    {
-        return [
-            ['name' => 'name', 'label' => 'Nombre', 'type' => 'text', 'required' => true],
-            ['name' => 'email', 'label' => 'Email', 'type' => 'email', 'required' => true],
-            ['name' => 'phone', 'label' => 'Telefono', 'type' => 'text', 'required' => false],
-            ['name' => 'message', 'label' => 'Mensaje', 'type' => 'textarea', 'required' => true],
-        ];
     }
 }

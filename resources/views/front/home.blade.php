@@ -1,6 +1,6 @@
 @extends('front.layouts.app')
 
-@section('title', 'Greetik | Home')
+@section('title', $page->meta_title ?? 'Greetik | Home')
 
 @section('content')
 
@@ -11,21 +11,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>
-                            <i>GREETIK Soluciones </i>
-                        </h2>
-                        <h3>
-                            <i>Desarrollo Web Profesional</i>
-                        </h3>
-                        <p>
-                            Creamos páginas web, tiendas online y aplicaciones a medida para impulsar tu negocio.
-                        </p>
+                        <h2><i>{{ $hero['title'] }}</i></h2>
+                        <h3><i>{{ $hero['subtitle'] }}</i></h3>
+                        <p>{{ $hero['text'] }}</p>
                         
-                        <a href="#" class="btn btn-info btn-lg da-link">
-                            Read more
-                        </a>
+                        <a href="{{ $hero['primary_cta_url'] }}" class="btn btn-info btn-lg da-link">{{ $hero['primary_cta_text'] }}</a>
                         <div class="da-img">
-                            <img src="front/img/parallax-slider/images/desarrollo.png" alt="desarrollo" />
+                            <img src="{{ asset($hero['image']) }}" alt="{{ $hero['title'] }}" />
                         </div>
                     </div>
                 </div>

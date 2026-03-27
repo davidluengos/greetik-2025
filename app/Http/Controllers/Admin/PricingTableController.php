@@ -3,11 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StorePricingTableRequest;
+use App\Http\Requests\Admin\UpdatePricingTableRequest;
 use App\Models\PricingTable;
-use Illuminate\Http\Request;
+use App\Support\PricingTables\DefaultPricingPlans;
 
 class PricingTableController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(PricingTable::class, 'pricing_table');
+    }
+
     public function index()
     {
         $pricingTables = PricingTable::query()
@@ -24,9 +31,9 @@ class PricingTableController extends Controller
         return view('admin.pricing-tables.create', compact('pricingTable'));
     }
 
-    public function store(Request $request)
+    public function store(StorePricingTableRequest $request)
     {
-        $data = $this->validatedData($request);
+        $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
         PricingTable::create($data);
 
         return redirect()->route('admin.pricing-tables.index')->with('status', 'Tabla de precios creada correctamente.');
@@ -42,9 +49,9 @@ class PricingTableController extends Controller
         return view('admin.pricing-tables.edit', compact('pricingTable'));
     }
 
-    public function update(Request $request, PricingTable $pricingTable)
+    public function update(UpdatePricingTableRequest $request, PricingTable $pricingTable)
     {
-        $data = $this->validatedData($request);
+        $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
         $pricingTable->update($data);
 
         return redirect()->route('admin.pricing-tables.index')->with('status', 'Tabla de precios actualizada correctamente.');
@@ -57,52 +64,12 @@ class PricingTableController extends Controller
         return redirect()->route('admin.pricing-tables.index')->with('status', 'Tabla de precios eliminada.');
     }
 
-    private function validatedData(Request $request): array
+    private function validatedData(array $data, bool $isActive): array
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'title' => ['required', 'string', 'max:255'],
-            'subtitle' => ['nullable', 'string', 'max:500'],
-            'plans' => ['nullable', 'json'],
-        ]);
-
-        $data['is_active'] = $request->boolean('is_active');
+        $data['is_active'] = $isActive;
         $decoded = isset($data['plans']) ? json_decode($data['plans'], true) : null;
-        $data['plans'] = is_array($decoded) && $decoded !== [] ? $decoded : self::defaultPlans();
+        $data['plans'] = is_array($decoded) && $decoded !== [] ? $decoded : DefaultPricingPlans::get();
 
         return $data;
-    }
-
-    public static function defaultPlans(): array
-    {
-        return [
-            [
-                'name' => 'Light',
-                'price' => '20 EUR',
-                'description' => 'Perfecto para comenzar.',
-                'features' => ['Landing page', 'Formulario de contacto', 'Soporte por email'],
-                'highlighted' => false,
-                'button_label' => 'Solicitar',
-                'button_url' => '/contacto',
-            ],
-            [
-                'name' => 'Run',
-                'price' => '50 EUR',
-                'description' => 'Ideal para negocios en crecimiento.',
-                'features' => ['Web corporativa', 'Blog', 'SEO basico'],
-                'highlighted' => true,
-                'button_label' => 'Solicitar',
-                'button_url' => '/contacto',
-            ],
-            [
-                'name' => 'Fly',
-                'price' => '100 EUR',
-                'description' => 'Para proyectos con necesidades avanzadas.',
-                'features' => ['Todo lo anterior', 'Integraciones', 'Prioridad soporte'],
-                'highlighted' => false,
-                'button_label' => 'Solicitar',
-                'button_url' => '/contacto',
-            ],
-        ];
     }
 }

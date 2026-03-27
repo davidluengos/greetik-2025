@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Admin\ProductFormController;
 use App\Http\Controllers\Controller;
 use App\Models\ProductForm;
 use App\Models\SitePage;
+use App\Support\ProductForms\DefaultProductFormFields;
 use Illuminate\View\View;
 
 class SitePageController extends Controller
@@ -42,7 +42,7 @@ class SitePageController extends Controller
                 'intro' => null,
                 'action_url' => '#',
                 'button_label' => 'Enviar',
-                'fields' => ProductFormController::defaultFields(),
+                'fields' => DefaultProductFormFields::get(),
                 'is_active' => true,
             ]);
         }

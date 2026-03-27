@@ -48,7 +48,7 @@
 
 <div class="form-group">
     <label for="fields">Campos (JSON)</label>
-    <textarea class="form-control @error('fields') is-invalid @enderror" id="fields" name="fields" rows="10">{{ old('fields', json_encode($form->fields ?? \App\Http\Controllers\Admin\ProductFormController::defaultFields(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) }}</textarea>
+    <textarea class="form-control @error('fields') is-invalid @enderror" id="fields" name="fields" rows="10">{{ old('fields', json_encode($form->fields ?? \App\Support\ProductForms\DefaultProductFormFields::get(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) }}</textarea>
     @error('fields')
         <div class="invalid-feedback d-block">{{ $message }}</div>
     @enderror

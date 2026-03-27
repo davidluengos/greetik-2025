@@ -29,7 +29,7 @@
 
 <div class="form-group">
     <label for="plans">Planes (JSON)</label>
-    <textarea class="form-control @error('plans') is-invalid @enderror" id="plans" name="plans" rows="14">{{ old('plans', json_encode($pricingTable->plans ?? \App\Http\Controllers\Admin\PricingTableController::defaultPlans(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) }}</textarea>
+    <textarea class="form-control @error('plans') is-invalid @enderror" id="plans" name="plans" rows="14">{{ old('plans', json_encode($pricingTable->plans ?? \App\Support\PricingTables\DefaultPricingPlans::get(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) }}</textarea>
     @error('plans')
         <div class="invalid-feedback d-block">{{ $message }}</div>
     @enderror
