@@ -14,7 +14,10 @@
             <p><strong>Slug:</strong> {{ $service->slug }}</p>
             <p><strong>Extracto:</strong> {{ $service->excerpt }}</p>
             <p><strong>Contenido:</strong><br>{!! nl2br(e($service->body)) !!}</p>
+            <p><strong>Texto corto home:</strong> {{ $service->home_short_text ?: '-' }}</p>
             <p><strong>Activo:</strong> {{ $service->is_active ? 'Si' : 'No' }}</p>
+            <p><strong>Mostrar en home:</strong> {{ $service->show_on_home ? 'Si' : 'No' }}</p>
+            <p><strong>Orden home:</strong> {{ $service->home_order ?? 0 }}</p>
             <p><strong>Orden:</strong> {{ $service->menu_order }}</p>
             <p><strong>Publicacion:</strong> {{ $service->published_at }}</p>
             <p><strong>Extra:</strong> {{ $service->extra ? json_encode($service->extra) : '-' }}</p>

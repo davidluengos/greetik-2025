@@ -21,7 +21,9 @@
                         <th>Titulo</th>
                         <th>Slug</th>
                         <th>Orden</th>
+                        <th>Orden home</th>
                         <th>Activo</th>
+                        <th>En home</th>
                         <th class="text-right">Acciones</th>
                     </tr>
                 </thead>
@@ -32,7 +34,9 @@
                             <td>{{ $service->title }}</td>
                             <td>{{ $service->slug }}</td>
                             <td>{{ $service->menu_order }}</td>
+                            <td>{{ $service->home_order ?? 0 }}</td>
                             <td>{{ $service->is_active ? 'Si' : 'No' }}</td>
+                            <td>{{ $service->show_on_home ? 'Si' : 'No' }}</td>
                             <td class="text-right text-nowrap">
                                 <a class="btn btn-info btn-sm" href="{{ route('admin.services.show', $service) }}" title="Ver">
                                     <i class="fas fa-eye"></i>
@@ -51,7 +55,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center">Sin registros.</td>
+                            <td colspan="8" class="text-center">Sin registros.</td>
                         </tr>
                     @endforelse
                 </tbody>

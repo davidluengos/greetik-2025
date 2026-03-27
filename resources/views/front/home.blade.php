@@ -43,45 +43,19 @@
                 </div>
 
                 <div class="services">
-                    <!-- Webs corporativas -->
-                    <div class="col-lg-3 col-sm-6 text-center">
-                        <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay=".1s">
-                            <i class="fa fa-desktop"></i>
+                    @forelse ($homeServices as $service)
+                        <div class="col-lg-3 col-sm-6 text-center">
+                            <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay=".1s">
+                                <i class="{{ $service->icon ?: 'fa fa-cogs' }}"></i>
+                            </div>
+                            <h4>{{ $service->title }}</h4>
+                            <p>{{ $service->home_short_text ?: $service->excerpt ?: \Illuminate\Support\Str::limit(strip_tags((string) $service->body), 140) }}</p>
                         </div>
-                        <h4>Webs corporativas</h4>
-                        <p>Diseñamos páginas web modernas y adaptadas a móviles que transmiten profesionalidad y confianza a
-                            tus clientes.</p>
-                    </div>
-
-                    <!-- Tiendas online -->
-                    <div class="col-lg-3 col-sm-6 text-center">
-                        <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay=".3s">
-                            <i class="fa fa-shopping-cart"></i>
+                    @empty
+                        <div class="col-12 text-center">
+                            <p>No hay servicios destacados disponibles ahora mismo.</p>
                         </div>
-                        <h4>Tiendas online</h4>
-                        <p>Creamos tiendas online completas, con carrito, pagos y gestión de pedidos, para que vendas sin
-                            límites desde tu web.</p>
-                    </div>
-
-                    <!-- Desarrollo a medida -->
-                    <div class="col-lg-3 col-sm-6 text-center">
-                        <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay=".5s">
-                            <i class="fa fa-code"></i>
-                        </div>
-                        <h4>Desarrollo a medida</h4>
-                        <p>Desarrollamos aplicaciones y sistemas personalizados en Laravel, adaptados exactamente a las
-                            necesidades de tu negocio.</p>
-                    </div>
-
-                    <!-- Mantenimiento y soporte -->
-                    <div class="col-lg-3 col-sm-6 text-center">
-                        <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay=".7s">
-                            <i class="fa fa-life-ring"></i>
-                        </div>
-                        <h4>Mantenimiento y soporte</h4>
-                        <p>Nos ocupamos de que tu web o aplicación funcione siempre de forma óptima, con soporte técnico
-                            rápido y actualizaciones constantes.</p>
-                    </div>
+                    @endforelse
                 </div>
 
                 <div class="text-center" style="margin-top: 20px;">

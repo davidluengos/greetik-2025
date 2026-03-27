@@ -46,6 +46,25 @@
     <input type="text" class="form-control" id="excerpt" name="excerpt" value="{{ old('excerpt', $service->excerpt) }}">
 </div>
 
+<div class="form-row">
+    <div class="form-group col-md-9">
+        <label for="home_short_text">Texto corto para home</label>
+        <input type="text" class="form-control @error('home_short_text') is-invalid @enderror" id="home_short_text"
+            name="home_short_text" maxlength="255" value="{{ old('home_short_text', $service->home_short_text) }}">
+        @error('home_short_text')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="form-group col-md-3">
+        <label for="home_order">Orden en home</label>
+        <input type="number" class="form-control @error('home_order') is-invalid @enderror" id="home_order" name="home_order"
+            value="{{ old('home_order', $service->home_order ?? 0) }}" min="0">
+        @error('home_order')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+
 <div class="form-group">
     <label for="body">Contenido</label>
     <textarea class="form-control" id="body" name="body" rows="6">{{ old('body', $service->body) }}</textarea>
@@ -64,6 +83,13 @@
     <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1"
         {{ old('is_active', $service->is_active ?? true) ? 'checked' : '' }}>
     <label class="form-check-label" for="is_active">Activo</label>
+</div>
+
+<div class="form-group form-check">
+    <input type="hidden" name="show_on_home" value="0">
+    <input type="checkbox" class="form-check-input" id="show_on_home" name="show_on_home" value="1"
+        {{ old('show_on_home', $service->show_on_home ?? false) ? 'checked' : '' }}>
+    <label class="form-check-label" for="show_on_home">Mostrar en home</label>
 </div>
 
 <button class="btn btn-primary" type="submit">Guardar</button>

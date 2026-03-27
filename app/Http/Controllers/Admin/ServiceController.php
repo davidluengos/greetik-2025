@@ -31,7 +31,11 @@ class ServiceController extends Controller
 
     public function store(StoreServiceRequest $request)
     {
-        $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
+        $data = $this->validatedData(
+            $request->validated(),
+            $request->boolean('is_active'),
+            $request->boolean('show_on_home')
+        );
         Service::create($data);
 
         return redirect()->route('admin.services.index')->with('status', 'Servicio creado correctamente.');
@@ -49,7 +53,11 @@ class ServiceController extends Controller
 
     public function update(UpdateServiceRequest $request, Service $service)
     {
-        $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
+        $data = $this->validatedData(
+            $request->validated(),
+            $request->boolean('is_active'),
+            $request->boolean('show_on_home')
+        );
         $service->update($data);
 
         return redirect()->route('admin.services.index')->with('status', 'Servicio actualizado correctamente.');
@@ -62,10 +70,12 @@ class ServiceController extends Controller
         return redirect()->route('admin.services.index')->with('status', 'Servicio eliminado.');
     }
 
-    private function validatedData(array $data, bool $isActive): array
+    private function validatedData(array $data, bool $isActive, bool $showOnHome): array
     {
         $data['slug'] = Str::slug($data['slug'] ?? $data['title']);
         $data['is_active'] = $isActive;
+        $data['show_on_home'] = $showOnHome;
+        $data['home_order'] = $data['home_order'] ?? 0;
         $data['menu_order'] = $data['menu_order'] ?? 0;
         $data['extra'] = isset($data['extra']) ? json_decode($data['extra'], true) : null;
 

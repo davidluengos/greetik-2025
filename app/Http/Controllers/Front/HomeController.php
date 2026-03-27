@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Service;
 use App\Models\SitePage;
 use Illuminate\View\View;
 
@@ -25,9 +26,18 @@ class HomeController extends Controller
             'primary_cta_url' => $extra['hero_primary_cta_url'] ?? route('contacto'),
         ];
 
+        $homeServices = Service::query()
+            ->where('is_active', true)
+            ->where('show_on_home', true)
+            ->orderBy('home_order')
+            ->orderBy('menu_order')
+            ->orderBy('title')
+            ->get();
+
         return view('front.home', [
             'page' => $page,
             'hero' => $hero,
+            'homeServices' => $homeServices,
         ]);
     }
 }

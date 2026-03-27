@@ -14,6 +14,9 @@ class Service extends Model
         'icon',
         'image',
         'is_active',
+        'show_on_home',
+        'home_short_text',
+        'home_order',
         'menu_order',
         'published_at',
         'extra',
@@ -23,6 +26,8 @@ class Service extends Model
     {
         return [
             'is_active' => 'boolean',
+            'show_on_home' => 'boolean',
+            'home_order' => 'integer',
             'menu_order' => 'integer',
             'published_at' => 'datetime',
             'extra' => 'array',
