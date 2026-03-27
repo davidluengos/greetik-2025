@@ -3,7 +3,6 @@
 @section('title', $page->meta_title ?: 'Greetik | ' . $page->title)
 
 @push('styles')
-  <link href="{{ asset('front/css/mixitup.css') }}" rel="stylesheet">
   <link href="{{ asset('front/css/magnific-popup.css') }}" rel="stylesheet">
 @endpush
 
