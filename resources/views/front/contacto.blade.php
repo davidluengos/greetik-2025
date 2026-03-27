@@ -30,6 +30,22 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-5 col-sm-5 address">
+                @if (!empty($x['phones_title']) || $phones !== [])
+                <section class="contact-infos">
+                    @if (!empty($x['phones_title']))
+                    <h4>{{ $x['phones_title'] }}</h4>
+                    @endif
+                    @foreach ($phones as $phone)
+                    <p><i class="fa fa-phone"></i> {{ $phone }}</p>
+                    @endforeach
+                </section>
+                @endif
+                @if (!empty($x['email']))
+                <section class="contact-infos">
+                    <h4>Email</h4>
+                    <p><i class="fa fa-envelope"></i> <a href="mailto:{{ $x['email'] }}">{{ $x['email'] }}</a></p>
+                </section>
+                @endif
                 @if (!empty($x['address_title']) || !empty($x['address']))
                     <section class="contact-infos">
                         @if (!empty($x['address_title']))
@@ -48,22 +64,6 @@
                         @if (!empty($x['hours']))
                             <p>{!! nl2br(e($x['hours'])) !!}</p>
                         @endif
-                    </section>
-                @endif
-                @if (!empty($x['phones_title']) || $phones !== [])
-                    <section class="contact-infos">
-                        @if (!empty($x['phones_title']))
-                            <h4>{{ $x['phones_title'] }}</h4>
-                        @endif
-                        @foreach ($phones as $phone)
-                            <p><i class="fa fa-phone"></i> {{ $phone }}</p>
-                        @endforeach
-                    </section>
-                @endif
-                @if (!empty($x['email']))
-                    <section class="contact-infos">
-                        <h4>Email</h4>
-                        <p><i class="fa fa-envelope"></i> <a href="mailto:{{ $x['email'] }}">{{ $x['email'] }}</a></p>
                     </section>
                 @endif
             </div>

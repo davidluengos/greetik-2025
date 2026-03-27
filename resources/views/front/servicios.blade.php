@@ -53,7 +53,7 @@
             <div class="row g-4 services-grid text-center">
                 @forelse ($services as $service)
                     @php
-                        $cardClass = $serviceClassMap[$service->slug] ?? '';
+                        $cardClass = $serviceClassMap[$service->slug] ?? 'service-web';
                         $iconClass = $service->icon ?: 'fa fa-cogs';
                     @endphp
                     <div class="col-lg-6 col-md-6 col-12 d-flex" id="servicio-{{ $service->slug }}">
@@ -65,7 +65,7 @@
                                 <h2>{{ $service->title }}</h2>
                                 <p>{{ $service->body ?: $service->excerpt }}</p>
                                 <div class="mt-auto d-flex justify-content-center">
-                                    <a href="/contacto" class="btn">Solicita informacion</a>
+                                    <a href="/contacto" class="btn btn-secondary">Solicita informacion</a>
                                 </div>
                             </div>
                         </div>

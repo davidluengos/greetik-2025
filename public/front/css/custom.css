@@ -127,7 +127,7 @@
 
 .tech-card:hover {
     transform: translateY(-8px);
-    border-color: #3b82f6;
+    border-color: #326b2f;
     box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
 }
 
@@ -501,13 +501,13 @@
     font-size: 1.1rem !important;
     font-weight: 700 !important;
     border-radius: 35px !important;
-    background: #e74c3c !important;
-    color: white !important;
-    border: none !important;
+    background: #326b2f !important;
+    color: #fff !important;
+    border: 2px solid rgba(255, 255, 255, 0.25) !important;
     text-transform: uppercase !important;
     letter-spacing: 1px !important;
     transition: all 0.3s ease !important;
-    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4) !important;
+    box-shadow: 0 8px 25px rgba(50, 107, 47, 0.45) !important;
     position: relative;
     overflow: hidden;
     text-decoration: none !important;
@@ -533,8 +533,10 @@
 .cta-section .btn:hover,
 .btn-cta:hover {
     transform: translateY(-3px) !important;
-    box-shadow: 0 12px 35px rgba(231, 76, 60, 0.6) !important;
-    background: #c0392b !important;
+    box-shadow: 0 12px 35px rgba(50, 107, 47, 0.55) !important;
+    background: #295826 !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    color: #fff !important;
 }
 
 /* Responsive para botones */
@@ -649,10 +651,33 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    border: 1px solid rgba(50, 107, 47, 0.2) !important;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #f6faf6 0%, #ffffff 40%);
+    box-shadow: 0 2px 14px rgba(42, 66, 48, 0.08);
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-two-card:hover {
+    border-color: rgba(50, 107, 47, 0.35) !important;
+    box-shadow: 0 8px 24px rgba(42, 66, 48, 0.12);
 }
 
 .blog-two-card .blog-content {
     flex: 1 1 auto;
+}
+
+/* Botón "Leer más": el tema solo ponía margin-left y se salía por la derecha en columnas */
+.blog-two-card > .btn,
+.blog-left.blog-two-card > .btn,
+.blog-right.blog-two-card > .btn {
+    margin: 0 20px 20px 20px !important;
+    max-width: calc(100% - 40px);
+    box-sizing: border-box;
+    align-self: flex-start;
+    white-space: normal;
+    text-align: center;
 }
 
 .product-form-block .panel-title {
@@ -922,4 +947,122 @@
     .blog-two-col {
         display: block;
     }
+}
+
+/* Marca corporativa: toques mínimos (unifica acentos del tema con #326b2f) */
+:root {
+    --brand-primary: #326b2f;
+    --brand-primary-hover: #295826;
+}
+
+.navbar-brand span {
+    color: var(--brand-primary) !important;
+}
+
+.btn.btn-primary,
+.btn.btn-info,
+.open .dropdown-toggle.btn-info {
+    background-color: var(--brand-primary) !important;
+    border-color: var(--brand-primary) !important;
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary:active,
+.btn.btn-primary:focus,
+.btn.btn-info:hover,
+.btn.btn-info:active,
+.btn.btn-info:focus,
+.open .dropdown-toggle.btn-info:hover {
+    background-color: var(--brand-primary-hover) !important;
+    border-color: var(--brand-primary-hover) !important;
+}
+
+.ico-bg {
+    background: var(--brand-primary) !important;
+}
+
+.head-section .nav li a:hover,
+.head-section .nav li a:focus,
+.head-section .nav li.active a,
+.head-section .nav li.active a:hover,
+.head-section .nav li a.dropdown-toggle:hover,
+.head-section .nav li a.dropdown-toggle:focus,
+.head-section .navbar-default .navbar-nav > .open > a,
+.head-section .navbar-default .navbar-nav > .open > a:hover,
+.head-section .navbar-default .navbar-nav > .open > a:focus {
+    background-color: var(--brand-primary) !important;
+}
+
+#back-to-top:hover {
+    background-color: var(--brand-primary) !important;
+}
+
+/* Breadcrumb: fondo en familia del verde corporativo (evita el azul #34495e del tema) */
+.breadcrumbs {
+    background: #2a4230 !important;
+    border-bottom: 1px solid rgba(50, 107, 47, 0.35);
+}
+
+/* Enlaces claros sobre la franja oscura */
+.breadcrumbs .breadcrumb li a {
+    color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.breadcrumbs .breadcrumb li a:hover,
+.breadcrumbs .breadcrumb li a:focus {
+    color: #c5e8c0 !important;
+}
+
+/* Blog: títulos y fecha lateral (detalle + listado dos columnas) */
+.blog-item h1,
+.blog-item h1 a {
+    color: var(--brand-primary) !important;
+}
+
+.blog-item h1 a:hover {
+    color: var(--brand-primary-hover) !important;
+}
+
+.blog-two-card .blog-content h3,
+.blog-two-card .blog-content h3 a {
+    color: var(--brand-primary) !important;
+}
+
+.blog-two-card .blog-content h3 a:hover {
+    color: var(--brand-primary-hover) !important;
+}
+
+.date-wrap .date {
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+}
+
+.blog-two-info .label-info {
+    background-color: var(--brand-primary) !important;
+}
+
+.author a,
+.st-view a {
+    color: var(--brand-primary) !important;
+}
+
+.footer-directory .footer-title-icon,
+.footer-directory .footer-link-icon {
+    color: #7dae79 !important;
+}
+
+.footer-directory .footer-tree a:hover,
+.footer-directory .footer-tree a:focus,
+.footer-directory .footer-contact-line a:hover {
+    color: #9ed098 !important;
+}
+
+.footer-directory .footer-cta,
+.footer-directory .footer-cta:hover,
+.footer-directory .footer-cta:focus {
+    color: #9ed098 !important;
+}
+
+.footer-small-contrast .social-link-footer li a:hover {
+    background: var(--brand-primary) !important;
 }

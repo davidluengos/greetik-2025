@@ -50,7 +50,7 @@
               </p>
             </div>
             <a class="btn btn-primary" href="{{ route('posts.show', ['slug' => \Illuminate\Support\Str::slug($post->title) . '-' . $post->id]) }}">
-              Leer mas
+              Leer más
             </a>
           </div>
         </div>
