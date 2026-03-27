@@ -11,7 +11,10 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('createdat', 'desc')->take(40)->get();
+        $posts = Post::query()
+            ->orderByDesc('createdat')
+            ->paginate(10)
+            ->withQueryString();
 
         return view('front.posts', compact('posts'));
     }

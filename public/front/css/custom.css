@@ -1066,3 +1066,38 @@
 .footer-small-contrast .social-link-footer li a:hover {
     background: var(--brand-primary) !important;
 }
+
+/* Paginador blog (vista default = marcado Bootstrap 3 del tema) */
+.blog-pagination-wrap .pagination {
+    margin-bottom: 0;
+}
+
+.blog-pagination-wrap .pagination > li > a,
+.blog-pagination-wrap .pagination > li > span {
+    color: var(--brand-primary);
+    border-color: #ddd;
+}
+
+.blog-pagination-wrap .pagination > li > a:hover,
+.blog-pagination-wrap .pagination > li > a:focus {
+    color: var(--brand-primary-hover);
+    background-color: #eaf3e9;
+    border-color: #b8d4b6;
+}
+
+.blog-pagination-wrap .pagination > .active > a,
+.blog-pagination-wrap .pagination > .active > span,
+.blog-pagination-wrap .pagination > .active > a:hover,
+.blog-pagination-wrap .pagination > .active > span:hover,
+.blog-pagination-wrap .pagination > .active > a:focus,
+.blog-pagination-wrap .pagination > .active > span:focus {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+    color: #fff;
+}
+
+.blog-pagination-wrap .pagination > .disabled > span,
+.blog-pagination-wrap .pagination > .disabled > a {
+    color: #999;
+    background-color: #f5f5f5;
+}

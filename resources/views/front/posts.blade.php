@@ -21,7 +21,7 @@
 
 <div class="container">
   @php
-    $postRows = $posts->values()->chunk(2);
+    $postRows = collect($posts->items())->values()->chunk(2);
   @endphp
 
   @forelse ($postRows as $row)
@@ -63,5 +63,13 @@
       </div>
     </div>
   @endforelse
+
+  @if ($posts->hasPages())
+    <div class="row mar-b-30 blog-pagination-wrap">
+      <div class="col-md-12 text-center">
+        {{ $posts->links('vendor.pagination.default') }}
+      </div>
+    </div>
+  @endif
 </div>
 @endsection
