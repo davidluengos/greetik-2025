@@ -9,7 +9,9 @@
     <link href="{{ asset('front/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('front/css/theme.css') }}" rel="stylesheet">
     <link href="{{ asset('front/css/bootstrap-reset.css') }}" rel="stylesheet">
-    <link href="{{ asset('front/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+    {{-- FA 6 (solid + brands); v4-shims mantiene clases antiguas tipo "fa fa-phone" --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/v4-shims.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{ asset('front/css/flexslider.css') }}" rel="stylesheet"/>
     <link href="{{ asset('front/assets/bxslider/jquery.bxslider.css') }}" rel="stylesheet" />
     <link href="{{ asset('front/css/animate.css') }}" rel="stylesheet">

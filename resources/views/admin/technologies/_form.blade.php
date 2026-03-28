@@ -41,7 +41,10 @@
     </div>
     <div class="form-group col-md-3">
         <label for="icon">Icono (opcional)</label>
-        <input type="text" class="form-control" id="icon" name="icon" value="{{ old('icon', $technology->icon) }}">
+        <input type="text" class="form-control" id="icon" name="icon"
+            placeholder="fa-brands fa-laravel"
+            value="{{ old('icon', $technology->icon) }}">
+        <small class="form-text text-muted">Si rellenas esto, se muestra en servicios en lugar de la imagen. Ej.: <code>fa-brands fa-laravel</code>, <code>fa-brands fa-php</code>, <code>fa-solid fa-code</code>.</small>
     </div>
     <div class="form-group col-md-3">
         <label for="badge">Badge (opcional)</label>

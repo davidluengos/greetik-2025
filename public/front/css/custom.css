@@ -103,10 +103,12 @@
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
+    row-gap: 1.75rem; /* solo separación entre filas; el ancho entre columnas lo marcan los cols de Bootstrap */
 }
 
 .technologies-grid > [class*="col-"] {
     float: none !important;
+    margin-bottom: 0; /* el espacio vertical lo marca row-gap (mb-4 no existe en Bootstrap 3 del tema) */
 }
 
 .tech-card {
@@ -137,17 +139,32 @@
     justify-content: center;
     margin-bottom: 15px;
     transition: all 0.3s ease;
-    height: 60px; /* Altura fija para consistencia */
+    min-height: 76px;
+    height: 76px;
 }
 
 .tech-img {
-    max-width: 60px;
-    max-height: 60px;
+    max-width: 72px;
+    max-height: 72px;
     width: auto;
     height: auto;
     object-fit: contain;
     transition: all 0.3s ease;
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
+}
+
+.tech-logo .tech-icon {
+    font-size: 3.5rem;
+    line-height: 1;
+    color: #374151;
+    transition: transform 0.3s ease, color 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
+}
+
+.tech-card:hover .tech-icon {
+    transform: scale(1.12);
+    color: #326b2f;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
 }
 
 .tech-card:hover .tech-img {
@@ -234,6 +251,15 @@
     .tech-card {
         padding: 20px 10px;
         min-height: 120px;
+    }
+
+    .tech-logo {
+        min-height: 68px;
+        height: 68px;
+    }
+
+    .tech-logo .tech-icon {
+        font-size: 3rem;
     }
     
     .tech-logo svg {

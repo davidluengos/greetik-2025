@@ -92,12 +92,17 @@
             <div class="row technologies-grid text-center">
                 @forelse ($technologies as $technology)
                     @php
+                        $iconClass = trim((string) ($technology->icon ?? ''));
                         $imagePath = $technology->image ?: 'front/img/technologies/php.png';
                     @endphp
                     <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4 d-flex justify-content-center">
                         <div class="tech-card wow zoomIn text-center">
                             <div class="tech-logo">
-                                <img src="{{ asset($imagePath) }}" alt="{{ $technology->title }}" class="tech-img">
+                                @if ($iconClass !== '')
+                                    <i class="{{ $iconClass }} tech-icon" aria-hidden="true"></i>
+                                @else
+                                    <img src="{{ asset($imagePath) }}" alt="{{ $technology->title }}" class="tech-img">
+                                @endif
                             </div>
                             <h5>{{ $technology->title }}</h5>
                             @if (!empty($technology->badge))
