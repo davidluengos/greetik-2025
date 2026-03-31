@@ -17,6 +17,7 @@ Route::get('/post/{slug}', [PostController::class, 'show'])->name('posts.show');
 Route::get('/servicios', [SeccionesController::class, 'indexServicios'])->name('servicios.index');
 Route::get('/sobre-nosotros', [SitePageController::class, 'sobreNosotros'])->name('about');
 Route::get('/contacto', [SitePageController::class, 'contacto'])->name('contacto');
+Route::post('/contacto', [SitePageController::class, 'submitContacto'])->name('contacto.submit');
 Route::get('/productos/{slug}', [SeccionesController::class, 'showProducto'])->name('productos.show');
 
 Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
