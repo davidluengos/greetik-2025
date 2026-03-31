@@ -7,7 +7,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ route('admin.portfolio-items.store') }}" method="POST">
+            <form action="{{ route('admin.portfolio-items.store') }}" method="POST" enctype="multipart/form-data">
                 @include('admin.portfolio-items._form')
             </form>
         </div>

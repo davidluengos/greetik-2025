@@ -7,6 +7,8 @@ use App\Http\Requests\Admin\StorePortfolioItemRequest;
 use App\Http\Requests\Admin\UpdatePortfolioItemRequest;
 use App\Models\PortfolioItem;
 use App\Models\SitePage;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -35,6 +37,7 @@ class PortfolioItemController extends Controller
     public function store(StorePortfolioItemRequest $request)
     {
         $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
+        $data = $this->handleImageUpload($request->file('image_file'), $data);
         PortfolioItem::create($data);
 
         return redirect()->route('admin.portfolio-items.index')->with('status', 'Elemento de portfolio creado correctamente.');
@@ -53,6 +56,7 @@ class PortfolioItemController extends Controller
     public function update(UpdatePortfolioItemRequest $request, PortfolioItem $portfolioItem)
     {
         $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
+        $data = $this->handleImageUpload($request->file('image_file'), $data, $portfolioItem->image);
         $portfolioItem->update($data);
 
         return redirect()->route('admin.portfolio-items.index')->with('status', 'Elemento de portfolio actualizado correctamente.');
@@ -76,6 +80,23 @@ class PortfolioItemController extends Controller
         $data['is_active'] = $isActive;
         $data['menu_order'] = $data['menu_order'] ?? 0;
         $data['extra'] = isset($data['extra']) ? json_decode($data['extra'], true) : null;
+        unset($data['image_file']);
+
+        return $data;
+    }
+
+    private function handleImageUpload(?UploadedFile $imageFile, array $data, ?string $oldImage = null): array
+    {
+        if (! $imageFile) {
+            return $data;
+        }
+
+        $path = $imageFile->store('portfolio-items', 'public');
+        $data['image'] = 'storage/'.$path;
+
+        if ($oldImage && Str::startsWith($oldImage, 'storage/')) {
+            Storage::disk('public')->delete(Str::after($oldImage, 'storage/'));
+        }
 
         return $data;
     }

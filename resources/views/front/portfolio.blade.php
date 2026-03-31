@@ -37,13 +37,13 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <ul id="portfolio-filters" class="clearfix">
+          <ul id="portfolio-filters" class="clearfix" aria-label="Filtros de categorias del portfolio">
             <li>
-              <span class="filter active" data-filter="{{ $categorySlugs->implode(' ') }}">Todos</span>
+              <button type="button" class="filter portfolio-filter-chip active" data-filter="{{ $categorySlugs->implode(' ') }}">Todos</button>
             </li>
             @foreach ($categorySlugs as $catSlug)
               <li>
-                <span class="filter" data-filter="{{ $catSlug }}">{{ $categoryLabels[$catSlug] ?? $catSlug }}</span>
+                <button type="button" class="filter portfolio-filter-chip" data-filter="{{ $catSlug }}">{{ $categoryLabels[$catSlug] ?? $catSlug }}</button>
               </li>
             @endforeach
           </ul>
@@ -54,7 +54,7 @@
 
   <div class="container">
     <div class="row mar-b-30">
-      <div id="portfoliolist">
+      <div id="portfoliolist" class="{{ $categorySlugs->count() > 1 ? '' : 'portfolio-no-filters' }}">
         <div class="col-md-12">
           @forelse ($items as $item)
             @php

@@ -26,6 +26,7 @@ class StorePortfolioItemRequest extends FormRequest
             'excerpt' => ['nullable', 'string', 'max:255'],
             'body' => ['nullable', 'string'],
             'image' => ['nullable', 'string', 'max:255'],
+            'image_file' => ['nullable', 'image', 'max:5120'],
             'category' => ['nullable', 'string', 'max:255'],
             'client' => ['nullable', 'string', 'max:255'],
             'completed_at' => ['nullable', 'date'],

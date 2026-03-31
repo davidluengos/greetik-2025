@@ -45,6 +45,18 @@
 <div class="form-group">
     <label for="image">Imagen (ruta)</label>
     <input type="text" class="form-control" id="image" name="image" value="{{ old('image', $portfolioItem->image) }}">
+    <small class="form-text text-muted">Puedes pegar una ruta/URL o subir un archivo justo debajo.</small>
+</div>
+
+<div class="form-group">
+    <label for="image_file">Subir imagen</label>
+    <input type="file" class="form-control-file @error('image_file') is-invalid @enderror" id="image_file" name="image_file" accept="image/*">
+    @error('image_file')
+        <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+    @if (!empty($portfolioItem->image))
+        <small class="form-text text-muted">Imagen actual: {{ $portfolioItem->image }}</small>
+    @endif
 </div>
 
 <div class="form-group">

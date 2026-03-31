@@ -957,7 +957,76 @@
 }
 
 #portfolio-filters {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+#portfolio-filters li {
+    margin: 0;
+}
+
+.portfolio-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #d1d5db;
+    border-radius: 999px;
+    background: #fff;
+    color: #374151;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.portfolio-filter-chip:hover,
+.portfolio-filter-chip:focus {
+    outline: none;
+    border-color: #326b2f;
+    color: #326b2f;
+    box-shadow: 0 2px 10px rgba(50, 107, 47, 0.12);
+}
+
+.portfolio-filter-chip.active {
+    background: #326b2f;
+    border-color: #326b2f;
+    color: #fff;
+}
+
+/* Ajuste visual de miniaturas de portfolio (mejor para PNG con transparencias). */
+#portfoliolist .portfolio-wrapper {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.16);
+}
+
+#portfoliolist .portfolio-hover img {
+    display: block;
+}
+
+#portfoliolist .portfolio .image-caption .label.icon {
+    background-color: #326b2f;
+    border-color: #326b2f;
+    color: #fff;
+}
+
+#portfoliolist .portfolio .image-caption .label.icon:hover,
+#portfoliolist .portfolio .image-caption .label.icon:focus {
+    background-color: #295826;
+    border-color: #295826;
+    color: #fff;
+}
+
+/* Si no hay filtros, evitamos que los items queden ocultos por el CSS base (display:none). */
+#portfoliolist.portfolio-no-filters .portfolio {
+    display: block;
 }
 
 .portfolio-item-body {
