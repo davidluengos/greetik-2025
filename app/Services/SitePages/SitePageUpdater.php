@@ -39,6 +39,19 @@ class SitePageUpdater
             $extra['carousel'] = $this->decodeArray($data['carousel_json'] ?? null);
         }
 
+        if ($sitePage->slug === 'home') {
+            $extra['hero_title'] = $data['hero_title'] ?? '';
+            $extra['hero_subtitle'] = $data['hero_subtitle'] ?? '';
+            $extra['hero_text'] = $data['hero_text'] ?? '';
+            $extra['hero_image'] = $data['hero_image'] ?? '';
+            $extra['hero_primary_cta_text'] = $data['hero_primary_cta_text'] ?? '';
+            $extra['hero_primary_cta_url'] = $data['hero_primary_cta_url'] ?? '';
+            $extra['hero_secondary_cta_text'] = $data['hero_secondary_cta_text'] ?? '';
+            $extra['hero_secondary_cta_url'] = $data['hero_secondary_cta_url'] ?? '';
+            $extra['hero_background_image'] = $data['hero_background_image'] ?? '';
+            $extra['hero_background_color'] = (string) ($data['hero_background_color'] ?? '');
+        }
+
         return $extra;
     }
 

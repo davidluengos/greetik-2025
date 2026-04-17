@@ -587,6 +587,73 @@
     }
 }
 
+/* ===== HOME: fila de CTAs del slider (evita solape y ancho fijo 120px del tema) ===== */
+#da-slider .da-slide .da-slide-cta-row.da-link {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 12px;
+    width: auto;
+    min-width: 0;
+    max-width: 55%;
+    padding: 0;
+    margin-left: -8%;
+    background: transparent !important;
+    box-shadow: none !important;
+    z-index: 25;
+    line-height: normal;
+}
+
+#da-slider .da-slide .da-slide-cta-row.da-link:hover {
+    background: transparent !important;
+}
+
+#da-slider .da-slide .da-slide-cta-btn {
+    position: relative;
+    left: auto !important;
+    opacity: 1 !important;
+    width: auto;
+    min-width: 8em;
+    flex: 0 1 auto;
+    margin: 0;
+    text-align: center;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 10px 18px;
+    line-height: 1.25;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#da-slider .da-slide .da-slide-cta-btn-primary {
+    background-color: #48cfad;
+    border-color: #3bbf9f;
+    color: #fff;
+}
+
+#da-slider .da-slide .da-slide-cta-btn-secondary {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+}
+
+#da-slider .da-slide .da-slide-cta-btn-secondary:hover,
+#da-slider .da-slide .da-slide-cta-btn-secondary:focus {
+    background-color: #ebebeb;
+    border-color: #adadad;
+    color: #333;
+}
+
+#da-slider .da-slide .da-slide-cta-btn-primary:hover,
+#da-slider .da-slide .da-slide-cta-btn-primary:focus {
+    background-color: rgba(72, 207, 173, 0.88);
+    border-color: #35a88e;
+    color: #fff;
+}
+
 /* ===== RESPONSIVE PARA SLIDER ===== */
 
 /* Tablets y móviles grandes */
@@ -620,10 +687,11 @@
         top: 110px !important;
     }
     
-    .da-slide .da-link {
+    .da-slide .da-slide-cta-row.da-link {
         margin-left: 0 !important;
         left: 10% !important;
         top: 320px !important;
+        max-width: 90% !important;
     }
 }
 
@@ -653,12 +721,17 @@
         top: 90px !important;
     }
     
-    .da-slide .da-link {
+    .da-slide .da-slide-cta-row.da-link {
         left: 5% !important;
         top: 330px !important;
-        font-size: 16px !important;
-        padding: 8px 4px !important;
-        width: 100px !important;
+        max-width: 95% !important;
+    }
+
+    .da-slide .da-slide-cta-btn {
+        font-size: 15px !important;
+        padding: 8px 14px !important;
+        min-width: 0 !important;
+        min-height: 42px !important;
     }
 }
 

@@ -5,7 +5,18 @@
 @section('content')
 
     <!-- Sequence Modern Slider -->
-    <div id="da-slider" class="da-slider">
+    @php
+        $heroHasBgImage = filled($hero['background_image'] ?? null);
+        $heroBgColor = $hero['background_color'] ?? '#e9ecef';
+        $heroSliderStyle = $heroHasBgImage
+            ? sprintf(
+                'background-image:url(%s);background-repeat:no-repeat;background-size:cover;background-position:center center;',
+                json_encode(asset($hero['background_image']), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP
+                )
+            )
+            : 'background-image:none;background-color:'.$heroBgColor.';';
+    @endphp
+    <div id="da-slider" class="da-slider" style="{{ $heroSliderStyle }}">
 
         <div class="da-slide">
             <div class="container">
@@ -14,10 +25,16 @@
                         <h2><i>{{ $hero['title'] }}</i></h2>
                         <h3><i>{{ $hero['subtitle'] }}</i></h3>
                         <p>{{ $hero['text'] }}</p>
-                        
-                        <a href="{{ $hero['primary_cta_url'] }}" class="btn btn-info btn-lg da-link">Solicita presupuesto en 24h</a>
+
                         <div class="da-img">
                             <img src="{{ asset($hero['image']) }}" alt="{{ $hero['title'] }}" />
+                        </div>
+
+                        <div class="da-slide-cta-row da-link">
+                            <a href="{{ $hero['primary_cta_url'] }}" class="btn btn-info btn-lg da-slide-cta-btn da-slide-cta-btn-primary">{{ $hero['primary_cta_text'] }}</a>
+                            @if (filled($hero['secondary_cta_url'] ?? null))
+                                <a href="{{ $hero['secondary_cta_url'] }}" class="btn btn-default btn-lg da-slide-cta-btn da-slide-cta-btn-secondary">{{ filled($hero['secondary_cta_text'] ?? null) ? $hero['secondary_cta_text'] : 'Ver más' }}</a>
+                            @endif
                         </div>
                     </div>
                 </div>

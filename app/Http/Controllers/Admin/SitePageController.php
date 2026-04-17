@@ -7,6 +7,9 @@ use App\Http\Requests\Admin\UpdateSitePageRequest;
 use App\Models\ProductForm;
 use App\Models\SitePage;
 use App\Services\SitePages\SitePageUpdater;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SitePageController extends Controller
 {
@@ -15,6 +18,7 @@ class SitePageController extends Controller
         $this->authorize('viewAny', SitePage::class);
         $pages = SitePage::query()
             ->orderByRaw("CASE slug
+                WHEN 'home' THEN -1
                 WHEN 'sobre-nosotros' THEN 0
                 WHEN 'contacto' THEN 1
                 WHEN 'portfolio' THEN 2
@@ -43,12 +47,49 @@ class SitePageController extends Controller
     public function update(UpdateSitePageRequest $request, SitePage $site_page, SitePageUpdater $sitePageUpdater)
     {
         $this->authorize('update', $site_page);
+        $data = $request->validated();
+        if ($site_page->slug === 'home') {
+            $data = $this->mergeHomeHeroBackgroundUpload($request, $site_page, $data);
+        }
         $sitePageUpdater->update(
             $site_page,
-            $request->validated(),
+            $data,
             $request->boolean('is_active')
         );
 
         return redirect()->route('admin.site-pages.index')->with('status', 'Pagina actualizada correctamente.');
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
+    private function mergeHomeHeroBackgroundUpload(UpdateSitePageRequest $request, SitePage $sitePage, array $data): array
+    {
+        $extra = is_array($sitePage->extra) ? $sitePage->extra : [];
+        $currentBg = (string) ($extra['hero_background_image'] ?? '');
+
+        $file = $request->file('hero_background_image_file');
+        if ($file instanceof UploadedFile) {
+            $this->deleteStoredPublicHomeHeroImage($currentBg);
+            $path = $file->store('home-hero', 'public');
+            $data['hero_background_image'] = 'storage/'.$path;
+
+            return $data;
+        }
+
+        if ($request->boolean('clear_hero_background_image')) {
+            $this->deleteStoredPublicHomeHeroImage($currentBg);
+            $data['hero_background_image'] = '';
+        }
+
+        return $data;
+    }
+
+    private function deleteStoredPublicHomeHeroImage(string $storedPath): void
+    {
+        if ($storedPath !== '' && Str::startsWith($storedPath, 'storage/')) {
+            Storage::disk('public')->delete(Str::after($storedPath, 'storage/'));
+        }
     }
 }

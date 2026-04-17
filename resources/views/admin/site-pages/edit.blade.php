@@ -7,7 +7,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ route('admin.site-pages.update', $page) }}" method="POST">
+            <form action="{{ route('admin.site-pages.update', $page) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 @include('admin.site-pages._form')
