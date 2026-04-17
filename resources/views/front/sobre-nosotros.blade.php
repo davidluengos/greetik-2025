@@ -30,7 +30,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-5">
+            <!-- <div class="col-lg-5">
                 <div class="about-carousel wow fadeInLeft">
                     <div id="aboutPageCarousel" class="carousel slide">
                         <div class="carousel-inner">
@@ -59,8 +59,8 @@
                         @endif
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-7 about wow fadeInRight">
+            </div> -->
+            <div class="col-lg-12 about wow fadeInRight">
                 @if (!empty($page->body))
                     {!! $page->body !!}
                 @endif
