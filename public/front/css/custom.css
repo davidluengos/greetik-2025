@@ -129,8 +129,8 @@
 
 .tech-card:hover {
     transform: translateY(-8px);
-    border-color: #326b2f;
-    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+    border-color: var(--brand-primary);
+    box-shadow: 0 10px 30px rgba(72, 207, 173, 0.2);
 }
 
 .tech-logo {
@@ -163,7 +163,7 @@
 
 .tech-card:hover .tech-icon {
     transform: scale(1.12);
-    color: #326b2f;
+    color: var(--brand-primary);
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
 }
 
@@ -197,9 +197,9 @@
 
 /* Tarjeta destacada para especialidades */
 .tech-card-featured {
-    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-hover) 100%);
     color: white;
-    border-color: #2563eb !important;
+    border-color: var(--brand-primary-hover) !important;
     position: relative;
     overflow: hidden;
 }
@@ -243,7 +243,7 @@
 
 .tech-card-featured:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 15px 40px rgba(72, 207, 173, 0.32);
 }
 
 /* Responsive para tecnologías */
@@ -279,52 +279,67 @@
 
 /* ===== ESTILOS UNIFICADOS PARA TARJETAS DE SERVICIOS ===== */
 
-/* API/REST - Azul */
-.service-api {
-    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-    border: none !important;
-    color: white;
+/* Base de tarjeta de servicio: misma estructura visual para toda la sección */
+.service-card {
+    background: var(--surface-elevated) !important;
+    border: 1px solid var(--border-soft) !important;
+    border-top: 4px solid var(--brand-primary) !important;
+    color: var(--text-strong) !important;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
-.service-api .icon-wrap-services {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+.service-card h2 {
+    color: var(--text-strong) !important;
 }
 
-.service-api .icon-wrap-services i {
+.service-card p {
+    color: var(--text-muted) !important;
+}
+
+.service-card .icon-wrap-services {
+    background: var(--brand-primary);
+    border: 2px solid var(--brand-primary);
+}
+
+.service-card .icon-wrap-services i {
     color: #ffffff;
 }
 
-.service-api h2 {
-    color: #ffffff;
-}
+/* Variantes por servicio: solo acento, no paleta diferente completa */
+.service-web { --service-accent: #7dae79; }
+.service-apps { --service-accent: #2f5d7c; }
+.service-ecommerce { --service-accent: #7a4f1f; }
+.service-support { --service-accent: #5f5a1c; }
+.service-api { --service-accent: #2f5d7c; }
+.service-design { --service-accent: #6c3f72; }
 
-.service-api p {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* Diseño Gráfico - Rosa/Violeta */
+.service-web,
+.service-apps,
+.service-ecommerce,
+.service-support,
+.service-api,
 .service-design {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    border: none !important;
-    color: white;
+    border-top-color: var(--service-accent) !important;
+    background: linear-gradient(180deg, #f7faf7 0%, #ffffff 42%) !important;
 }
 
+.service-web .icon-wrap-services,
+.service-apps .icon-wrap-services,
+.service-ecommerce .icon-wrap-services,
+.service-support .icon-wrap-services,
+.service-api .icon-wrap-services,
 .service-design .icon-wrap-services {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: var(--service-accent);
+    border-color: var(--service-accent);
 }
 
+.service-web .icon-wrap-services i,
+.service-apps .icon-wrap-services i,
+.service-ecommerce .icon-wrap-services i,
+.service-support .icon-wrap-services i,
+.service-api .icon-wrap-services i,
 .service-design .icon-wrap-services i {
     color: #ffffff;
-}
-
-.service-design h2 {
-    color: #ffffff;
-}
-
-.service-design p {
-    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Badge para servicios especiales (opcional) */
@@ -355,104 +370,6 @@
     }
 }
 
-/* ===== TEMAS DE COLORES PARA TARJETAS DE SERVICIOS ===== */
-
-/* Desarrollo Web - Verde */
-.service-web {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    border: none !important;
-    color: white;
-}
-
-.service-web .icon-wrap-services {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.service-web .icon-wrap-services i {
-    color: #ffffff;
-}
-
-.service-web h2 {
-    color: #ffffff;
-}
-
-.service-web p {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* E-commerce - Naranja */
-.service-ecommerce {
-    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-    border: none !important;
-    color: white;
-}
-
-.service-ecommerce .icon-wrap-services {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.service-ecommerce .icon-wrap-services i {
-    color: #ffffff;
-}
-
-.service-ecommerce h2 {
-    color: #ffffff;
-}
-
-.service-ecommerce p {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* Aplicaciones Móviles - Teal */
-.service-apps {
-    background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
-    border: none !important;
-    color: white;
-}
-
-.service-apps .icon-wrap-services {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.service-apps .icon-wrap-services i {
-    color: #ffffff;
-}
-
-.service-apps h2 {
-    color: #ffffff;
-}
-
-.service-apps p {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* Mantenimiento y Soporte - Amarillo */
-.service-support {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    border: none !important;
-    color: white;
-}
-
-.service-support .icon-wrap-services {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.service-support .icon-wrap-services i {
-    color: #ffffff;
-}
-
-.service-support h2 {
-    color: #ffffff;
-}
-
-.service-support p {
-    color: rgba(255, 255, 255, 0.9);
-}
-
 /* ===== ESTILOS PARA BOTONES DE SERVICIOS ===== */
 
 /* Botones dentro de las tarjetas de servicios */
@@ -463,27 +380,27 @@
     border-radius: 25px !important;
     text-decoration: none !important;
     transition: all 0.3s ease !important;
-    border: 2px solid white !important;
-    background: white !important;
-    color: #333 !important;
+    border: 2px solid var(--brand-primary) !important;
+    background: var(--brand-primary) !important;
+    color: #fff !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
     margin-top: auto !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 8px 20px rgba(72, 207, 173, 0.32) !important;
 }
 
 .service-card .btn:hover {
-    background: #f8f9fa !important;
-    border-color: #fff !important;
+    background: var(--brand-primary-hover) !important;
+    border-color: var(--brand-primary-hover) !important;
     transform: translateY(-3px) !important;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
-    color: #000 !important;
+    box-shadow: 0 12px 28px rgba(41, 88, 38, 0.42) !important;
+    color: #fff !important;
 }
 
 /* ===== BOTÓN CTA PRINCIPAL ===== */
 
 .cta-section {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+    background: linear-gradient(135deg, var(--cta-bg-start) 0%, var(--cta-bg-end) 100%) !important;
     position: relative;
     overflow: hidden;
     padding: 30px 20px !important;
@@ -527,13 +444,13 @@
     font-size: 1.1rem !important;
     font-weight: 700 !important;
     border-radius: 35px !important;
-    background: #326b2f !important;
+    background: var(--brand-primary) !important;
     color: #fff !important;
     border: 2px solid rgba(255, 255, 255, 0.25) !important;
     text-transform: uppercase !important;
     letter-spacing: 1px !important;
     transition: all 0.3s ease !important;
-    box-shadow: 0 8px 25px rgba(50, 107, 47, 0.45) !important;
+    box-shadow: 0 8px 25px rgba(72, 207, 173, 0.42) !important;
     position: relative;
     overflow: hidden;
     text-decoration: none !important;
@@ -559,8 +476,8 @@
 .cta-section .btn:hover,
 .btn-cta:hover {
     transform: translateY(-3px) !important;
-    box-shadow: 0 12px 35px rgba(50, 107, 47, 0.55) !important;
-    background: #295826 !important;
+    box-shadow: 0 12px 35px rgba(72, 207, 173, 0.5) !important;
+    background: var(--brand-primary-hover) !important;
     border-color: rgba(255, 255, 255, 0.35) !important;
     color: #fff !important;
 }
@@ -588,6 +505,35 @@
 }
 
 /* ===== HOME: fila de CTAs del slider (evita solape y ancho fijo 120px del tema) ===== */
+
+#da-slider .da-slide .da-slide-eyebrow {
+    color: var(--brand-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    top: 44px !important;
+    max-width: 72%;
+    line-height: 1.25 !important;
+}
+
+#da-slider .da-slide .da-slide-headline {
+    font-size: 46px !important;
+    line-height: 1.12 !important;
+    font-weight: 700 !important;
+    max-width: 70%;
+    top: 92px !important;
+}
+
+#da-slider .da-slide .da-slide-headline-highlight {
+    color: var(--brand-primary);
+    font-weight: 800;
+}
+
+.da-slide-mobile-copy {
+    display: none;
+}
+
 #da-slider .da-slide .da-slide-cta-row.da-link {
     display: flex;
     flex-wrap: wrap;
@@ -629,28 +575,28 @@
 }
 
 #da-slider .da-slide .da-slide-cta-btn-primary {
-    background-color: #48cfad;
-    border-color: #3bbf9f;
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
     color: #fff;
 }
 
 #da-slider .da-slide .da-slide-cta-btn-secondary {
     background-color: #fff;
-    border-color: #ccc;
-    color: #333;
+    border-color: var(--border-soft);
+    color: var(--text-strong);
 }
 
 #da-slider .da-slide .da-slide-cta-btn-secondary:hover,
 #da-slider .da-slide .da-slide-cta-btn-secondary:focus {
-    background-color: #ebebeb;
-    border-color: #adadad;
-    color: #333;
+    background-color: #f4f4f5;
+    border-color: #d1d5db;
+    color: #111827;
 }
 
 #da-slider .da-slide .da-slide-cta-btn-primary:hover,
 #da-slider .da-slide .da-slide-cta-btn-primary:focus {
-    background-color: rgba(72, 207, 173, 0.88);
-    border-color: #35a88e;
+    background-color: var(--brand-primary-hover);
+    border-color: var(--brand-primary-hover);
     color: #fff;
 }
 
@@ -658,13 +604,26 @@
 
 /* Tablets y móviles grandes */
 @media (max-width: 768px) {
+    #da-slider .da-slide .da-slide-eyebrow {
+        font-size: 14px !important;
+        letter-spacing: 1.2px;
+        top: 38px !important;
+        max-width: 88%;
+    }
+
+    #da-slider .da-slide .da-slide-headline {
+        font-size: 32px !important;
+        max-width: 90%;
+        top: 80px !important;
+    }
+
     .da-slide p {
         width: 80% !important;
         height: auto !important;
         max-height: 120px !important;
         font-size: 16px !important;
         line-height: 22px !important;
-        top: 200px !important;
+        top: 228px !important;
         margin-left: 0 !important;
         left: 10% !important;
         overflow: visible !important;
@@ -690,21 +649,109 @@
     .da-slide .da-slide-cta-row.da-link {
         margin-left: 0 !important;
         left: 10% !important;
-        top: 320px !important;
+        top: 350px !important;
         max-width: 90% !important;
     }
 }
 
 /* Móviles pequeños */
 @media (max-width: 480px) {
-    .da-slide p {
-        width: 90% !important;
+    /* Modo definitivo móvil: neutralizamos layout absoluto del plugin del slider */
+    #da-slider,
+    #da-slider .da-slide,
+    #da-slider .da-slide-current {
         height: auto !important;
-        max-height: 140px !important;
+        min-height: 0 !important;
+    }
+
+    #da-slider .da-slide {
+        position: relative !important;
+    }
+
+    #da-slider .da-slide h2,
+    #da-slider .da-slide h3,
+    #da-slider .da-slide p,
+    #da-slider .da-slide .da-link,
+    #da-slider .da-slide .da-img {
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+
+    /* Solución definitiva móvil: ocultar bloque absoluto y mostrar bloque en flujo normal */
+    .da-slide-desktop-copy,
+    #da-slider .da-slide .da-slide-desktop-cta {
+        display: none !important;
+    }
+
+    .da-slide-mobile-copy {
+        display: block !important;
+        position: relative;
+        margin: 16px 0 0 5%;
+        width: 90%;
+        max-width: 90%;
+        z-index: 30;
+    }
+
+    .da-slide-mobile-copy .da-slide-eyebrow,
+    .da-slide-mobile-copy .da-slide-headline,
+    .da-slide-mobile-copy p {
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        opacity: 1 !important;
+        animation: none !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .da-slide-mobile-copy .da-slide-mobile-cta-row {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .da-slide-mobile-copy .da-slide-mobile-cta-row .da-slide-cta-btn {
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        opacity: 1 !important;
+        animation: none !important;
+        transform: none !important;
+        min-height: 40px !important;
+        padding: 8px 14px !important;
+        font-size: 14px !important;
+    }
+
+    /* Evita que la imagen del slide invada la zona de texto en móvil */
+    #da-slider .da-slide .da-img {
+        display: none !important;
+    }
+
+    #da-slider .da-slide .da-slide-eyebrow {
+        font-size: 12px !important;
+        letter-spacing: 1px;
+        max-width: 90%;
+    }
+
+    #da-slider .da-slide .da-slide-headline {
+        font-size: 24px !important;
+        max-width: 95%;
+        line-height: 1.2 !important;
+    }
+
+    .da-slide p {
         font-size: 14px !important;
         line-height: 20px !important;
-        top: 170px !important;
-        left: 5% !important;
     }
     
     .da-slide h2 {
@@ -721,17 +768,28 @@
         top: 90px !important;
     }
     
-    .da-slide .da-slide-cta-row.da-link {
-        left: 5% !important;
-        top: 330px !important;
-        max-width: 95% !important;
-    }
-
     .da-slide .da-slide-cta-btn {
         font-size: 15px !important;
         padding: 8px 14px !important;
         min-width: 0 !important;
         min-height: 42px !important;
+    }
+}
+
+/* Móviles muy estrechos: evitamos cualquier solape entre título y párrafo */
+@media (max-width: 390px) {
+    .da-slide-mobile-copy {
+        margin-top: 12px;
+    }
+
+    #da-slider .da-slide .da-slide-headline {
+        font-size: 22px !important;
+        max-width: 94% !important;
+        line-height: 1.2 !important;
+    }
+
+    .da-slide p {
+        line-height: 19px !important;
     }
 }
 
@@ -750,7 +808,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(50, 107, 47, 0.2) !important;
+    border: 1px solid rgba(72, 207, 173, 0.24) !important;
     border-radius: 8px;
     background: linear-gradient(180deg, #f6faf6 0%, #ffffff 40%);
     box-shadow: 0 2px 14px rgba(42, 66, 48, 0.08);
@@ -759,7 +817,7 @@
 }
 
 .blog-two-card:hover {
-    border-color: rgba(50, 107, 47, 0.35) !important;
+    border-color: rgba(72, 207, 173, 0.4) !important;
     box-shadow: 0 8px 24px rgba(42, 66, 48, 0.12);
 }
 
@@ -874,6 +932,25 @@
 .head-section .navbar-nav > li {
     padding-top: 19px;
     padding-bottom: 14px;
+}
+
+@media (max-width: 767px) {
+    /* Menú hamburguesa: compactar separación vertical entre items */
+    .head-section .navbar-collapse ul.navbar-nav {
+        float: none;
+        margin: 0;
+    }
+
+    .head-section .navbar-nav > li {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .head-section .navbar-nav > li > a {
+        padding: 9px 15px;
+        margin-left: 0;
+        line-height: 1.25;
+    }
 }
 
 .footer-directory {
@@ -1094,14 +1171,14 @@
 .portfolio-filter-chip:hover,
 .portfolio-filter-chip:focus {
     outline: none;
-    border-color: #326b2f;
-    color: #326b2f;
-    box-shadow: 0 2px 10px rgba(50, 107, 47, 0.12);
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+    box-shadow: 0 2px 10px rgba(72, 207, 173, 0.18);
 }
 
 .portfolio-filter-chip.active {
-    background: #326b2f;
-    border-color: #326b2f;
+    background: var(--brand-primary);
+    border-color: var(--brand-primary);
     color: #fff;
 }
 
@@ -1118,15 +1195,15 @@
 }
 
 #portfoliolist .portfolio .image-caption .label.icon {
-    background-color: #326b2f;
-    border-color: #326b2f;
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
     color: #fff;
 }
 
 #portfoliolist .portfolio .image-caption .label.icon:hover,
 #portfoliolist .portfolio .image-caption .label.icon:focus {
-    background-color: #295826;
-    border-color: #295826;
+    background-color: var(--brand-primary-hover);
+    border-color: var(--brand-primary-hover);
     color: #fff;
 }
 
@@ -1150,10 +1227,19 @@
     }
 }
 
-/* Marca corporativa: toques mínimos (unifica acentos del tema con #326b2f) */
+/* Marca corporativa: acentos unificados al combo footer (#7dae79 + gris) */
 :root {
-    --brand-primary: #326b2f;
-    --brand-primary-hover: #295826;
+    --brand-primary: #7dae79;
+    --brand-primary-hover: #6b9e67;
+    --brand-secondary: #34495e;
+    --surface-elevated: #ffffff;
+    --border-soft: #e5e7eb;
+    --text-strong: #1f2937;
+    --text-muted: #4b5563;
+    --cta-bg-start: #34495e;
+    --cta-bg-end: #2c3e50;
+    --focus-ring: rgba(125, 174, 121, 0.32);
+    --btn-radius: 10px;
 }
 
 .navbar-brand span {
@@ -1162,9 +1248,11 @@
 
 .btn.btn-primary,
 .btn.btn-info,
+.btn.btn-secondary,
 .open .dropdown-toggle.btn-info {
     background-color: var(--brand-primary) !important;
     border-color: var(--brand-primary) !important;
+    color: #fff !important;
 }
 
 .btn.btn-primary:hover,
@@ -1173,9 +1261,133 @@
 .btn.btn-info:hover,
 .btn.btn-info:active,
 .btn.btn-info:focus,
+.btn.btn-secondary:hover,
+.btn.btn-secondary:active,
+.btn.btn-secondary:focus,
 .open .dropdown-toggle.btn-info:hover {
     background-color: var(--brand-primary-hover) !important;
     border-color: var(--brand-primary-hover) !important;
+    color: #fff !important;
+}
+
+.btn {
+    border-radius: var(--btn-radius);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btn:focus-visible {
+    box-shadow: 0 0 0 3px var(--focus-ring) !important;
+}
+
+/* Escalas consistentes para botones */
+.btn.btn-sm {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    line-height: 1.2;
+}
+
+.btn.btn-md,
+.btn.btn-default,
+.btn.btn-primary,
+.btn.btn-info,
+.btn.btn-secondary {
+    padding: 10px 18px;
+    font-size: 14px;
+    line-height: 1.25;
+}
+
+.btn.btn-lg {
+    padding: 13px 24px !important;
+    font-size: 16px !important;
+    line-height: 1.2;
+}
+
+/* Variante secundaria real para acciones menos prioritarias */
+.btn-outline-brand {
+    background: #fff !important;
+    border: 1px solid var(--brand-primary) !important;
+    color: var(--brand-primary) !important;
+}
+
+.btn-outline-brand:hover,
+.btn-outline-brand:focus,
+.btn-outline-brand:active {
+    background: #f1fbf8 !important;
+    border-color: var(--brand-primary-hover) !important;
+    color: var(--brand-primary-hover) !important;
+}
+
+/* ===== JERARQUIA DE BOTONES POR CONTEXTO ===== */
+
+/* Hero: CTAs en outline para no competir con la imagen/fondo */
+#da-slider .da-slide .da-slide-cta-btn {
+    border-width: 2px;
+    border-radius: 999px;
+    min-height: 44px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    box-shadow: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+#da-slider .da-slide .da-slide-cta-btn-primary {
+    background-color: rgba(125, 174, 121, 0.9) !important;
+    border-color: rgba(255, 255, 255, 0.92) !important;
+    color: #ffffff !important;
+}
+
+#da-slider .da-slide .da-slide-cta-btn-primary:hover,
+#da-slider .da-slide .da-slide-cta-btn-primary:focus {
+    background-color: rgba(107, 158, 103, 0.98) !important;
+    border-color: rgba(255, 255, 255, 1) !important;
+    color: #ffffff !important;
+    transform: translateY(-1px) !important;
+}
+
+#da-slider .da-slide .da-slide-cta-btn-secondary {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.88) !important;
+    color: #ffffff !important;
+}
+
+#da-slider .da-slide .da-slide-cta-btn-secondary:hover,
+#da-slider .da-slide .da-slide-cta-btn-secondary:focus {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 1) !important;
+    color: #ffffff !important;
+    transform: translateY(-1px) !important;
+}
+
+/* CTA de seccion: boton principal relleno (ya existente), con enfoque consistente */
+.cta-section .btn:focus-visible,
+.btn-cta:focus-visible {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.24), 0 0 0 6px var(--focus-ring) !important;
+}
+
+/* Listados: botones medianos, limpios y consistentes */
+.blog-two-card > .btn,
+.portfolio-item-detail .btn,
+.pricing-table-two .price-actions .btn,
+.product-form-block .btn {
+    min-height: 40px;
+    padding: 10px 18px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: var(--btn-radius) !important;
+}
+
+/* Botones de vuelta/listado en outline para distinguir de acciones principales */
+.portfolio-item-detail .btn.btn-default,
+.blog-pagination-wrap .pagination > li > a,
+.blog-pagination-wrap .pagination > li > span {
+    border-radius: var(--btn-radius);
 }
 
 .ico-bg {
@@ -1200,8 +1412,8 @@
 
 /* Breadcrumb: fondo en familia del verde corporativo (evita el azul #34495e del tema) */
 .breadcrumbs {
-    background: #2a4230 !important;
-    border-bottom: 1px solid rgba(50, 107, 47, 0.35);
+    background: #34495e !important;
+    border-bottom: 1px solid rgba(125, 174, 121, 0.38);
 }
 
 /* Enlaces claros sobre la franja oscura */
@@ -1211,7 +1423,7 @@
 
 .breadcrumbs .breadcrumb li a:hover,
 .breadcrumbs .breadcrumb li a:focus {
-    color: #c5e8c0 !important;
+    color: #c9e1c6 !important;
 }
 
 /* Blog: títulos y fecha lateral (detalle + listado dos columnas) */
@@ -1255,13 +1467,13 @@
 .footer-directory .footer-tree a:hover,
 .footer-directory .footer-tree a:focus,
 .footer-directory .footer-contact-line a:hover {
-    color: #9ed098 !important;
+    color: #b5d1b2 !important;
 }
 
 .footer-directory .footer-cta,
 .footer-directory .footer-cta:hover,
 .footer-directory .footer-cta:focus {
-    color: #9ed098 !important;
+    color: #b5d1b2 !important;
 }
 
 .footer-small-contrast .social-link-footer li a:hover {
