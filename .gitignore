@@ -19,6 +19,7 @@
 /storage/*.key
 /storage/pail
 /vendor
+/exclude.txt
 Homestead.json
 Homestead.yaml
 Thumbs.db
