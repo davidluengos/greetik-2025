@@ -164,6 +164,12 @@ class SitePageController extends Controller
             $type = (string) ($field['type'] ?? 'text');
             $isRequired = ! empty($field['required']);
 
+            if ($type === 'checkbox') {
+                $fieldRules = [$isRequired ? 'accepted' : 'nullable', 'boolean'];
+                $rules[$name] = $fieldRules;
+                continue;
+            }
+
             $fieldRules = [$isRequired ? 'required' : 'nullable', 'string', 'max:5000'];
             if ($type === 'email') {
                 $fieldRules[] = 'email';

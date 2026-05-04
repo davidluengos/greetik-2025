@@ -38,9 +38,24 @@
                             $fieldType = $field['type'] ?? 'text';
                             $isRequired = !empty($field['required']);
                         @endphp
-                        <div class="col-md-{{ $fieldType === 'textarea' ? '12' : '6' }}">
+                        <div class="col-md-{{ in_array($fieldType, ['textarea', 'checkbox'], true) ? '12' : '6' }}">
                             <div class="form-group {{ $fieldType === 'textarea' ? 'form-group-message' : '' }}">
-                                <label for="{{ $idPrefix }}-{{ $fieldName }}">{{ $fieldLabel }}</label>
+                                @if ($fieldType === 'checkbox')
+                                    <div class="checkbox">
+                                        <label for="{{ $idPrefix }}-{{ $fieldName }}">
+                                            <input
+                                                type="checkbox"
+                                                id="{{ $idPrefix }}-{{ $fieldName }}"
+                                                name="{{ $fieldName }}"
+                                                value="1"
+                                                {{ old($fieldName) ? 'checked' : '' }}
+                                                {{ $isRequired ? 'required' : '' }}>
+                                            {{ $fieldLabel }}
+                                        </label>
+                                    </div>
+                                @else
+                                    <label for="{{ $idPrefix }}-{{ $fieldName }}">{{ $fieldLabel }}</label>
+                                @endif
                                 @if ($fieldType === 'textarea')
                                     <textarea
                                         class="form-control"
@@ -48,6 +63,8 @@
                                         name="{{ $fieldName }}"
                                         rows="4"
                                         {{ $isRequired ? 'required' : '' }}>{{ old($fieldName) }}</textarea>
+                                @elseif ($fieldType === 'checkbox')
+                                    {{-- checkbox already rendered above --}}
                                 @else
                                     <input
                                         type="{{ in_array($fieldType, ['text', 'email', 'tel', 'number'], true) ? $fieldType : 'text' }}"

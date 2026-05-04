@@ -24,16 +24,6 @@
         $pricingModel = $project->pricingTable;
     @endphp
 
-    @if ($formModel && $formModel->is_active)
-        <div class="container py-4">
-            <div class="row">
-                <div class="col-md-12">
-                    @include('front.partials.dynamic-product-form', ['formModel' => $formModel, 'idPrefix' => 'producto'])
-                </div>
-            </div>
-        </div>
-    @endif
-
     @if ($pricingModel && $pricingModel->is_active && !empty($pricingModel->plans) && is_array($pricingModel->plans))
         <div class="gray-bg price-container py-5">
             <div class="section first">
@@ -46,27 +36,73 @@
                             @endif
                         </h1>
                     </div>
-                    <div class="row">
-                        <div class="price-two-container">
+                    <div class="row product-offer-layout">
+                        <div class="col-md-8 price-two-container product-plans-container">
+                            <div class="product-plans-grid">
                             @foreach ($pricingModel->plans as $plan)
-                                <div class="col-md-4">
-                                    <div class="pricing-table-two {{ !empty($plan['highlighted']) ? 'highlighted' : '' }} wow fadeInUp">
+                                @php
+                                    $planFeatures = collect($plan['features'] ?? [])->filter(fn ($item) => filled($item))->values();
+                                    $startsFrom = $plan['price'] ?? '-';
+
+                                    $infoRows = $planFeatures->filter(function ($feature) {
+                                        $normalized = mb_strtolower(trim((string) $feature), 'UTF-8');
+                                        return str_contains($normalized, 'activación')
+                                            || str_contains($normalized, 'permanencia')
+                                            || str_contains($normalized, 'responsive')
+                                            || str_contains($normalized, 'ssl')
+                                            || str_contains($normalized, 'prueba gratuita')
+                                            || str_contains($normalized, 'sin iva');
+                                    })->values();
+
+                                    $featureRows = $planFeatures->reject(function ($feature) {
+                                        $normalized = mb_strtolower(trim((string) $feature), 'UTF-8');
+                                        return str_contains($normalized, 'activación')
+                                            || str_contains($normalized, 'permanencia')
+                                            || str_contains($normalized, 'responsive')
+                                            || str_contains($normalized, 'ssl')
+                                            || str_contains($normalized, 'prueba gratuita')
+                                            || str_contains($normalized, 'sin iva')
+                                            || $normalized === 'características';
+                                    })->values();
+                                @endphp
+                                <div class="product-plan-col">
+                                    <div class="pricing-table-two product-feature-card {{ !empty($plan['highlighted']) ? 'highlighted' : '' }} wow fadeInUp">
                                         <div class="inner">
-                                            <div class="title">
-                                                {{ $plan['name'] ?? 'Plan' }}/
-                                                <span class="price">{{ $plan['price'] ?? '-' }}</span>
+                                            <div class="title">{{ $plan['name'] ?? 'Plan' }}</div>
+                                            <div class="product-feature-price-wrap">
+                                                <p class="product-feature-price-label">Desde</p>
+                                                <p class="product-feature-price">{{ $startsFrom }}</p>
                                             </div>
                                             @if (!empty($plan['description']))
                                                 <p class="desc">{{ $plan['description'] }}</p>
                                             @endif
-                                            <ul class="items">
-                                                @foreach (($plan['features'] ?? []) as $feature)
-                                                    <li class="available">
+                                            @if ($infoRows->isNotEmpty())
+                                                <ul class="product-plan-highlights">
+                                                    @foreach ($infoRows as $feature)
+                                                        <li>
+                                                            <i class="fa fa-check-circle"></i>
+                                                            <span>{{ $feature }}</span>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+
+                                            <div class="product-feature-section-title">Características</div>
+                                            <ul class="items product-feature-items">
+                                                @foreach ($featureRows as $feature)
+                                                    @php
+                                                        $isOptional = str_contains(mb_strtolower((string) $feature, 'UTF-8'), 'opcional');
+                                                        $cleanFeature = trim((string) preg_replace('/\s*\(opcional\)\s*/iu', '', (string) $feature));
+                                                    @endphp
+                                                    <li class="{{ $isOptional ? 'optional' : 'available' }}">
                                                         <div class="icon-holder">
-                                                            <i class="fa fa-check text-success"></i>
+                                                            <i class="fa {{ $isOptional ? 'fa-circle-o text-warning' : 'fa-check text-success' }}"></i>
                                                         </div>
                                                         <div class="desc">
-                                                            <span class="text-black">{{ $feature }}</span>
+                                                            <span class="text-black">{{ $cleanFeature }}</span>
+                                                            @if ($isOptional)
+                                                                <small class="product-feature-optional-label">Opcional</small>
+                                                            @endif
                                                         </div>
                                                     </li>
                                                 @endforeach
@@ -80,35 +116,29 @@
                                     </div>
                                 </div>
                             @endforeach
-                            <div class="clearfix"></div>
+                            </div>
                         </div>
+                        @if ($formModel && $formModel->is_active)
+                            <div class="col-md-4 product-form-side">
+                                @include('front.partials.dynamic-product-form', ['formModel' => $formModel, 'idPrefix' => 'producto'])
+                            </div>
+                        @endif
                     </div>
+                </div>
+            </div>
+        </div>
+    @elseif ($formModel && $formModel->is_active)
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-12">
+                    @include('front.partials.dynamic-product-form', ['formModel' => $formModel, 'idPrefix' => 'producto'])
                 </div>
             </div>
         </div>
     @endif
 
     <div class="container py-5">
-        <div class="row">
-            <div class="col-md-7">
-                @if (!empty($project->image))
-                    <img src="{{ asset($project->image) }}" alt="{{ $project->title }}" class="img-responsive img-thumbnail">
-                @endif
-            </div>
-            <div class="col-md-5">
-                <h2 class="mb-3">{{ $project->title }}</h2>
-                @if (!empty($project->excerpt))
-                    <p>{{ $project->excerpt }}</p>
-                @endif
-                @if (!empty($project->website_url))
-                    <p>
-                        <a href="{{ $project->website_url }}" target="_blank" rel="noopener" class="btn btn-primary">
-                            Ver proyecto
-                        </a>
-                    </p>
-                @endif
-            </div>
-        </div>
+        
 
         @if (!empty($project->body))
             <hr>
