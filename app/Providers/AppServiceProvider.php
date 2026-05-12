@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Project;
+use App\Models\SiteMedia;
 use App\Models\SitePage;
 use App\Models\Post;
 use App\Models\ProductForm;
@@ -39,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(ProductForm::class, ManageContentPolicy::class);
         Gate::policy(PricingTable::class, ManageContentPolicy::class);
         Gate::policy(SitePage::class, ManageContentPolicy::class);
+        Gate::policy(SiteMedia::class, ManageContentPolicy::class);
         View::composer(['front.layouts.header', 'front.layouts.footer'], FrontHeaderComposer::class);
     }
 }
