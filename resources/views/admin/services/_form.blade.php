@@ -94,3 +94,10 @@
 
 <button class="btn btn-primary" type="submit">Guardar</button>
 <a href="{{ route('admin.services.index') }}" class="btn btn-secondary">Cancelar</a>
+
+@push('scripts')
+    @include('admin.partials.tinymce-media-library')
+    <script>
+        window.initAdminTinyEditorWithMedia('#body', { height: 360 });
+    </script>
+@endpush

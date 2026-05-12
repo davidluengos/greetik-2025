@@ -94,26 +94,8 @@
 <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary">Cancelar</a>
 
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js" referrerpolicy="origin"></script>
+    @include('admin.partials.tinymce-media-library')
     <script>
-        (function () {
-            if (typeof tinymce === 'undefined') {
-                return;
-            }
-
-            tinymce.remove('#body');
-            tinymce.init({
-                selector: '#body',
-                height: 420,
-                menubar: 'file edit view insert format tools table help',
-                plugins: 'code link lists table image media fullscreen preview searchreplace wordcount',
-                toolbar: 'undo redo | blocks | bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media table | code fullscreen preview',
-                block_formats: 'Parrafo=p; Encabezado 2=h2; Encabezado 3=h3; Encabezado 4=h4; Cita=blockquote',
-                branding: false,
-                promotion: false,
-                relative_urls: false,
-                convert_urls: false
-            });
-        })();
+        window.initAdminTinyEditorWithMedia('#body', { height: 420 });
     </script>
 @endpush

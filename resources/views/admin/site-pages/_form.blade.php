@@ -279,26 +279,9 @@
 <a href="{{ route('admin.site-pages.index') }}" class="btn btn-secondary">Volver</a>
 
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js" referrerpolicy="origin"></script>
+    @include('admin.partials.tinymce-media-library')
     <script>
-        (function () {
-            if (typeof tinymce === 'undefined') {
-                return;
-            }
-            tinymce.remove('#body');
-            tinymce.init({
-                selector: '#body',
-                height: {{ $page->slug === 'contacto' ? 280 : 420 }},
-                menubar: 'file edit view insert format tools table help',
-                plugins: 'code link lists table image fullscreen preview searchreplace wordcount',
-                toolbar: 'undo redo | blocks | bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table | code fullscreen preview',
-                block_formats: 'Parrafo=p; Encabezado 2=h2; Encabezado 3=h3; Encabezado 4=h4; Cita=blockquote',
-                branding: false,
-                promotion: false,
-                relative_urls: false,
-                convert_urls: false
-            });
-        })();
+        window.initAdminTinyEditorWithMedia('#body', { height: Number("{{ $page->slug === 'contacto' ? 280 : 420 }}") });
     </script>
     @if ($page->slug === 'home')
         <script>
