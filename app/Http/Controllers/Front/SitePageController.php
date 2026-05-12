@@ -75,6 +75,18 @@ class SitePageController extends Controller
         $replyTo = null;
         $lines = [];
 
+        $metaFormName = trim((string) ($validated['product_form_meta_name'] ?? ''));
+        $metaSourceUrl = trim((string) ($validated['product_form_meta_source_url'] ?? ''));
+        if ($metaFormName !== '') {
+            $lines[] = 'Formulario: '.$metaFormName;
+        }
+        if ($metaSourceUrl !== '') {
+            $lines[] = 'Enviado desde: '.$metaSourceUrl;
+        }
+        if ($lines !== []) {
+            $lines[] = str_repeat('-', 40);
+        }
+
         foreach ($fields as $field) {
             $name = (string) ($field['name'] ?? '');
             if ($name === '') {
@@ -149,6 +161,8 @@ class SitePageController extends Controller
         $rules = [
             'website' => ['nullable', 'string', 'max:0'],
             'form_started_at' => ['nullable', 'integer'],
+            'product_form_meta_name' => ['nullable', 'string', 'max:255'],
+            'product_form_meta_source_url' => ['nullable', 'string', 'max:2048'],
         ];
 
         if (config('services.recaptcha.enabled')) {

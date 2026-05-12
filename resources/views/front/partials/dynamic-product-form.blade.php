@@ -4,6 +4,16 @@
     $formAction = ($configuredAction !== '' && $configuredAction !== '#') ? $configuredAction : route('contacto.submit');
     $recaptchaEnabled = config('services.recaptcha.enabled');
     $recaptchaSiteKey = config('services.recaptcha.site_key');
+    $formInternalName = trim((string) (($formModel ?? null)?->name ?? ''));
+    $formTitle = trim((string) (($formModel ?? null)?->title ?? ''));
+    if ($formInternalName !== '') {
+        $formDisplayLabel = $formInternalName;
+        if ($formTitle !== '' && $formTitle !== $formInternalName) {
+            $formDisplayLabel .= ' — '.$formTitle;
+        }
+    } else {
+        $formDisplayLabel = $formTitle;
+    }
 @endphp
 @if ($formModel && $formModel->is_active)
     <div class="panel panel-default product-form-block {{ $wrapperClass ?? '' }}">
@@ -27,6 +37,8 @@
                     <input type="text" id="{{ $idPrefix }}-website" name="website" value="" tabindex="-1" autocomplete="off">
                 </div>
                 <input type="hidden" name="form_started_at" value="{{ time() }}">
+                <input type="hidden" name="product_form_meta_name" value="{{ $formDisplayLabel }}">
+                <input type="hidden" name="product_form_meta_source_url" value="{{ request()->fullUrl() }}">
                 @if ($recaptchaEnabled)
                     <input type="hidden" name="g-recaptcha-response" id="{{ $idPrefix }}-g-recaptcha-response" value="">
                 @endif
@@ -85,6 +97,22 @@
             </form>
         </div>
     </div>
+    @push('scripts')
+        <script>
+            (function () {
+                var form = document.getElementById('{{ $idPrefix }}-dynamic-form');
+                if (!form) {
+                    return;
+                }
+                form.addEventListener('submit', function () {
+                    var urlInput = form.querySelector('input[name="product_form_meta_source_url"]');
+                    if (urlInput) {
+                        urlInput.value = window.location.href;
+                    }
+                });
+            })();
+        </script>
+    @endpush
 @endif
 
 @if ($recaptchaEnabled && !empty($recaptchaSiteKey))
