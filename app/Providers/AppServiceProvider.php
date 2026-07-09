@@ -10,6 +10,7 @@ use App\Models\ProductForm;
 use App\Models\PortfolioItem;
 use App\Models\PricingTable;
 use App\Models\Service;
+use App\Models\Testimonial;
 use App\Policies\ManageContentPolicy;
 use App\View\Composers\FrontHeaderComposer;
 use Illuminate\Pagination\Paginator;
@@ -41,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(PricingTable::class, ManageContentPolicy::class);
         Gate::policy(SitePage::class, ManageContentPolicy::class);
         Gate::policy(SiteMedia::class, ManageContentPolicy::class);
+        Gate::policy(Testimonial::class, ManageContentPolicy::class);
         View::composer(['front.layouts.header', 'front.layouts.footer'], FrontHeaderComposer::class);
     }
 }

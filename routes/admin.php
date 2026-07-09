@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TechnologyController;
+use App\Http\Controllers\Admin\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('home');
@@ -19,6 +20,7 @@ Route::resource('projects', ProjectController::class);
 Route::resource('product-forms', ProductFormController::class);
 Route::resource('pricing-tables', PricingTableController::class);
 Route::resource('portfolio-items', PortfolioItemController::class);
+Route::resource('testimonials', TestimonialController::class);
 Route::resource('posts', PostController::class);
 Route::get('site-media/picker-items', [SiteMediaController::class, 'pickerItems'])->name('site-media.picker-items');
 Route::get('site-media', [SiteMediaController::class, 'index'])->name('site-media.index');

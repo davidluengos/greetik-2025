@@ -64,6 +64,13 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.testimonials.index') }}">
+            <i class="fas fa-fw fa-quote-right"></i>
+            <span>Opiniones</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.posts.index') }}">
             <i class="fas fa-fw fa-newspaper"></i>
             <span>Posts</span>
