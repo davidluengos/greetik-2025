@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PortfolioItemController;
 use App\Http\Controllers\Admin\PostController;
@@ -21,6 +22,7 @@ Route::resource('product-forms', ProductFormController::class);
 Route::resource('pricing-tables', PricingTableController::class);
 Route::resource('portfolio-items', PortfolioItemController::class);
 Route::resource('testimonials', TestimonialController::class);
+Route::resource('contact-messages', ContactMessageController::class)->only(['index', 'show', 'destroy']);
 Route::resource('posts', PostController::class);
 Route::get('site-media/picker-items', [SiteMediaController::class, 'pickerItems'])->name('site-media.picker-items');
 Route::get('site-media', [SiteMediaController::class, 'index'])->name('site-media.index');

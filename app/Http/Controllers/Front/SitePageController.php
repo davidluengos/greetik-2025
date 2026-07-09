@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactMessage;
 use App\Models\ProductForm;
 use App\Models\SitePage;
 use App\Support\ProductForms\DefaultProductFormFields;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
@@ -87,6 +89,8 @@ class SitePageController extends Controller
             $lines[] = str_repeat('-', 40);
         }
 
+        $submissionData = [];
+        $derived = ['name' => null, 'email' => null, 'phone' => null];
         foreach ($fields as $field) {
             $name = (string) ($field['name'] ?? '');
             if ($name === '') {
@@ -99,21 +103,49 @@ class SitePageController extends Controller
                 continue;
             }
 
-            if (($field['type'] ?? '') === 'email' && filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            $type = (string) ($field['type'] ?? '');
+            $submissionData[$label] = $value;
+
+            if ($type === 'email' && filter_var($value, FILTER_VALIDATE_EMAIL)) {
                 $replyTo = $value;
+                $derived['email'] ??= $value;
+            }
+            if ($derived['name'] === null && in_array($name, ['name', 'nombre'], true)) {
+                $derived['name'] = $value;
+            }
+            if ($derived['phone'] === null && in_array($name, ['phone', 'telefono', 'tel'], true)) {
+                $derived['phone'] = $value;
             }
 
             $lines[] = $label.': '.$value;
         }
 
+        // Guardamos primero el lead: aunque el email falle, no se pierde.
+        $contactMessage = ContactMessage::create([
+            'name' => $derived['name'],
+            'email' => $derived['email'],
+            'phone' => $derived['phone'],
+            'data' => $submissionData,
+            'form_name' => $metaFormName !== '' ? $metaFormName : null,
+            'source_url' => $metaSourceUrl !== '' ? $metaSourceUrl : null,
+            'ip' => $request->ip(),
+            'user_agent' => (string) $request->userAgent(),
+        ]);
+
         $body = implode(PHP_EOL, $lines);
 
-        Mail::raw($body, function ($message) use ($to, $subject, $replyTo): void {
-            $message->to($to)->subject($subject);
-            if ($replyTo) {
-                $message->replyTo($replyTo);
-            }
-        });
+        try {
+            Mail::raw($body, function ($message) use ($to, $subject, $replyTo): void {
+                $message->to($to)->subject($subject);
+                if ($replyTo) {
+                    $message->replyTo($replyTo);
+                }
+            });
+        } catch (\Throwable $e) {
+            Log::error('No se pudo enviar el email de contacto (mensaje #'.$contactMessage->id.' guardado).', [
+                'exception' => $e->getMessage(),
+            ]);
+        }
 
         return back()->with('status', 'Gracias, hemos recibido tu mensaje.');
     }

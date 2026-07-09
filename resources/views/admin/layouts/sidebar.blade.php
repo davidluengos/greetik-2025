@@ -71,6 +71,17 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.contact-messages.index') }}">
+            <i class="fas fa-fw fa-envelope"></i>
+            <span>Mensajes</span>
+            @php $unreadMessages = \App\Models\ContactMessage::whereNull('read_at')->count(); @endphp
+            @if ($unreadMessages > 0)
+                <span class="badge badge-danger ml-1">{{ $unreadMessages }}</span>
+            @endif
+        </a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.posts.index') }}">
             <i class="fas fa-fw fa-newspaper"></i>
             <span>Posts</span>

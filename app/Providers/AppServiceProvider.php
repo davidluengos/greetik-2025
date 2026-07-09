@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\ContactMessage;
 use App\Models\Project;
 use App\Models\SiteMedia;
 use App\Models\SitePage;
@@ -43,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(SitePage::class, ManageContentPolicy::class);
         Gate::policy(SiteMedia::class, ManageContentPolicy::class);
         Gate::policy(Testimonial::class, ManageContentPolicy::class);
+        Gate::policy(ContactMessage::class, ManageContentPolicy::class);
         View::composer(['front.layouts.header', 'front.layouts.footer'], FrontHeaderComposer::class);
     }
 }
