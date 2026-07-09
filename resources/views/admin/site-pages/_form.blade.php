@@ -148,6 +148,84 @@
             @enderror
         </div>
     </div>
+
+    <hr>
+    <h5 class="text-primary">Modulos de la portada</h5>
+    <p class="text-muted small">Activa, desactiva y ordena los bloques de la portada. El numero mas bajo se muestra primero.</p>
+    @php
+        $homeSectionsRegistry = \App\Support\Home\HomeSections::registry();
+        $homeSectionsConfig = \App\Support\Home\HomeSections::config($x);
+        $oldSectionActive = old('section_active');
+        $oldSectionOrder = old('section_order');
+    @endphp
+    <div class="table-responsive mb-2">
+        <table class="table table-sm align-middle">
+            <thead>
+                <tr>
+                    <th style="width:120px">Orden</th>
+                    <th>Modulo</th>
+                    <th style="width:120px">Visible</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($homeSectionsRegistry as $section)
+                    @php
+                        $sk = $section['key'];
+                        $cfg = $homeSectionsConfig[$sk];
+                        $orderVal = is_array($oldSectionOrder) && array_key_exists($sk, $oldSectionOrder)
+                            ? $oldSectionOrder[$sk]
+                            : $cfg['order'];
+                        $activeVal = is_array($oldSectionActive)
+                            ? array_key_exists($sk, $oldSectionActive) && (bool) $oldSectionActive[$sk]
+                            : $cfg['active'];
+                    @endphp
+                    <tr>
+                        <td>
+                            <input type="number" min="0" class="form-control form-control-sm" name="section_order[{{ $sk }}]" value="{{ $orderVal }}">
+                        </td>
+                        <td>{{ $section['label'] }}</td>
+                        <td>
+                            <div class="form-check">
+                                <input type="hidden" name="section_active[{{ $sk }}]" value="0">
+                                <input type="checkbox" class="form-check-input" id="section_active_{{ $sk }}" name="section_active[{{ $sk }}]" value="1" {{ $activeVal ? 'checked' : '' }}>
+                                <label class="form-check-label" for="section_active_{{ $sk }}">Activo</label>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+    <h5 class="text-primary">Textos de los modulos</h5>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="featured_products_label">Etiqueta de «Producto destacado»</label>
+            <input type="text" class="form-control" id="featured_products_label" name="featured_products_label"
+                value="{{ old('featured_products_label', $x['featured_products_label'] ?? 'Producto destacado') }}">
+            <small class="form-text text-muted">Los productos se marcan como destacados en <a href="{{ route('admin.projects.index') }}" target="_blank">Productos</a>.</small>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="testimonials_title">Titulo de «Opiniones»</label>
+            <input type="text" class="form-control" id="testimonials_title" name="testimonials_title"
+                value="{{ old('testimonials_title', $x['testimonials_title'] ?? 'Opiniones de clientes') }}">
+            <small class="form-text text-muted">Las opiniones se gestionan en <a href="{{ route('admin.testimonials.index') }}" target="_blank">Opiniones</a>.</small>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="value_props_title">Titulo de «Ventajas de una web»</label>
+        <input type="text" class="form-control" id="value_props_title" name="value_props_title"
+            value="{{ old('value_props_title', $x['value_props_title'] ?? \App\Support\Home\DefaultValueProps::TITLE) }}">
+    </div>
+    <div class="form-group">
+        <label for="value_props_json">Ventajas (JSON): array de { icon, title, text }</label>
+        <textarea class="form-control @error('value_props_json') is-invalid @enderror" id="value_props_json" name="value_props_json" rows="10">{{ old('value_props_json', json_encode($x['value_props'] ?? \App\Support\Home\DefaultValueProps::get(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) }}</textarea>
+        @error('value_props_json')
+            <div class="invalid-feedback d-block">{{ $message }}</div>
+        @enderror
+        <small class="form-text text-muted"><code>icon</code> es una clase FontAwesome (ej. <code>fa fa-cloud</code>).</small>
+    </div>
 @endif
 
 <div class="form-group">

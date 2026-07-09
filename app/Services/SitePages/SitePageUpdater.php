@@ -3,6 +3,7 @@
 namespace App\Services\SitePages;
 
 use App\Models\SitePage;
+use App\Support\Home\HomeSections;
 
 class SitePageUpdater
 {
@@ -50,9 +51,34 @@ class SitePageUpdater
             $extra['hero_secondary_cta_url'] = $data['hero_secondary_cta_url'] ?? '';
             $extra['hero_background_image'] = $data['hero_background_image'] ?? '';
             $extra['hero_background_color'] = (string) ($data['hero_background_color'] ?? '');
+            $extra['home_sections'] = $this->buildHomeSections($data);
+            $extra['featured_products_label'] = trim((string) ($data['featured_products_label'] ?? ''));
+            $extra['testimonials_title'] = trim((string) ($data['testimonials_title'] ?? ''));
+            $extra['value_props_title'] = trim((string) ($data['value_props_title'] ?? ''));
+            $extra['value_props'] = $this->decodeArray($data['value_props_json'] ?? null);
         }
 
         return $extra;
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, array{active: bool, order: int}>
+     */
+    private function buildHomeSections(array $data): array
+    {
+        $active = is_array($data['section_active'] ?? null) ? $data['section_active'] : [];
+        $order = is_array($data['section_order'] ?? null) ? $data['section_order'] : [];
+
+        $sections = [];
+        foreach (HomeSections::keys() as $index => $key) {
+            $sections[$key] = [
+                'active' => (bool) ($active[$key] ?? false),
+                'order' => isset($order[$key]) ? (int) $order[$key] : $index + 1,
+            ];
+        }
+
+        return $sections;
     }
 
     private function buildPhones(string $phonesText): array

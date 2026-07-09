@@ -70,6 +70,14 @@ class UpdateSitePageRequest extends FormRequest
             $rules['hero_primary_cta_url'] = ['nullable', 'string', 'max:500'];
             $rules['hero_secondary_cta_text'] = ['nullable', 'string', 'max:120'];
             $rules['hero_secondary_cta_url'] = ['nullable', 'string', 'max:500'];
+            $rules['section_active'] = ['nullable', 'array'];
+            $rules['section_active.*'] = ['nullable', 'boolean'];
+            $rules['section_order'] = ['nullable', 'array'];
+            $rules['section_order.*'] = ['nullable', 'integer', 'min:0'];
+            $rules['featured_products_label'] = ['nullable', 'string', 'max:120'];
+            $rules['testimonials_title'] = ['nullable', 'string', 'max:255'];
+            $rules['value_props_title'] = ['nullable', 'string', 'max:255'];
+            $rules['value_props_json'] = ['nullable', 'string'];
         }
 
         return $rules;

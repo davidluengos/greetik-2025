@@ -1832,3 +1832,310 @@
     width: min(100%, 680px) !important;
     max-width: 680px !important;
 }
+
+/* ==========================================================================
+   Home modular sections (producto destacado, opiniones, ventajas)
+   ========================================================================== */
+
+.home-featured-products,
+.home-value-props {
+    padding: 60px 0;
+}
+
+.home-featured-products .row,
+.home-testimonials .row,
+.home-value-props .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* ---- Producto destacado ---- */
+.home-featured-card {
+    position: relative;
+    height: 100%;
+    background: #fff;
+    border: 1px solid #eceff3;
+    border-radius: 16px;
+    padding: 48px 44px 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(18, 38, 63, 0.06);
+    text-align: center;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.home-featured-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(18, 38, 63, 0.12);
+}
+
+.home-featured-badge {
+    display: inline-block;
+    background: var(--brand-primary);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+}
+
+.home-featured-media {
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.home-featured-media img {
+    max-height: 130px;
+    max-width: 65%;
+    object-fit: contain;
+}
+
+.home-featured-title {
+    font-size: 28px;
+    margin: 0 0 6px;
+    color: #1c2b39;
+}
+
+.home-featured-subtitle {
+    color: var(--brand-primary);
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+.home-featured-text {
+    color: #5b6b7b;
+    font-size: 16px;
+    margin-bottom: 28px;
+}
+
+.home-featured-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.home-featured-actions .btn {
+    margin: 0;
+    padding: 12px 26px;
+    font-size: 15px;
+}
+
+/* ---- Opiniones ---- */
+.home-testimonials {
+    padding: 60px 0;
+}
+
+.home-testimonial-card {
+    height: 100%;
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 26px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(18, 38, 63, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.home-testimonial-quote i {
+    color: var(--brand-primary);
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.home-testimonial-quote p {
+    color: #4a5867;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.home-testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.home-testimonial-photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: 0 0 48px;
+}
+
+.home-testimonial-photo-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(125, 174, 121, 0.14);
+    color: var(--brand-primary);
+}
+
+.home-testimonial-meta strong {
+    display: block;
+    color: #1c2b39;
+}
+
+.home-testimonial-meta span {
+    color: #8593a1;
+    font-size: 14px;
+}
+
+/* ---- Ventajas de una web ---- */
+.home-value-prop {
+    height: 100%;
+    text-align: center;
+    padding: 26px 22px;
+    margin-bottom: 30px;
+}
+
+.home-value-prop-icon {
+    width: 74px;
+    height: 74px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: rgba(125, 174, 121, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-value-prop-icon i {
+    font-size: 30px;
+    color: var(--brand-primary);
+}
+
+.home-value-prop-title {
+    color: #1c2b39;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.home-value-prop-text {
+    color: #5b6b7b;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .home-featured-products,
+    .home-testimonials,
+    .home-value-props {
+        padding: 40px 0;
+    }
+}
+
+/* ---- Opiniones: carrusel Owl ---- */
+.home-testimonials-carousel .item {
+    padding: 10px 12px;
+}
+
+.home-testimonials-carousel .home-testimonial-card {
+    margin-bottom: 0;
+    height: auto;
+}
+
+.home-testimonials .owl-controls {
+    margin-top: 26px;
+    text-align: center;
+}
+
+.home-testimonials .owl-controls .owl-page span {
+    background: #b9c4cf;
+    opacity: 1;
+    transition: background .2s ease;
+}
+
+.home-testimonials .owl-controls .owl-page.active span,
+.home-testimonials .owl-controls .owl-page:hover span {
+    background: var(--brand-primary);
+}
+
+.home-testimonials .owl-buttons div {
+    position: absolute;
+    top: 40%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--brand-primary);
+    box-shadow: 0 6px 16px rgba(18, 38, 63, 0.12);
+    opacity: 1;
+    margin: 0;
+}
+
+.home-testimonials .owl-buttons .owl-prev {
+    left: -6px;
+}
+
+.home-testimonials .owl-buttons .owl-next {
+    right: -6px;
+}
+
+.home-testimonials .owl-buttons div:hover {
+    background: var(--brand-primary);
+    color: #fff;
+}
+
+/* ---- Producto destacado: carrusel Owl ---- */
+.home-featured-carousel .item {
+    padding: 12px;
+}
+
+.home-featured-carousel .home-featured-card {
+    margin-bottom: 0;
+    height: auto;
+}
+
+.home-featured-products .owl-controls {
+    margin-top: 26px;
+    text-align: center;
+}
+
+.home-featured-products .owl-controls .owl-page span {
+    background: #b9c4cf;
+    opacity: 1;
+    transition: background .2s ease;
+}
+
+.home-featured-products .owl-controls .owl-page.active span,
+.home-featured-products .owl-controls .owl-page:hover span {
+    background: var(--brand-primary);
+}
+
+.home-featured-products .owl-buttons div {
+    position: absolute;
+    top: 40%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--brand-primary);
+    box-shadow: 0 6px 16px rgba(18, 38, 63, 0.12);
+    opacity: 1;
+    margin: 0;
+}
+
+.home-featured-products .owl-buttons .owl-prev {
+    left: -6px;
+}
+
+.home-featured-products .owl-buttons .owl-next {
+    right: -6px;
+}
+
+.home-featured-products .owl-buttons div:hover {
+    background: var(--brand-primary);
+    color: #fff;
+}
