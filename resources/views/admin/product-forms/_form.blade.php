@@ -129,7 +129,7 @@
     @enderror
     <small class="form-text text-muted">
         Variables disponibles (asunto y cuerpo): {{ $tplTokens ?: '—' }},
-        <code>{{ '{{ site_name }}' }}</code>, <code>{{ '{{ date }}' }}</code>.
+        <code>@{{ site_name }}</code>, <code>@{{ date }}</code>.
     </small>
 </div>
 
