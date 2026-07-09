@@ -41,47 +41,27 @@
                             <div class="product-plans-grid">
                             @foreach ($pricingModel->plans as $plan)
                                 @php
-                                    $planFeatures = collect($plan['features'] ?? [])->filter(fn ($item) => filled($item))->values();
-                                    $startsFrom = $plan['price'] ?? '-';
-
-                                    $infoRows = $planFeatures->filter(function ($feature) {
-                                        $normalized = mb_strtolower(trim((string) $feature), 'UTF-8');
-                                        return str_contains($normalized, 'activación')
-                                            || str_contains($normalized, 'permanencia')
-                                            || str_contains($normalized, 'responsive')
-                                            || str_contains($normalized, 'ssl')
-                                            || str_contains($normalized, 'prueba gratuita')
-                                            || str_contains($normalized, 'sin iva');
-                                    })->values();
-
-                                    $featureRows = $planFeatures->reject(function ($feature) {
-                                        $normalized = mb_strtolower(trim((string) $feature), 'UTF-8');
-                                        return str_contains($normalized, 'activación')
-                                            || str_contains($normalized, 'permanencia')
-                                            || str_contains($normalized, 'responsive')
-                                            || str_contains($normalized, 'ssl')
-                                            || str_contains($normalized, 'prueba gratuita')
-                                            || str_contains($normalized, 'sin iva')
-                                            || $normalized === 'características';
-                                    })->values();
+                                    $pv = \App\Support\PricingTables\PricingPlanView::normalizeForView(is_array($plan) ? $plan : []);
                                 @endphp
                                 <div class="product-plan-col">
-                                    <div class="pricing-table-two product-feature-card {{ !empty($plan['highlighted']) ? 'highlighted' : '' }} wow fadeInUp">
+                                    <div class="pricing-table-two product-feature-card {{ $pv['highlighted'] ? 'highlighted' : '' }} wow fadeInUp">
                                         <div class="inner">
-                                            <div class="title">{{ $plan['name'] ?? 'Plan' }}</div>
+                                            <div class="title">{{ $pv['name'] }}</div>
                                             <div class="product-feature-price-wrap">
-                                                <p class="product-feature-price-label">Desde</p>
-                                                <p class="product-feature-price">{{ $startsFrom }}</p>
+                                                @if ($pv['show_price_from'])
+                                                    <p class="product-feature-price-label">Desde</p>
+                                                @endif
+                                                <p class="product-feature-price">{{ $pv['price'] }}</p>
                                             </div>
-                                            @if (!empty($plan['description']))
-                                                <p class="desc">{{ $plan['description'] }}</p>
+                                            @if (!empty($pv['description']))
+                                                <p class="desc">{{ $pv['description'] }}</p>
                                             @endif
-                                            @if ($infoRows->isNotEmpty())
+                                            @if ($pv['highlight_lines'] !== [])
                                                 <ul class="product-plan-highlights">
-                                                    @foreach ($infoRows as $feature)
+                                                    @foreach ($pv['highlight_lines'] as $line)
                                                         <li>
                                                             <i class="fa fa-check-circle"></i>
-                                                            <span>{{ $feature }}</span>
+                                                            <span>{{ $line }}</span>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -89,27 +69,28 @@
 
                                             <div class="product-feature-section-title">Características</div>
                                             <ul class="items product-feature-items">
-                                                @foreach ($featureRows as $feature)
-                                                    @php
-                                                        $isOptional = str_contains(mb_strtolower((string) $feature, 'UTF-8'), 'opcional');
-                                                        $cleanFeature = trim((string) preg_replace('/\s*\(opcional\)\s*/iu', '', (string) $feature));
-                                                    @endphp
-                                                    <li class="{{ $isOptional ? 'optional' : 'available' }}">
+                                                @foreach ($pv['feature_items'] as $row)
+                                                    <li class="{{ $row['optional'] ? 'optional' : 'available' }}">
                                                         <div class="icon-holder">
-                                                            <i class="fa {{ $isOptional ? 'fa-circle-o text-warning' : 'fa-check text-success' }}"></i>
+                                                            <i class="fa {{ $row['optional'] ? 'fa-circle-o text-warning' : 'fa-check text-success' }}"></i>
                                                         </div>
                                                         <div class="desc">
-                                                            <span class="text-black">{{ $cleanFeature }}</span>
-                                                            @if ($isOptional)
+                                                            <span class="text-black">{{ $row['text'] }}</span>
+                                                            @if ($row['optional'])
                                                                 <small class="product-feature-optional-label">Opcional</small>
                                                             @endif
                                                         </div>
                                                     </li>
                                                 @endforeach
                                             </ul>
+                                            @if ($pv['after_feature_lines'] !== [])
+                                                @foreach ($pv['after_feature_lines'] as $afterLine)
+                                                    <p class="desc">{{ $afterLine }}</p>
+                                                @endforeach
+                                            @endif
                                             <div class="price-actions">
-                                                <a href="{{ $plan['button_url'] ?? ($formModel->action_url ?? '/contacto') }}" class="btn">
-                                                    {{ $plan['button_label'] ?? 'Solicitar' }}
+                                                <a href="{{ $pv['button_url'] ?? ($formModel->action_url ?? '/contacto') }}" class="btn">
+                                                    {{ $pv['button_label'] }}
                                                 </a>
                                             </div>
                                         </div>

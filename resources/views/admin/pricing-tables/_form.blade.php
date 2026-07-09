@@ -33,7 +33,14 @@
     @error('plans')
         <div class="invalid-feedback d-block">{{ $message }}</div>
     @enderror
-    <small class="form-text text-muted">Planes: name, price, description, features[], highlighted, button_label, button_url.</small>
+    <small class="form-text text-muted">
+        Cada plan: <code>name</code>, <code>price</code>, <code>show_price_from</code> (bool; solo si es <code>true</code> se muestra la etiqueta «Desde» encima del precio),
+        <code>description</code>, <code>after_features</code> (un string o array de strings; varios párrafos entre características y el botón, clase <code>desc</code>),
+        <code>features</code> (array de strings u objetos <code>{&quot;text&quot;,&quot;optional&quot;}</code>),
+        <code>highlights</code> (opcional, strings extra arriba), <code>highlighted</code>, <code>button_label</code>, <code>button_url</code>.
+        En <code>features</code>, las cadenas que empiecen por <code>(C)</code> son características (se oculta el prefijo); el resto de cadenas van al bloque superior.
+        Si ninguna cadena usa <code>(C)</code>, todas las cadenas se muestran como características (listas antiguas).
+    </small>
 </div>
 
 <div class="form-group form-check">
