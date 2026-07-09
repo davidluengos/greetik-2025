@@ -15,6 +15,12 @@ class ProductForm extends Model
         'button_label',
         'fields',
         'is_active',
+        'autoresponse_enabled',
+        'autoresponse_subject',
+        'autoresponse_body',
+        'autoresponse_from_name',
+        'autoresponse_from_email',
+        'autoresponse_reply_to',
     ];
 
     protected function casts(): array
@@ -22,6 +28,7 @@ class ProductForm extends Model
         return [
             'fields' => 'array',
             'is_active' => 'boolean',
+            'autoresponse_enabled' => 'boolean',
         ];
     }
 

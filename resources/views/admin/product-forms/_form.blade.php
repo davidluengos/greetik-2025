@@ -62,5 +62,83 @@
     <label class="form-check-label" for="is_active">Activo</label>
 </div>
 
+<hr>
+<h5 class="text-primary">Autorespuesta al usuario</h5>
+<p class="text-muted small mb-2">Email automatico que recibe la persona que rellena el formulario (a la direccion de su campo de email).</p>
+
+@php
+    $tplFields = is_array($form->fields ?? null) ? $form->fields : \App\Support\ProductForms\DefaultProductFormFields::get();
+    $tplTokens = collect($tplFields)
+        ->pluck('name')
+        ->filter()
+        ->map(fn ($n) => '{{ '.$n.' }}')
+        ->implode(', ');
+@endphp
+
+<div class="form-group form-check">
+    <input type="hidden" name="autoresponse_enabled" value="0">
+    <input type="checkbox" class="form-check-input" id="autoresponse_enabled" name="autoresponse_enabled" value="1"
+        {{ old('autoresponse_enabled', $form->autoresponse_enabled ?? false) ? 'checked' : '' }}>
+    <label class="form-check-label" for="autoresponse_enabled">Enviar autorespuesta al usuario</label>
+</div>
+
+<div class="form-group">
+    <label for="autoresponse_subject">Asunto</label>
+    <input type="text" class="form-control @error('autoresponse_subject') is-invalid @enderror" id="autoresponse_subject" name="autoresponse_subject"
+        value="{{ old('autoresponse_subject', $form->autoresponse_subject) }}" placeholder="Hemos recibido tu mensaje">
+    @error('autoresponse_subject')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="autoresponse_from_name">Nombre remitente</label>
+        <input type="text" class="form-control @error('autoresponse_from_name') is-invalid @enderror" id="autoresponse_from_name" name="autoresponse_from_name"
+            value="{{ old('autoresponse_from_name', $form->autoresponse_from_name) }}" placeholder="{{ config('app.name') }}">
+        @error('autoresponse_from_name')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="form-group col-md-6">
+        <label for="autoresponse_from_email">Email remitente</label>
+        <input type="email" class="form-control @error('autoresponse_from_email') is-invalid @enderror" id="autoresponse_from_email" name="autoresponse_from_email"
+            value="{{ old('autoresponse_from_email', $form->autoresponse_from_email) }}" placeholder="{{ config('mail.from.address') }}">
+        @error('autoresponse_from_email')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+        <small class="form-text text-muted">Si se deja vacio se usa el remitente por defecto del sitio.</small>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="autoresponse_reply_to">Responder-a (Reply-To)</label>
+    <input type="email" class="form-control @error('autoresponse_reply_to') is-invalid @enderror" id="autoresponse_reply_to" name="autoresponse_reply_to"
+        value="{{ old('autoresponse_reply_to', $form->autoresponse_reply_to) }}" placeholder="hola@tu-dominio.com">
+    @error('autoresponse_reply_to')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+    <small class="form-text text-muted">Direccion a la que llegan las respuestas si el usuario contesta.</small>
+</div>
+
+<div class="form-group">
+    <label for="autoresponse_body">Cuerpo del email</label>
+    <textarea class="form-control @error('autoresponse_body') is-invalid @enderror" id="autoresponse_body" name="autoresponse_body" rows="10">{{ old('autoresponse_body', $form->autoresponse_body) }}</textarea>
+    @error('autoresponse_body')
+        <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+    <small class="form-text text-muted">
+        Variables disponibles (asunto y cuerpo): {{ $tplTokens ?: '—' }},
+        <code>{{ '{{ site_name }}' }}</code>, <code>{{ '{{ date }}' }}</code>.
+    </small>
+</div>
+
 <button class="btn btn-primary" type="submit">Guardar</button>
 <a href="{{ route('admin.product-forms.index') }}" class="btn btn-secondary">Cancelar</a>
+
+@push('scripts')
+    @include('admin.partials.tinymce-media-library')
+    <script>
+        window.initAdminTinyEditorWithMedia('#autoresponse_body', { height: 320 });
+    </script>
+@endpush

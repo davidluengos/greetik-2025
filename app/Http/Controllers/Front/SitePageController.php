@@ -7,6 +7,7 @@ use App\Models\ContactMessage;
 use App\Models\ProductForm;
 use App\Models\SitePage;
 use App\Support\ProductForms\DefaultProductFormFields;
+use App\Support\ProductForms\TemplateRenderer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -47,7 +48,20 @@ class SitePageController extends Controller
             ->where('is_active', true)
             ->firstOrFail();
 
-        $formModel = $this->resolveContactFormModel($page->extra ?? []);
+        // El formulario enviado puede ser uno de producto (con id) o el de la
+        // pagina de contacto. Resolvemos el concreto para usar sus campos y su
+        // plantilla de autorespuesta.
+        $formModel = null;
+        $submittedFormId = (int) $request->input('product_form_id', 0);
+        if ($submittedFormId > 0) {
+            $formModel = ProductForm::query()
+                ->where('id', $submittedFormId)
+                ->where('is_active', true)
+                ->first();
+        }
+        if (! $formModel) {
+            $formModel = $this->resolveContactFormModel($page->extra ?? []);
+        }
         $fields = is_array($formModel->fields) ? $formModel->fields : [];
 
         // Honeypot: los bots suelen rellenarlo.
@@ -90,6 +104,10 @@ class SitePageController extends Controller
         }
 
         $submissionData = [];
+        $tokens = [
+            'site_name' => (string) config('app.name'),
+            'date' => now()->format('d/m/Y'),
+        ];
         $derived = ['name' => null, 'email' => null, 'phone' => null];
         foreach ($fields as $field) {
             $name = (string) ($field['name'] ?? '');
@@ -105,6 +123,7 @@ class SitePageController extends Controller
 
             $type = (string) ($field['type'] ?? '');
             $submissionData[$label] = $value;
+            $tokens[$name] = $value;
 
             if ($type === 'email' && filter_var($value, FILTER_VALIDATE_EMAIL)) {
                 $replyTo = $value;
@@ -147,7 +166,61 @@ class SitePageController extends Controller
             ]);
         }
 
+        $this->sendAutoresponse($formModel, $derived['email'], $tokens, $contactMessage->id);
+
         return back()->with('status', 'Gracias, hemos recibido tu mensaje.');
+    }
+
+    /**
+     * Envia la autorespuesta al usuario si el formulario la tiene activada.
+     *
+     * @param  array<string, string>  $tokens
+     */
+    private function sendAutoresponse(ProductForm $formModel, ?string $userEmail, array $tokens, int $messageId): void
+    {
+        if (! $formModel->autoresponse_enabled) {
+            return;
+        }
+
+        if (! $userEmail || ! filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
+            return;
+        }
+
+        $bodyTemplate = trim((string) $formModel->autoresponse_body);
+        if ($bodyTemplate === '') {
+            return;
+        }
+
+        $subject = TemplateRenderer::render(trim((string) $formModel->autoresponse_subject), $tokens);
+        if ($subject === '') {
+            $subject = 'Hemos recibido tu mensaje';
+        }
+
+        $html = '<!DOCTYPE html><html lang="es"><body>'
+            .TemplateRenderer::render($bodyTemplate, $tokens, true)
+            .'</body></html>';
+
+        $fromEmail = trim((string) $formModel->autoresponse_from_email);
+        $fromName = trim((string) $formModel->autoresponse_from_name);
+        $replyTo = trim((string) $formModel->autoresponse_reply_to);
+
+        try {
+            Mail::html($html, function ($message) use ($userEmail, $subject, $fromEmail, $fromName, $replyTo): void {
+                $message->to($userEmail)->subject($subject);
+                if ($fromEmail !== '') {
+                    $message->from($fromEmail, $fromName !== '' ? $fromName : null);
+                } elseif ($fromName !== '') {
+                    $message->from(config('mail.from.address'), $fromName);
+                }
+                if ($replyTo !== '') {
+                    $message->replyTo($replyTo);
+                }
+            });
+        } catch (\Throwable $e) {
+            Log::error('No se pudo enviar la autorespuesta (mensaje #'.$messageId.').', [
+                'exception' => $e->getMessage(),
+            ]);
+        }
     }
 
     public function showLegalPage(string $slug): View

@@ -33,7 +33,7 @@ class ProductFormController extends Controller
 
     public function store(StoreProductFormRequest $request)
     {
-        $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
+        $data = $this->validatedData($request->validated(), $request->boolean('is_active'), $request->boolean('autoresponse_enabled'));
         ProductForm::create($data);
 
         return redirect()->route('admin.product-forms.index')->with('status', 'Formulario creado correctamente.');
@@ -51,7 +51,7 @@ class ProductFormController extends Controller
 
     public function update(UpdateProductFormRequest $request, ProductForm $product_form)
     {
-        $data = $this->validatedData($request->validated(), $request->boolean('is_active'));
+        $data = $this->validatedData($request->validated(), $request->boolean('is_active'), $request->boolean('autoresponse_enabled'));
         $product_form->update($data);
 
         return redirect()->route('admin.product-forms.index')->with('status', 'Formulario actualizado correctamente.');
@@ -64,9 +64,10 @@ class ProductFormController extends Controller
         return redirect()->route('admin.product-forms.index')->with('status', 'Formulario eliminado.');
     }
 
-    private function validatedData(array $data, bool $isActive): array
+    private function validatedData(array $data, bool $isActive, bool $autoresponseEnabled): array
     {
         $data['is_active'] = $isActive;
+        $data['autoresponse_enabled'] = $autoresponseEnabled;
         $data['action_url'] = $data['action_url'] ?: '/contacto';
         $data['button_label'] = $data['button_label'] ?: 'Enviar';
         $decoded = isset($data['fields']) ? json_decode($data['fields'], true) : null;

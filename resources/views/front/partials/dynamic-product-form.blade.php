@@ -37,6 +37,9 @@
                     <input type="text" id="{{ $idPrefix }}-website" name="website" value="" tabindex="-1" autocomplete="off">
                 </div>
                 <input type="hidden" name="form_started_at" value="{{ time() }}">
+                @if (!empty($formModel->id))
+                    <input type="hidden" name="product_form_id" value="{{ $formModel->id }}">
+                @endif
                 <input type="hidden" name="product_form_meta_name" value="{{ $formDisplayLabel }}">
                 <input type="hidden" name="product_form_meta_source_url" value="{{ request()->fullUrl() }}">
                 @if ($recaptchaEnabled)
