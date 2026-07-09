@@ -70,6 +70,7 @@ class ProjectController extends Controller
 
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'subtitle' => ['nullable', 'string', 'max:255'],
             'slug' => [
                 'nullable',
                 'string',
@@ -89,6 +90,7 @@ class ProjectController extends Controller
 
         $data['slug'] = Str::slug($data['slug'] ?? $data['title']);
         $data['is_active'] = $request->boolean('is_active');
+        $data['is_featured'] = $request->boolean('is_featured');
         $data['menu_order'] = $data['menu_order'] ?? 0;
         $data['extra'] = isset($data['extra']) ? json_decode($data['extra'], true) : null;
 

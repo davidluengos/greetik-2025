@@ -6,6 +6,13 @@
         value="{{ old('title', $project->title) }}" required>
 </div>
 
+<div class="form-group">
+    <label for="subtitle">Subtitulo</label>
+    <input type="text" class="form-control @error('subtitle') is-invalid @enderror" id="subtitle" name="subtitle"
+        value="{{ old('subtitle', $project->subtitle) }}">
+    <small class="form-text text-muted">Se muestra bajo el titulo en la tarjeta de «Producto destacado» de la portada.</small>
+</div>
+
 <div class="form-row">
     <div class="form-group col-md-6">
         <label for="slug">Slug</label>
@@ -88,6 +95,14 @@
     <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1"
         {{ old('is_active', $project->is_active ?? true) ? 'checked' : '' }}>
     <label class="form-check-label" for="is_active">Activo</label>
+</div>
+
+<div class="form-group form-check">
+    <input type="hidden" name="is_featured" value="0">
+    <input type="checkbox" class="form-check-input" id="is_featured" name="is_featured" value="1"
+        {{ old('is_featured', $project->is_featured ?? false) ? 'checked' : '' }}>
+    <label class="form-check-label" for="is_featured">Destacado en la portada</label>
+    <small class="form-text text-muted">Aparece en el modulo «Producto destacado» de la home (solo si esta activo).</small>
 </div>
 
 <button class="btn btn-primary" type="submit">Guardar</button>

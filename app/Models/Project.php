@@ -9,12 +9,14 @@ class Project extends Model
 {
     protected $fillable = [
         'title',
+        'subtitle',
         'slug',
         'excerpt',
         'body',
         'image',
         'website_url',
         'is_active',
+        'is_featured',
         'menu_order',
         'published_at',
         'extra',
@@ -26,6 +28,7 @@ class Project extends Model
     {
         return [
             'is_active' => 'boolean',
+            'is_featured' => 'boolean',
             'menu_order' => 'integer',
             'published_at' => 'datetime',
             'extra' => 'array',
