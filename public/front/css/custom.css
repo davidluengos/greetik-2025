@@ -936,10 +936,26 @@
     position: relative;
 }
 
+/* Evita que el campo Mensaje (col-md-12) "enganche" con un campo de media
+   fila de arriba en el grid flotante de Bootstrap y descoloque su label.
+   Solo en escritorio; en movil los campos apilan con el flujo normal. */
+@media (min-width: 992px) {
+    .product-form-block form > .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
 .product-form-block .form-group label {
     display: block;
     margin-bottom: 6px;
     position: static;
+}
+
+.product-form-block .required-mark {
+    color: #dc3545;
+    margin-left: 3px;
+    font-weight: 700;
 }
 
 .product-form-block .form-control {

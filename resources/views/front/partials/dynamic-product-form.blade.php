@@ -49,6 +49,10 @@
                             $fieldLabel = $field['label'] ?? ucfirst($fieldName);
                             $fieldType = $field['type'] ?? 'text';
                             $isRequired = !empty($field['required']);
+                            $fieldPlaceholder = trim((string) ($field['placeholder'] ?? ''));
+                            if ($fieldPlaceholder === '' && $fieldType === 'textarea') {
+                                $fieldPlaceholder = 'Cuéntanos brevemente qué necesitas: tipo de proyecto, objetivos, plazos o cualquier duda. Cuanto más nos cuentes, mejor podremos ayudarte.';
+                            }
                         @endphp
                         <div class="col-md-{{ in_array($fieldType, ['textarea', 'checkbox'], true) ? '12' : '6' }}">
                             <div class="form-group {{ $fieldType === 'textarea' ? 'form-group-message' : '' }}">
@@ -62,11 +66,11 @@
                                                 value="1"
                                                 {{ old($fieldName) ? 'checked' : '' }}
                                                 {{ $isRequired ? 'required' : '' }}>
-                                            {{ $fieldLabel }}
+                                            {{ $fieldLabel }}@if ($isRequired)<span class="required-mark" aria-hidden="true">*</span>@endif
                                         </label>
                                     </div>
                                 @else
-                                    <label for="{{ $idPrefix }}-{{ $fieldName }}">{{ $fieldLabel }}</label>
+                                    <label for="{{ $idPrefix }}-{{ $fieldName }}">{{ $fieldLabel }}@if ($isRequired)<span class="required-mark" aria-hidden="true">*</span>@endif</label>
                                 @endif
                                 @if ($fieldType === 'textarea')
                                     <textarea
@@ -74,6 +78,7 @@
                                         id="{{ $idPrefix }}-{{ $fieldName }}"
                                         name="{{ $fieldName }}"
                                         rows="4"
+                                        @if ($fieldPlaceholder !== '') placeholder="{{ $fieldPlaceholder }}" @endif
                                         {{ $isRequired ? 'required' : '' }}>{{ old($fieldName) }}</textarea>
                                 @elseif ($fieldType === 'checkbox')
                                     {{-- checkbox already rendered above --}}
@@ -84,6 +89,7 @@
                                         id="{{ $idPrefix }}-{{ $fieldName }}"
                                         name="{{ $fieldName }}"
                                         value="{{ old($fieldName) }}"
+                                        @if ($fieldPlaceholder !== '') placeholder="{{ $fieldPlaceholder }}" @endif
                                         {{ $isRequired ? 'required' : '' }}>
                                 @endif
                                 @error($fieldName)
