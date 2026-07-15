@@ -28,7 +28,7 @@
     <div class="form-group col-md-6">
         <label for="category">Categoria</label>
         <input type="text" class="form-control" id="category" name="category" value="{{ old('category', $portfolioItem->category) }}">
-        <small class="form-text text-muted">Usada como filtro en la galeria publica (ej. web, app, branding).</small>
+        <small class="form-text text-muted">Varias etiquetas separadas por comas (ej. <code>web, app, branding</code>). Cada una genera un filtro en la galeria publica.</small>
     </div>
     <div class="form-group col-md-6">
         <label for="client">Cliente</label>

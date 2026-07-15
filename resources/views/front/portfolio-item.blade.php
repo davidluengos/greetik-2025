@@ -48,8 +48,8 @@
         @if ($item->client)
           <p><strong>Cliente:</strong> {{ $item->client }}</p>
         @endif
-        @if ($item->category)
-          <p><strong>Categoria:</strong> {{ $item->category }}</p>
+        @if ($item->categoryDisplay())
+          <p><strong>Categoria:</strong> {{ $item->categoryDisplay() }}</p>
         @endif
         @if ($item->completed_at)
           <p><strong>Finalizado:</strong> {{ $item->completed_at->format('d/m/Y') }}</p>

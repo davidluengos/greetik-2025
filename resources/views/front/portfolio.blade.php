@@ -56,9 +56,10 @@
     <div class="row mar-b-30">
       <div id="portfoliolist" class="{{ $categorySlugs->count() > 1 ? '' : 'portfolio-no-filters' }}">
         <div class="col-md-12">
-          @forelse ($items as $item)
+            @forelse ($items as $item)
             @php
-              $catSlug = \Illuminate\Support\Str::slug($item->category ?: 'general');
+              $catSlugs = $item->categorySlugs();
+              $catClass = implode(' ', $catSlugs);
               $img = $item->image;
               if ($img && ! preg_match('#^https?://#i', $img)) {
                   $img = asset($img);
@@ -66,7 +67,7 @@
                   $img = asset('front/img/portfolios/web/2.jpg');
               }
             @endphp
-            <div class="portfolio {{ $catSlug }}" data-cat="{{ $catSlug }}">
+            <div class="portfolio {{ $catClass }}" data-cat="{{ $catClass }}">
               <div class="portfolio-wrapper">
                 <div class="portfolio-hover">
                   <div class="image-caption">

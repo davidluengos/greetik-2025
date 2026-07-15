@@ -23,6 +23,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Orden</th>
                         <th>Titulo</th>
                         <th>Slug</th>
                         <th>Categoria</th>
@@ -34,6 +35,7 @@
                     @forelse ($portfolioItems as $portfolioItem)
                         <tr>
                             <td>{{ $portfolioItem->id }}</td>
+                            <td>{{ $portfolioItem->menu_order }}</td>
                             <td>{{ $portfolioItem->title }}</td>
                             <td>{{ $portfolioItem->slug }}</td>
                             <td>{{ $portfolioItem->category }}</td>
@@ -56,7 +58,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center">Sin registros.</td>
+                            <td colspan="7" class="text-center">Sin registros.</td>
                         </tr>
                     @endforelse
                 </tbody>

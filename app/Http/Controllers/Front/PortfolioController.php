@@ -30,16 +30,19 @@ class PortfolioController extends Controller
         }
 
         $categorySlugs = $items
-            ->map(fn (PortfolioItem $item) => Str::slug($item->category ?: 'general'))
+            ->flatMap(static fn (PortfolioItem $item) => $item->categorySlugs())
             ->unique()
             ->values();
 
         $categoryLabels = [];
         foreach ($items as $item) {
-            $slug = Str::slug($item->category ?: 'general');
-            if (! array_key_exists($slug, $categoryLabels)) {
-                $categoryLabels[$slug] = $item->category ?: 'General';
+            foreach ($item->categoryTokens() as $token) {
+                $slug = Str::slug($token);
+                $categoryLabels[$slug] ??= $token;
             }
+        }
+        if ($categorySlugs->contains('general') && ! array_key_exists('general', $categoryLabels)) {
+            $categoryLabels['general'] = 'General';
         }
 
         return view('front.portfolio', compact('page', 'items', 'categorySlugs', 'categoryLabels'));

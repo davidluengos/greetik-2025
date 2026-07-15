@@ -79,6 +79,12 @@ class PortfolioItemController extends Controller
         }
         $data['is_active'] = $isActive;
         $data['menu_order'] = $data['menu_order'] ?? 0;
+        if (! empty($data['category'])) {
+            $data['category'] = collect(explode(',', (string) $data['category']))
+                ->map(static fn (string $token): string => trim($token))
+                ->filter(static fn (string $token): bool => $token !== '')
+                ->implode(', ');
+        }
         $data['extra'] = isset($data['extra']) ? json_decode($data['extra'], true) : null;
         unset($data['image_file']);
 
