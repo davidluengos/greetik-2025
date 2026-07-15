@@ -10,6 +10,9 @@
 
     <title>@yield('title', 'Admin Dashboard')</title>
 
+    <link rel="icon" href="{{ \App\Support\SiteBranding::faviconUrl() }}">
+    <link rel="shortcut icon" href="{{ \App\Support\SiteBranding::faviconUrl() }}">
+
     <base href="{{ asset('admin') }}/">
 
     <link href="vendor/fontawesome-free/css/svg-with-js.min.css" rel="stylesheet" type="text/css">

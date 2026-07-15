@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Acme | Home')</title>
 
-    <link rel="shortcut icon" href="{{ asset('front/img/favicon.png') }}">
+    <link rel="icon" href="{{ \App\Support\SiteBranding::faviconUrl() }}">
+    <link rel="shortcut icon" href="{{ \App\Support\SiteBranding::faviconUrl() }}">
     <link href="{{ asset('front/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('front/css/theme.css') }}" rel="stylesheet">
     <link href="{{ asset('front/css/bootstrap-reset.css') }}" rel="stylesheet">

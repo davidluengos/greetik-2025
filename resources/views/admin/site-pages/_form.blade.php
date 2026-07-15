@@ -150,6 +150,37 @@
     </div>
 
     <hr>
+    <h5 class="text-primary">Favicon del sitio</h5>
+    <p class="text-muted small mb-3">Icono de la pestaña del navegador en toda la web publica. Formatos: PNG, ICO, SVG, WebP (max. 512 KB).</p>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="site_favicon_file">Subir favicon</label>
+            <input type="file" class="form-control-file @error('site_favicon_file') is-invalid @enderror" id="site_favicon_file" name="site_favicon_file" accept="image/png,image/jpeg,image/gif,image/x-icon,image/vnd.microsoft.icon,image/svg+xml,image/webp,.ico">
+            @error('site_favicon_file')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+            <small class="form-text text-muted">Se guarda en <code>storage/app/public/site-favicon</code>.</small>
+        </div>
+        <div class="form-group col-md-6">
+            @php
+                $faviconPath = old('site_favicon', $x['site_favicon'] ?? '');
+                $faviconPreview = $faviconPath !== '' ? asset($faviconPath) : asset('front/img/favicon.png');
+            @endphp
+            <label>Vista previa</label>
+            <div class="d-flex align-items-center gap-3 mt-1">
+                <img src="{{ $faviconPreview }}" alt="Favicon actual" width="32" height="32" class="border rounded" style="object-fit:contain;background:#fff;">
+                <span class="text-muted small">{{ $faviconPath !== '' ? $faviconPath : 'Por defecto: front/img/favicon.png' }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-check">
+        <input type="hidden" name="clear_site_favicon" value="0">
+        <input type="checkbox" class="form-check-input" id="clear_site_favicon" name="clear_site_favicon" value="1"
+            {{ old('clear_site_favicon') ? 'checked' : '' }}>
+        <label class="form-check-label" for="clear_site_favicon">Restaurar favicon por defecto</label>
+    </div>
+
+    <hr>
     <h5 class="text-primary">Modulos de la portada</h5>
     <p class="text-muted small">Activa, desactiva y ordena los bloques de la portada. El numero mas bajo se muestra primero.</p>
     @php

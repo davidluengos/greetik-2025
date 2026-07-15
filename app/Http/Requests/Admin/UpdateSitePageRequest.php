@@ -66,6 +66,9 @@ class UpdateSitePageRequest extends FormRequest
                 'regex:/^#(?:[\da-fA-F]{3}|[\da-fA-F]{6}|[\da-fA-F]{8})$/',
             ];
             $rules['clear_hero_background_image'] = ['sometimes', 'boolean'];
+            $rules['site_favicon'] = ['nullable', 'string', 'max:255'];
+            $rules['site_favicon_file'] = ['nullable', 'file', 'mimes:png,jpg,jpeg,gif,ico,svg,webp', 'max:512'];
+            $rules['clear_site_favicon'] = ['sometimes', 'boolean'];
             $rules['hero_primary_cta_text'] = ['nullable', 'string', 'max:120'];
             $rules['hero_primary_cta_url'] = ['nullable', 'string', 'max:500'];
             $rules['hero_secondary_cta_text'] = ['nullable', 'string', 'max:120'];

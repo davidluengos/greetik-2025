@@ -50,6 +50,7 @@ class SitePageController extends Controller
         $data = $request->validated();
         if ($site_page->slug === 'home') {
             $data = $this->mergeHomeHeroBackgroundUpload($request, $site_page, $data);
+            $data = $this->mergeHomeFaviconUpload($request, $site_page, $data);
         }
         $sitePageUpdater->update(
             $site_page,
@@ -86,7 +87,38 @@ class SitePageController extends Controller
         return $data;
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
+    private function mergeHomeFaviconUpload(UpdateSitePageRequest $request, SitePage $sitePage, array $data): array
+    {
+        $extra = is_array($sitePage->extra) ? $sitePage->extra : [];
+        $currentFavicon = (string) ($extra['site_favicon'] ?? '');
+
+        $file = $request->file('site_favicon_file');
+        if ($file instanceof UploadedFile) {
+            $this->deleteStoredPublicAsset($currentFavicon);
+            $path = $file->store('site-favicon', 'public');
+            $data['site_favicon'] = 'storage/'.$path;
+
+            return $data;
+        }
+
+        if ($request->boolean('clear_site_favicon')) {
+            $this->deleteStoredPublicAsset($currentFavicon);
+            $data['site_favicon'] = '';
+        }
+
+        return $data;
+    }
+
     private function deleteStoredPublicHomeHeroImage(string $storedPath): void
+    {
+        $this->deleteStoredPublicAsset($storedPath);
+    }
+
+    private function deleteStoredPublicAsset(string $storedPath): void
     {
         if ($storedPath !== '' && Str::startsWith($storedPath, 'storage/')) {
             Storage::disk('public')->delete(Str::after($storedPath, 'storage/'));

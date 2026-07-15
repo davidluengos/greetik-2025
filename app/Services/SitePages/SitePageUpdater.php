@@ -51,6 +51,7 @@ class SitePageUpdater
             $extra['hero_secondary_cta_url'] = $data['hero_secondary_cta_url'] ?? '';
             $extra['hero_background_image'] = $data['hero_background_image'] ?? '';
             $extra['hero_background_color'] = (string) ($data['hero_background_color'] ?? '');
+            $extra['site_favicon'] = $data['site_favicon'] ?? ($extra['site_favicon'] ?? '');
             $extra['home_sections'] = $this->buildHomeSections($data);
             $extra['featured_products_label'] = trim((string) ($data['featured_products_label'] ?? ''));
             $extra['testimonials_title'] = trim((string) ($data['testimonials_title'] ?? ''));
