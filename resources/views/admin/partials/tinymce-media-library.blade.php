@@ -127,6 +127,7 @@
                 plugins: 'code link lists table image media fullscreen preview searchreplace wordcount',
                 toolbar: 'undo redo | blocks | bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | sitemediagallery | link image media table | code fullscreen preview',
                 block_formats: 'Parrafo=p; Encabezado 2=h2; Encabezado 3=h3; Encabezado 4=h4; Cita=blockquote',
+                extended_valid_elements: 'i[class|aria-hidden|style|role],span[class|aria-hidden|style|role]',
                 branding: false,
                 promotion: false,
                 relative_urls: false,
