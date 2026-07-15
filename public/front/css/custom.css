@@ -2155,3 +2155,190 @@
     background: var(--brand-primary);
     color: #fff;
 }
+
+/* ---- Contenido enriquecido (home, sobre nosotros, etc.) ---- */
+.home-main-content,
+.page-rich-content {
+    padding: 40px 0 10px;
+}
+
+.about .page-rich-content {
+    padding: 20px 0 40px;
+}
+
+.home-main-content p,
+.page-rich-content p {
+    color: #5b6b7b;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+}
+
+.home-main-content h2,
+.page-rich-content h2 {
+    margin: 2rem 0 1.25rem;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1f2937;
+    text-align: center;
+}
+
+.home-main-content .home-diff-cards,
+.page-rich-content .home-diff-cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px 1.5rem;
+}
+
+.home-main-content .home-diff-cards > [class*="col-"],
+.page-rich-content .home-diff-cards > [class*="col-"] {
+    float: none;
+    display: flex;
+    padding: 0 15px;
+    margin-bottom: 24px;
+}
+
+.home-main-content .home-diff-card,
+.page-rich-content .home-diff-card {
+    background: #fff;
+    border: 1px solid #e8edf2;
+    border-radius: 8px;
+    padding: 32px 24px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 2px 12px rgba(18, 38, 63, 0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.home-main-content .home-diff-card-icon,
+.page-rich-content .home-diff-card-icon {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: rgba(0, 136, 204, 0.1);
+    color: var(--brand-primary, #0088cc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 3.5rem;
+}
+
+.home-main-content .home-diff-card-icon i,
+.page-rich-content .home-diff-card-icon i,
+.home-main-content .home-diff-card-icon [class*="fa-"],
+.page-rich-content .home-diff-card-icon [class*="fa-"] {
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--brand-primary, #0088cc);
+}
+
+.home-main-content .home-diff-card-icon--image,
+.page-rich-content .home-diff-card-icon--image {
+    background: rgba(0, 136, 204, 0.08);
+}
+
+.home-main-content .home-diff-card-icon--image img,
+.page-rich-content .home-diff-card-icon--image img {
+    display: block;
+    max-width: 112px;
+    max-height: 112px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.home-main-content .home-diff-card h3,
+.page-rich-content .home-diff-card h3 {
+    margin: 0 0 14px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1f2937;
+    text-align: center;
+    width: 100%;
+    line-height: 1.35;
+}
+
+.home-main-content .home-diff-card p,
+.page-rich-content .home-diff-card p {
+    margin: 0;
+    font-size: 1.125rem;
+    text-align: center;
+    max-width: 100%;
+    line-height: 1.7;
+    color: #4b5563;
+}
+
+.home-main-content .home-main-content-outro,
+.page-rich-content .home-main-content-outro {
+    max-width: 860px;
+    margin: 2rem auto 1.25rem;
+    padding: 0 12px;
+    text-align: center;
+    font-size: 1.3rem;
+    line-height: 1.75;
+    color: #4b5563;
+}
+
+.home-main-content .home-main-content-outro a,
+.page-rich-content .home-main-content-outro a,
+.home-main-content .home-main-content-outro strong,
+.page-rich-content .home-main-content-outro strong {
+    font-weight: 600;
+}
+
+.home-main-content .home-main-content-tagline,
+.page-rich-content .home-main-content-tagline {
+    margin: 2rem 0 0;
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    color: var(--brand-primary, #0088cc);
+}
+
+.home-main-content .home-main-content-tagline strong,
+.page-rich-content .home-main-content-tagline strong {
+    font-weight: 700;
+}
+
+@media (max-width: 767px) {
+    .home-main-content,
+    .page-rich-content {
+        padding: 28px 0 0;
+    }
+
+    .about .page-rich-content {
+        padding-bottom: 28px;
+    }
+
+    .home-main-content h2,
+    .page-rich-content h2 {
+        font-size: 1.45rem;
+    }
+
+    .home-main-content .home-diff-card h3,
+    .page-rich-content .home-diff-card h3 {
+        font-size: 1.25rem;
+    }
+
+    .home-main-content .home-diff-card p,
+    .page-rich-content .home-diff-card p {
+        font-size: 1.0625rem;
+    }
+
+    .home-main-content .home-main-content-outro,
+    .page-rich-content .home-main-content-outro {
+        font-size: 1.2rem;
+    }
+
+    .home-main-content .home-main-content-tagline,
+    .page-rich-content .home-main-content-tagline {
+        font-size: 1.3rem;
+    }
+}

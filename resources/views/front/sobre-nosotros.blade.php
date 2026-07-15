@@ -61,9 +61,12 @@
                 </div>
             </div> -->
             <div class="col-lg-12 about wow fadeInRight">
-                @if (!empty($page->body))
-                    {!! $page->body !!}
-                @endif
+                <div class="page-rich-content">
+                    @if (!empty($page->body))
+                        {!! $page->body !!}
+                    @endif
+                    @include('front.partials.about-diff-cards')
+                </div>
             </div>
         </div>
     </div>
