@@ -16,6 +16,7 @@ final class HomeSections
     {
         return [
             ['key' => 'slider', 'label' => 'Slider principal'],
+            ['key' => 'main_content', 'label' => 'Contenido principal'],
             ['key' => 'featured_products', 'label' => 'Producto destacado'],
             ['key' => 'services', 'label' => 'Nuestros servicios'],
             ['key' => 'testimonials', 'label' => 'Opiniones de clientes'],

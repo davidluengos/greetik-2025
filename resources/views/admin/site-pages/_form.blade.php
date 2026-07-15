@@ -257,6 +257,14 @@
         @enderror
         <small class="form-text text-muted"><code>icon</code> es una clase FontAwesome (ej. <code>fa fa-cloud</code>).</small>
     </div>
+    <div class="form-group">
+        <label for="body">Contenido principal (HTML / enriquecido)</label>
+        <textarea class="form-control @error('body') is-invalid @enderror" id="body" name="body" rows="12">{{ old('body', $page->body) }}</textarea>
+        @error('body')
+            <div class="invalid-feedback d-block">{{ $message }}</div>
+        @enderror
+        <small class="form-text text-muted">Se muestra en el modulo <strong>Contenido principal</strong> de la tabla de modulos (activar y ordenar arriba).</small>
+    </div>
 @endif
 
 <div class="form-group">
@@ -374,6 +382,7 @@
     </div>
 @endif
 
+@if ($page->slug !== 'home')
 <hr>
 <h5 class="text-primary">Contenido principal</h5>
 <div class="form-group">
@@ -383,6 +392,7 @@
         <div class="invalid-feedback d-block">{{ $message }}</div>
     @enderror
 </div>
+@endif
 
 <button class="btn btn-primary" type="submit">Guardar</button>
 <a href="{{ route('admin.site-pages.index') }}" class="btn btn-secondary">Volver</a>
