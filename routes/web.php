@@ -28,6 +28,6 @@ Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])
 Route::get('/{slug}', [SitePageController::class, 'showLegalPage'])
     ->whereIn('slug', SitePage::legalSlugs())
     ->name('legal.page');
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard.home');
