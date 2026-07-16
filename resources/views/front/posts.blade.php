@@ -11,7 +11,7 @@
       </div>
       <div class="col-lg-8 col-sm-8">
         <ol class="breadcrumb pull-right">
-          <li><a href="{{ route('home') }}">Home</a></li>
+          <li><a href="{{ route('home') }}">Inicio</a></li>
           <li class="active">Blog</li>
         </ol>
       </div>
