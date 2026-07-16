@@ -1326,6 +1326,42 @@
     display: block;
 }
 
+/*
+ * Grid flex (sin float): MixItUp anima el fade y al filtrar no quedan huecos.
+ * Los items son hijos directos de #portfoliolist para que el plugin recalcule bien.
+ */
+#portfoliolist {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 16px;
+    width: 100%;
+    position: relative;
+}
+
+#portfoliolist .portfolio {
+    float: none !important;
+    width: calc(25% - 12px);
+    margin: 0 !important;
+    box-sizing: border-box;
+}
+
+#portfoliolist .portfolio-empty {
+    width: 100%;
+}
+
+@media only screen and (max-width: 991px) {
+    #portfoliolist .portfolio {
+        width: calc(50% - 8px);
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    #portfoliolist .portfolio {
+        width: 100%;
+    }
+}
+
 .portfolio-item-body {
     margin-top: 1rem;
 }

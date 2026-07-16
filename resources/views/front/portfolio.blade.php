@@ -39,7 +39,7 @@
         <div class="col-md-12">
           <ul id="portfolio-filters" class="clearfix" aria-label="Filtros de categorias del portfolio">
             <li>
-              <button type="button" class="filter portfolio-filter-chip active" data-filter="{{ $categorySlugs->implode(' ') }}">Todos</button>
+              <button type="button" class="filter portfolio-filter-chip active" data-filter="all">Todos</button>
             </li>
             @foreach ($categorySlugs as $catSlug)
               <li>
@@ -55,8 +55,7 @@
   <div class="container">
     <div class="row mar-b-30">
       <div id="portfoliolist" class="{{ $categorySlugs->count() > 1 ? '' : 'portfolio-no-filters' }}">
-        <div class="col-md-12">
-            @forelse ($items as $item)
+          @forelse ($items as $item)
             @php
               $catSlugs = $item->categorySlugs();
               $catClass = implode(' ', $catSlugs);
@@ -79,11 +78,10 @@
               </div>
             </div>
           @empty
-            <div class="col-md-12">
+            <div class="portfolio-empty col-md-12">
               <p class="text-muted">Aun no hay proyectos publicados en el portfolio.</p>
             </div>
           @endforelse
-        </div>
       </div>
     </div>
   </div>
@@ -105,6 +103,9 @@
               filterSelector: '.filter',
               effects: ['fade'],
               easing: 'snap',
+              // Flexbox (sin float): evita huecos al filtrar por etiqueta.
+              targetDisplayGrid: 'block',
+              showOnLoad: 'all',
               onMixEnd: function () {
                 filterList.hoverEffect();
               },
@@ -113,14 +114,14 @@
           filterList.hoverEffect();
         },
         hoverEffect: function () {
-          $('#portfoliolist .portfolio .portfolio-hover').hover(
-            function () {
-              $(this).find('.image-caption').slideDown(250);
-            },
-            function () {
-              $(this).find('.image-caption').slideUp(250);
-            }
-          );
+          $('#portfoliolist .portfolio .portfolio-hover')
+            .off('mouseenter.portfolioHover mouseleave.portfolioHover')
+            .on('mouseenter.portfolioHover', function () {
+              $(this).find('.image-caption').stop(true, true).slideDown(250);
+            })
+            .on('mouseleave.portfolioHover', function () {
+              $(this).find('.image-caption').stop(true, true).slideUp(250);
+            });
         },
       };
 
