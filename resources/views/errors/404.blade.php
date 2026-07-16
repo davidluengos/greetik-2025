@@ -1,6 +1,6 @@
 @extends('front.layouts.app')
 
-@section('title', '404 | Página no encontrada')
+@section('title', \App\Support\SiteBranding::pageTitle('Página no encontrada'))
 
 @section('content')
     <div class="breadcrumbs">

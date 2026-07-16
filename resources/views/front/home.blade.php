@@ -1,6 +1,6 @@
 @extends('front.layouts.app')
 
-@section('title', $page->meta_title ?? 'Greetik | Home')
+@section('title', \App\Support\SiteBranding::pageTitle('Inicio', $page->meta_title ?? null))
 
 @section('content')
 

@@ -1,6 +1,6 @@
 @extends('front.layouts.app')
 
-@section('title', 'Greetik | Servicios')
+@section('title', \App\Support\SiteBranding::pageTitle('Servicios'))
 
 @section('content')
     <!--breadcrumbs start-->

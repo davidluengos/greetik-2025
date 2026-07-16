@@ -1,6 +1,6 @@
 @extends('front.layouts.app')
 
-@section('title', $page->meta_title ?: 'Greetik | ' . $page->title)
+@section('title', \App\Support\SiteBranding::pageTitle($page->title, $page->meta_title))
 
 @push('styles')
   <link href="{{ asset('front/css/magnific-popup.css') }}" rel="stylesheet">

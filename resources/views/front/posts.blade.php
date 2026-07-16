@@ -1,6 +1,6 @@
 @extends('front.layouts.app')
 
-@section('title', 'Acme | Blog')
+@section('title', \App\Support\SiteBranding::pageTitle('Blog'))
 
 @section('content')
 <div class="breadcrumbs">

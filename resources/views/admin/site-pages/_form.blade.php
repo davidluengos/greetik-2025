@@ -281,6 +281,7 @@
         <label for="meta_title">Meta title (SEO)</label>
         <input type="text" class="form-control" id="meta_title" name="meta_title"
             value="{{ old('meta_title', $page->meta_title) }}">
+        <small class="form-text text-muted">Titulo de la pestana del navegador. Formato recomendado: <code>Nombre de la pagina | Greetik</code>. Si se deja vacio, se genera automaticamente.</small>
     </div>
     <div class="form-group col-md-6">
         <label for="meta_description">Meta description</label>

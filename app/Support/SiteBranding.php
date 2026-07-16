@@ -7,6 +7,35 @@ use Illuminate\Support\Facades\Schema;
 
 final class SiteBranding
 {
+    public static function siteName(): string
+    {
+        $name = trim((string) config('app.name', 'Greetik'));
+
+        return $name !== '' && strcasecmp($name, 'Laravel') !== 0
+            ? $name
+            : 'Greetik';
+    }
+
+    /**
+     * Titulo de pestaña unificado: meta SEO si existe, si no "{pagina} | {marca}".
+     */
+    public static function pageTitle(?string $pageTitle = null, ?string $metaTitle = null): string
+    {
+        $meta = trim((string) $metaTitle);
+        if ($meta !== '') {
+            return $meta;
+        }
+
+        $brand = self::siteName();
+        $page = trim((string) $pageTitle);
+
+        if ($page === '') {
+            return $brand;
+        }
+
+        return $page.' | '.$brand;
+    }
+
     public static function faviconUrl(): string
     {
         $default = asset('front/img/favicon.png');
