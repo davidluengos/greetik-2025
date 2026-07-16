@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /gw-admin
+Disallow: /login
+Disallow: /password
+Disallow: /home
+
+Sitemap: https://greetik.com/sitemap.xml
