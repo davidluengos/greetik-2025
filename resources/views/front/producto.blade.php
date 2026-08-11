@@ -1,13 +1,17 @@
 @extends('front.layouts.app')
 
-@section('title', \App\Support\SiteBranding::pageTitle($project->title))
+@section('title', \App\Support\SiteBranding::pageTitle(
+    $project->pricingTable?->is_active && filled($project->pricingTable->title)
+        ? $project->pricingTable->title
+        : $project->title
+))
 
 @section('content')
     <div class="breadcrumbs">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-sm-6">
-                    <h1>{{ $project->title }}</h1>
+                    <p class="h1">{{ $project->title }}</p>
                 </div>
                 <div class="col-lg-6 col-sm-6">
                     <ol class="breadcrumb pull-right">

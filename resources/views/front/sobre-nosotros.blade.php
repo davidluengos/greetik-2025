@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-sm-4">
-                    <h1>{{ $page->title }}</h1>
+                    <p class="h1">{{ $page->title }}</p>
                 </div>
                 <div class="col-lg-8 col-sm-8">
                     <ol class="breadcrumb pull-right">
