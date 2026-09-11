@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\AutomationAssessment;
 use App\Models\ContactMessage;
 use App\Models\Project;
 use App\Models\SiteMedia;
@@ -45,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(SiteMedia::class, ManageContentPolicy::class);
         Gate::policy(Testimonial::class, ManageContentPolicy::class);
         Gate::policy(ContactMessage::class, ManageContentPolicy::class);
+        Gate::policy(AutomationAssessment::class, ManageContentPolicy::class);
         View::composer(['front.layouts.header', 'front.layouts.footer'], FrontHeaderComposer::class);
     }
 }

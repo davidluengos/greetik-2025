@@ -82,6 +82,17 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.automatiza-leads.index') }}">
+            <i class="fas fa-fw fa-robot"></i>
+            <span>Leads Automatiza</span>
+            @php $newLeads = \App\Models\AutomationAssessment::whereNotNull('contacted_at')->whereNull('reviewed_at')->count(); @endphp
+            @if ($newLeads > 0)
+                <span class="badge badge-danger ml-1">{{ $newLeads }}</span>
+            @endif
+        </a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.posts.index') }}">
             <i class="fas fa-fw fa-newspaper"></i>
             <span>Posts</span>
