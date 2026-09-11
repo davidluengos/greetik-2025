@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\AutomatizaController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\PortfolioController;
 use App\Http\Controllers\Front\PostController;
@@ -21,6 +22,18 @@ Route::get('/sobre-nosotros', [SitePageController::class, 'sobreNosotros'])->nam
 Route::get('/contacto', [SitePageController::class, 'contacto'])->name('contacto');
 Route::post('/contacto', [SitePageController::class, 'submitContacto'])->name('contacto.submit');
 Route::get('/productos/{slug}', [SeccionesController::class, 'showProducto'])->name('productos.show');
+
+Route::prefix('automatiza')->name('automatiza.')->group(function () {
+    Route::get('/', [AutomatizaController::class, 'landing'])->name('landing');
+    Route::get('/wizard', [AutomatizaController::class, 'wizard'])->name('wizard');
+    Route::post('/analizar', [AutomatizaController::class, 'analyze'])->name('analyze');
+    Route::post('/cta-tracker', [AutomatizaController::class, 'ctaTracker'])->name('cta');
+    Route::get('/resultado/{assessment}', [AutomatizaController::class, 'result'])->name('result');
+    Route::post('/resultado/{assessment}/contacto', [AutomatizaController::class, 'contact'])->name('contact');
+    Route::get('/sectores/{slug}', [AutomatizaController::class, 'sector'])
+        ->where('slug', '[a-z0-9\-]+')
+        ->name('sector');
+});
 
 Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
 Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])

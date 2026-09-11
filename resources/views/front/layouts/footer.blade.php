@@ -16,6 +16,7 @@
         <ul class="footer-tree">
           <li><a href="{{ route('servicios.index') }}"><i class="fa fa-angle-right footer-link-icon" aria-hidden="true"></i>Servicios</a></li>
           <li><a href="{{ route('portfolio.index') }}"><i class="fa fa-angle-right footer-link-icon" aria-hidden="true"></i>Portfolio</a></li>
+          <li><a href="{{ route('automatiza.landing') }}"><i class="fa fa-angle-right footer-link-icon" aria-hidden="true"></i>Greetik Automatiza</a></li>
           <li><a href="/productos/mytrainik-software-para-entrenadores-personales-y-gimnasios"><i class="fa fa-angle-right footer-link-icon" aria-hidden="true"></i>MyTrainik</a></li>
           <li><a href="/productos/reservik-software-de-reserva-de-pistas-deportivas-online"><i class="fa fa-angle-right footer-link-icon" aria-hidden="true"></i>Reservik</a></li>
         </ul>

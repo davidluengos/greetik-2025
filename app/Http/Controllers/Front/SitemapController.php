@@ -20,7 +20,17 @@ class SitemapController extends Controller
             $this->entry(route('home'), now(), 'daily', '1.0'),
             $this->entry(route('servicios.index'), null, 'weekly', '0.8'),
             $this->entry(route('posts.index'), null, 'weekly', '0.7'),
+            $this->entry(route('automatiza.landing'), null, 'weekly', '0.8'),
         ];
+
+        foreach (array_keys((array) config('automatiza.sector_pages', [])) as $sectorSlug) {
+            $urls[] = $this->entry(
+                route('automatiza.sector', ['slug' => $sectorSlug]),
+                null,
+                'monthly',
+                '0.6'
+            );
+        }
 
         foreach (SitePage::query()->where('is_active', true)->cursor() as $page) {
             $loc = $page->publicUrl();
