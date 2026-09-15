@@ -38,7 +38,7 @@ class PostController extends Controller
 
         // Redirigir si el slug no coincide con el título real
         if ($titleSlug !== Str::slug($post->title)) {
-            return redirect('/post/' . Str::slug($post->title) . '-' . $post->id);
+            return redirect('/post/' . Str::slug($post->title) . '-' . $post->id, 301);
         }
 
         return view('front.post', compact('post'));

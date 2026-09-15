@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Front\AutomatizaController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\LegacyRedirectController;
 use App\Http\Controllers\Front\PortfolioController;
 use App\Http\Controllers\Front\PostController;
 use App\Http\Controllers\Front\SeccionesController;
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+Route::get('/secciones/{path}', [LegacyRedirectController::class, 'handle'])
+    ->where('path', '.+')
+    ->name('legacy.section');
 
 Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 Route::get('/post/{slug}', [PostController::class, 'show'])->name('posts.show');
