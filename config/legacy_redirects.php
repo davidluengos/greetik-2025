@@ -83,4 +83,11 @@ return [
     // Reclamaciones (no hay pagina legal dedicada): canal actual = contacto.
     // /secciones/reclamaciones-13
     13 => ['type' => 'url', 'url' => '/contacto'],
+    // --- Entradas añadidas 2026-09-16 desde informe "No indexadas" GSC ---
+    // Qwertik CRM: producto descontinuado del CMS antiguo, sin sucesor. → home.
+    // /secciones/qwertik--crm-software-de-gestion-de-clientes-online-15
+    15 => ['type' => 'url', 'url' => '/'],
+    // Manual MyTrainik "pruebas y test de medida": mismo criterio que 43, 44, 45, 48.
+    // /secciones/manual-del-administrador-de-mytrainik-pruebas-y-test-de-medida-47
+    47 => ['type' => 'project', 'id' => 1],
 ];

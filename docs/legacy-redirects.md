@@ -130,6 +130,20 @@ Los miss (no-id-in-path + no-mapping) se loguean en el canal `logging.default` c
 
 Utilizable con `tail -f storage/logs/laravel.log | grep legacy_redirect` en produccion para ver que URLs se estan pidiendo y aun no estan mapeadas.
 
+## Redirect catch-all para `/tag/*` (sistema de tags legacy)
+
+El CMS antiguo tenia un sistema de tags que generaba URLs como `/tag/Laravel`, `/tag/MyTrainik/2` (paginacion), `/tag/Compras%20Online`. En la migracion a Laravel no se replico el sistema y las ~50 URLs indexadas por Google caian a 404 nativo.
+
+Solucion (2026-09-16): route catch-all en `routes/web.php` que 301 a `/blog`:
+
+```php
+Route::get('/tag/{tag}', fn () => redirect('/blog', 301))
+    ->where('tag', '.+')
+    ->name('legacy.tag');
+```
+
+Consolida autoridad de dominio a `/blog` pero perdemos la especificidad por tag. Decision pragmatica porque el vocabulario de tags del CMS antiguo era mayoritariamente ruido (`hotmail`, `anime`, `2019`, `Actualidad Greetik`, etc.). Si en el futuro se implementa un sistema de tags real (modelo Tag + many-to-many con Post), sustituir este catch-all por la ruta granular.
+
 ## Ficheros implicados
 
 | Fichero | Rol |

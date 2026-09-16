@@ -19,6 +19,13 @@ Route::get('/secciones/{path}', [LegacyRedirectController::class, 'handle'])
     ->where('path', '.+')
     ->name('legacy.section');
 
+// Sistema de tags del CMS antiguo — 301 catch-all al indice del blog para consolidar
+// autoridad. El CMS antiguo generaba /tag/{nombre} y /tag/{nombre}/{pagina}, hoy no
+// existe sistema de tags. Ver docs/legacy-redirects.md para el porque de esta decision.
+Route::get('/tag/{tag}', fn () => redirect('/blog', 301))
+    ->where('tag', '.+')
+    ->name('legacy.tag');
+
 Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 Route::get('/post/{slug}', [PostController::class, 'show'])->name('posts.show');
 
