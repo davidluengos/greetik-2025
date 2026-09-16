@@ -1,10 +1,37 @@
 @extends('front.layouts.app')
 
-@section('title', \App\Support\SiteBranding::pageTitle(
-    $project->pricingTable?->is_active && filled($project->pricingTable->title)
+@php
+    $displayTitle = $project->pricingTable?->is_active && filled($project->pricingTable->title)
         ? $project->pricingTable->title
-        : $project->title
-))
+        : $project->title;
+
+    $seoDescription = filled($project->excerpt)
+        ? $project->excerpt
+        : \App\Support\SiteBranding::defaultDescription();
+
+    $ogImage = filled($project->image)
+        ? asset($project->image)
+        : \App\Support\SiteBranding::defaultOgImage();
+
+    $pageTitle = \App\Support\SiteBranding::pageTitle($displayTitle);
+@endphp
+
+@section('title', $pageTitle)
+@section('meta_description', $seoDescription)
+@section('og_title', $pageTitle)
+@section('og_description', $seoDescription)
+@section('og_image', $ogImage)
+@section('twitter_title', $pageTitle)
+@section('twitter_description', $seoDescription)
+@section('twitter_image', $ogImage)
+
+@push('json_ld')
+    @include('front.partials.json-ld-product', ['project' => $project])
+    @include('front.partials.json-ld-breadcrumb', ['breadcrumbs' => [
+        ['name' => 'Inicio', 'url' => route('home')],
+        ['name' => $project->title, 'url' => url()->current()],
+    ]])
+@endpush
 
 @section('content')
     <div class="breadcrumbs">
