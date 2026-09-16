@@ -1,6 +1,16 @@
 @extends('front.layouts.app')
 
-@section('title', \App\Support\SiteBranding::pageTitle('Servicios'))
+@php
+    $pageTitle = \App\Support\SiteBranding::pageTitle('Servicios');
+    $seoDescription = 'Servicios de desarrollo de software: aplicaciones web, tiendas online, webs corporativas, APIs REST, mantenimiento y diseño gráfico. Trabajamos a medida para tu negocio.';
+@endphp
+
+@section('title', $pageTitle)
+@section('meta_description', $seoDescription)
+@section('og_title', $pageTitle)
+@section('og_description', $seoDescription)
+@section('twitter_title', $pageTitle)
+@section('twitter_description', $seoDescription)
 
 @section('content')
     <!--breadcrumbs start-->

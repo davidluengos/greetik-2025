@@ -10,12 +10,12 @@
 @endphp
 
 @section('title', $seoTitle)
+@section('meta_description', $seoDescription)
+@section('canonical', $canonical)
+@section('robots', 'noindex,follow')
 
 @push('styles')
     <link href="{{ asset('front/css/automatiza.css') }}?v=1" rel="stylesheet">
-    <meta name="description" content="{{ $seoDescription }}">
-    <link rel="canonical" href="{{ $canonical }}">
-    <meta name="robots" content="noindex,follow">
 @endpush
 
 @section('content')

@@ -1,6 +1,27 @@
 @extends('front.layouts.app')
 
-@section('title', \App\Support\SiteBranding::pageTitle($post->title))
+@php
+    $seoTitle = filled($post->metatitle)
+        ? $post->metatitle
+        : \App\Support\SiteBranding::pageTitle($post->title);
+
+    if (filled($post->metadescription)) {
+        $seoDescription = $post->metadescription;
+    } else {
+        $bodyText = preg_replace('/<\/(p|div|h[1-6]|li|br)\s*\/?>/i', ' ', (string) $post->body);
+        $bodyText = html_entity_decode(strip_tags($bodyText), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $bodyText = trim(preg_replace('/\s+/', ' ', $bodyText));
+        $seoDescription = \Illuminate\Support\Str::limit($bodyText, 160);
+    }
+@endphp
+
+@section('title', $seoTitle)
+@section('meta_description', $seoDescription)
+@section('og_type', 'article')
+@section('og_title', $seoTitle)
+@section('og_description', $seoDescription)
+@section('twitter_title', $seoTitle)
+@section('twitter_description', $seoDescription)
 
 @section('content')
 <div class="breadcrumbs">

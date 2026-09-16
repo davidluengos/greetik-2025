@@ -1,6 +1,18 @@
 @extends('front.layouts.app')
 
-@section('title', \App\Support\SiteBranding::pageTitle($page->title, $page->meta_title))
+@php
+    $pageTitle = \App\Support\SiteBranding::pageTitle($page->title, $page->meta_title);
+    $seoDescription = filled($page->meta_description)
+        ? $page->meta_description
+        : \App\Support\SiteBranding::defaultDescription();
+@endphp
+
+@section('title', $pageTitle)
+@section('meta_description', $seoDescription)
+@section('og_title', $pageTitle)
+@section('og_description', $seoDescription)
+@section('twitter_title', $pageTitle)
+@section('twitter_description', $seoDescription)
 
 @section('content')
     @php

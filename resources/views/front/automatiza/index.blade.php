@@ -8,19 +8,18 @@
 @endphp
 
 @section('title', $seoTitle)
+@section('meta_description', $seoDescription)
+@section('canonical', $canonical)
+@section('og_title', $seoTitle)
+@section('og_description', $seoDescription)
+@section('og_url', $canonical)
+@section('og_image', $ogImage)
+@section('twitter_title', $seoTitle)
+@section('twitter_description', $seoDescription)
+@section('twitter_image', $ogImage)
 
 @push('styles')
     <link href="{{ asset('front/css/automatiza.css') }}?v=1" rel="stylesheet">
-    <meta name="description" content="{{ $seoDescription }}">
-    <link rel="canonical" href="{{ $canonical }}">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="{{ $seoTitle }}">
-    <meta property="og:description" content="{{ $seoDescription }}">
-    <meta property="og:url" content="{{ $canonical }}">
-    <meta property="og:image" content="{{ $ogImage }}">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $seoTitle }}">
-    <meta name="twitter:description" content="{{ $seoDescription }}">
 @endpush
 
 @section('content')

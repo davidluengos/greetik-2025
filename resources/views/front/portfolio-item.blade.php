@@ -1,6 +1,25 @@
 @extends('front.layouts.app')
 
-@section('title', \App\Support\SiteBranding::pageTitle($item->title))
+@php
+    $pageTitle = \App\Support\SiteBranding::pageTitle($item->title);
+
+    $seoDescription = filled($item->excerpt)
+        ? $item->excerpt
+        : \App\Support\SiteBranding::defaultDescription();
+
+    $ogImage = filled($item->image)
+        ? asset($item->image)
+        : \App\Support\SiteBranding::defaultOgImage();
+@endphp
+
+@section('title', $pageTitle)
+@section('meta_description', $seoDescription)
+@section('og_title', $pageTitle)
+@section('og_description', $seoDescription)
+@section('og_image', $ogImage)
+@section('twitter_title', $pageTitle)
+@section('twitter_description', $seoDescription)
+@section('twitter_image', $ogImage)
 
 @section('content')
   <div class="breadcrumbs">

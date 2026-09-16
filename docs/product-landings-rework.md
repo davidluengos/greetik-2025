@@ -9,6 +9,38 @@ Los dos objetivos son independientes, pero se abordan en el mismo tramo porque c
 
 ---
 
+## 📍 Retomar aqui (ultima parada 2026-09-15)
+
+**Estado Fase 0:** 5 tareas cerradas, 4 abiertas.
+
+| Estado | Task |
+|--------|------|
+| ✅ | #2 slots SEO en layout front |
+| ✅ | #3 meta tags en producto.blade.php |
+| ✅ | #4 meta tags en resto de vistas + migracion Automatiza |
+| ✅ | #6 JSON-LD Organization + Product + BreadcrumbList |
+| ✅ | #7 legacy redirects `/secciones/{path}` (**ya commiteada** en `7c7579d`) |
+| ⏳ | #1 auditoria GSC (usuario) |
+| ⏳ | #5 poblar `Project.image` en MyTrainik/Reservik (usuario) |
+| ⏳ | #8 anadir mas entradas a `config/legacy_redirects.php` desde GSC |
+| ⏳ | #9 reindex GSC post-deploy |
+
+**Trabajo en local sin commit** (14 modified + 4 untracked). Cubre tareas 2, 3, 4 y 6. Ultimo commit en `main`: `7c7579d` (solo tarea 7).
+
+**Siguiente accion concreta al reanudar:**
+
+1. Preparar commit agrupado de tareas 2, 3, 4, 6 con mensaje descriptivo.
+2. Push a `origin/main`.
+3. Ejecutar checklist de deploy prod (`git pull` + `config:clear` + `view:clear` + smoke test curl + GSC reindex).
+
+**Deploy checklist completo** fue enviado en conversacion del 2026-09-15, incluye: 5 curl smoke tests, acciones en Search Console (verificar sitemap, solicitar indexacion de URLs top, Rich Results Test) y rollback plan (git revert, sin migraciones DB).
+
+**Post-deploy:** avanzar con GSC audit (tarea 1) para completar el mapa de redirects (tarea 8), y coordinar con usuario la subida de OG images para tarea 5. Cuando Fase 0 este validada en prod, arrancamos Fase 1 (motor de bloques tipados + hero end-to-end).
+
+---
+
+---
+
 ## Contexto
 
 ### Que hay hoy en produccion
@@ -75,11 +107,11 @@ Recuperar visibilidad. Nada del sistema de bloques empieza hasta que Fase 0 este
 | # | Tarea | Estado |
 |---|-------|--------|
 | 1 | Auditar cobertura SEO en GSC (informe Rendimiento + no indexadas + 404) | pending (usuario) |
-| 2 | Slots SEO en layout front (meta description, canonical, OG, Twitter, JSON-LD stack) | pending |
-| 3 | Rellenar meta tags en `producto.blade.php` | pending |
-| 4 | Rellenar meta tags en post/portfolio/servicios/legal | pending |
+| 2 | Slots SEO en layout front (meta description, canonical, OG, Twitter, JSON-LD stack) | **completada 2026-09-15** |
+| 3 | Rellenar meta tags en `producto.blade.php` | **completada 2026-09-15** |
+| 4 | Rellenar meta tags en post/portfolio/servicios/legal | **completada 2026-09-15** |
 | 5 | Poblar `Project.image` en MyTrainik y Reservik | pending (usuario) |
-| 6 | JSON-LD `Product` + `Organization` + `BreadcrumbList` | pending |
+| 6 | JSON-LD `Product` + `Organization` + `BreadcrumbList` | **completada 2026-09-15** |
 | 7 | Route + controller de 301 para `/secciones/{path}` | **completada 2026-09-15** |
 | 8 | Mapa manual de redirects para productos/servicios/portfolio (config file) | pending (necesita GSC) |
 | 9 | Post-deploy: reenviar sitemap en GSC + solicitar reindex | pending (usuario) |
@@ -138,3 +170,7 @@ Drop de `pricing_tables` + `product_forms` y sus admin sections cuando los produ
 - **2026-09-15** — creacion. Fase 0 tarea 7 (legacy redirects) completada. Resto pending.
 - **2026-09-15** — quitado auto-fallback a `Post::find` en el controller de legacy redirects. Los section_id del CMS antiguo no correlacionan 1:1 con `post.id`: una seccion 40 podia ser un proyecto, no un post. Ahora *todas* las URLs (incluidos posts) requieren mapeo explicito en `config/legacy_redirects.php`. Ver [`legacy-redirects.md`](legacy-redirects.md).
 - **2026-09-15** — reintroducido el auto-fallback a blog, esta vez con salvaguarda de slug (>= 50% tokens en comun entre path antiguo y slug actual del post). Motivacion: el 90% de las URLs legacy son posts y forzarlas todas al config era demasiado tedioso. El slug-check protege del bug de la colision section 40 = MyTrainik: si el usuario olvida mapear una seccion no-post, en vez de wrong-redirect al post que casualmente comparte id, cae a 410 limpio. Umbral configurable via `LegacyRedirectController::POST_SLUG_MATCH_MIN_RATIO`.
+- **2026-09-15** — Fase 0 tarea 2 (slots SEO en layout) completada. `front/layouts/app.blade.php` expone `@yield` para meta description, canonical, OG (type/title/description/url/image/site_name) y Twitter Card, mas un `@stack('json_ld')`. `SiteBranding` gana `defaultDescription()` y `defaultOgImage()` con fallback editable desde `site_pages.home.extra`. Ver [`seo-slots.md`](seo-slots.md). Sabor secundario: Automatiza sigue emitiendo tags via `@push('styles')` — duplicados temporales hasta que tarea 4 la migre.
+- **2026-09-15** — Fase 0 tarea 3 (meta tags en producto.blade.php) completada. `producto.blade.php` precalcula `$displayTitle` (pricing title si activa, si no project title), `$seoDescription` (excerpt del project, fallback a `SiteBranding::defaultDescription()`), `$ogImage` (`asset($project->image)`, fallback a `defaultOgImage()`) y los inyecta a los slots via `@section`. Canonical se resuelve solo con `url()->current()`. Cuando tarea 5 pueble `Project.image` de MyTrainik/Reservik, la og image dejara de caer al default global.
+- **2026-09-15** — Fase 0 tarea 4 (meta tags en resto de vistas) completada. Migradas: `post` (con decode de HTML entities en fallback de body), `portfolio-item`, `servicios` (hardcoded), `sobre-nosotros`, `contacto`, `legal-page` (todas leyendo `SitePage.meta_title`/`meta_description`), y las 4 vistas de Automatiza (`index`, `wizard`, `resultado`, `sector`) migradas de `@push('styles')` a `@section` — eliminados los duplicados que habia. Layout gana slot condicional `robots` para `noindex,follow` de wizard/resultado. Ver [`seo-slots.md`](seo-slots.md) para lista final.
+- **2026-09-15** — Fase 0 tarea 6 (JSON-LD) completada. Tres partials en `resources/views/front/partials/json-ld-*.blade.php`: `Organization` (auto sitewide desde el layout), `Product` (push desde `producto.blade.php`), `BreadcrumbList` (push desde vistas con breadcrumb). Producto emite los 3 bloques verificado con curl. Pending para tareas posteriores: `Article` en `post.blade.php`, `FAQPage` auto desde el futuro bloque `faq`, `WebPage`/`CreativeWork` en portfolio-item. Gotcha documentado en [`seo-slots.md`](seo-slots.md): `@context` inline dentro de `{!! json_encode([...]) !!}` corrompe el JSON porque Blade lo compila como directiva del sistema de contexto de Laravel 11+; hay que construir el array en `@php...@endphp`.
