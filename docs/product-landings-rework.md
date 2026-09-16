@@ -9,33 +9,33 @@ Los dos objetivos son independientes, pero se abordan en el mismo tramo porque c
 
 ---
 
-## 📍 Retomar aqui (ultima parada 2026-09-15)
+## 📍 Retomar aqui (ultima parada 2026-09-16)
 
-**Estado Fase 0:** 5 tareas cerradas, 4 abiertas.
+**Estado Fase 0:** 6 tareas cerradas, 1 parcial, 2 abiertas.
 
 | Estado | Task |
 |--------|------|
+| 🟡 | #1 auditoria GSC — recibido informe Rendimiento, pendiente "Paginas no indexadas" |
 | ✅ | #2 slots SEO en layout front |
 | ✅ | #3 meta tags en producto.blade.php |
 | ✅ | #4 meta tags en resto de vistas + migracion Automatiza |
-| ✅ | #6 JSON-LD Organization + Product + BreadcrumbList |
-| ✅ | #7 legacy redirects `/secciones/{path}` (**ya commiteada** en `7c7579d`) |
-| ⏳ | #1 auditoria GSC (usuario) |
 | ⏳ | #5 poblar `Project.image` en MyTrainik/Reservik (usuario) |
-| ⏳ | #8 anadir mas entradas a `config/legacy_redirects.php` desde GSC |
+| ✅ | #6 JSON-LD Organization + Product + BreadcrumbList |
+| ✅ | #7 legacy redirects `/secciones/{path}` |
+| ✅ | #8 mapa `config/legacy_redirects.php` (14 + 9 desde GSC) |
 | ⏳ | #9 reindex GSC post-deploy |
 
-**Trabajo en local sin commit** (14 modified + 4 untracked). Cubre tareas 2, 3, 4 y 6. Ultimo commit en `main`: `7c7579d` (solo tarea 7).
+**Todo el codigo de Fase 0 esta en `origin/main`.** Working tree limpio.
 
 **Siguiente accion concreta al reanudar:**
 
-1. Preparar commit agrupado de tareas 2, 3, 4, 6 con mensaje descriptivo.
-2. Push a `origin/main`.
-3. Ejecutar checklist de deploy prod (`git pull` + `config:clear` + `view:clear` + smoke test curl + GSC reindex).
+1. **Deploy prod** — git pull en servidor + `php artisan config:clear` + `view:clear` + 5 curl smoke tests + acciones GSC (verificar sitemap, solicitar indexacion de URLs top, Rich Results Test). Rollback plan: `git revert`, sin migraciones DB.
+2. **Post-deploy:** coordinar con usuario la subida de OG images (tarea 5) + reindex GSC (tarea 9).
+3. Pedir al usuario el informe de "Paginas no indexadas" de GSC para cerrar la tarea 1 (diagnostico de 404 fuera de `/secciones/*`).
 
-**Deploy checklist completo** fue enviado en conversacion del 2026-09-15, incluye: 5 curl smoke tests, acciones en Search Console (verificar sitemap, solicitar indexacion de URLs top, Rich Results Test) y rollback plan (git revert, sin migraciones DB).
+Cuando Fase 0 este validada en prod, arrancamos Fase 1 (motor de bloques tipados + hero end-to-end).
 
-**Post-deploy:** avanzar con GSC audit (tarea 1) para completar el mapa de redirects (tarea 8), y coordinar con usuario la subida de OG images para tarea 5. Cuando Fase 0 este validada en prod, arrancamos Fase 1 (motor de bloques tipados + hero end-to-end).
+**Follow-up SEO opcional** identificado 2026-09-16: los manuales de MyTrainik (580 impresiones/16 meses) hoy redirigen a la landing marketing y preservan link juice, pero no responden a la query del usuario. Considerar convertirlos en posts del blog o en un futuro help-center para recuperar el trafico real, no solo la autoridad de dominio.
 
 ---
 
@@ -106,14 +106,14 @@ Recuperar visibilidad. Nada del sistema de bloques empieza hasta que Fase 0 este
 
 | # | Tarea | Estado |
 |---|-------|--------|
-| 1 | Auditar cobertura SEO en GSC (informe Rendimiento + no indexadas + 404) | pending (usuario) |
+| 1 | Auditar cobertura SEO en GSC (informe Rendimiento + no indexadas + 404) | **parcial 2026-09-16** (Rendimiento entregado, pendiente informe de no indexadas) |
 | 2 | Slots SEO en layout front (meta description, canonical, OG, Twitter, JSON-LD stack) | **completada 2026-09-15** |
 | 3 | Rellenar meta tags en `producto.blade.php` | **completada 2026-09-15** |
 | 4 | Rellenar meta tags en post/portfolio/servicios/legal | **completada 2026-09-15** |
 | 5 | Poblar `Project.image` en MyTrainik y Reservik | pending (usuario) |
 | 6 | JSON-LD `Product` + `Organization` + `BreadcrumbList` | **completada 2026-09-15** |
 | 7 | Route + controller de 301 para `/secciones/{path}` | **completada 2026-09-15** |
-| 8 | Mapa manual de redirects para productos/servicios/portfolio (config file) | pending (necesita GSC) |
+| 8 | Mapa manual de redirects para productos/servicios/portfolio (config file) | **completada 2026-09-16** (14 entradas iniciales + 9 desde informe GSC) |
 | 9 | Post-deploy: reenviar sitemap en GSC + solicitar reindex | pending (usuario) |
 
 Ver [`docs/legacy-redirects.md`](legacy-redirects.md) para la documentacion tecnica del sistema de redirects.
@@ -174,3 +174,4 @@ Drop de `pricing_tables` + `product_forms` y sus admin sections cuando los produ
 - **2026-09-15** — Fase 0 tarea 3 (meta tags en producto.blade.php) completada. `producto.blade.php` precalcula `$displayTitle` (pricing title si activa, si no project title), `$seoDescription` (excerpt del project, fallback a `SiteBranding::defaultDescription()`), `$ogImage` (`asset($project->image)`, fallback a `defaultOgImage()`) y los inyecta a los slots via `@section`. Canonical se resuelve solo con `url()->current()`. Cuando tarea 5 pueble `Project.image` de MyTrainik/Reservik, la og image dejara de caer al default global.
 - **2026-09-15** — Fase 0 tarea 4 (meta tags en resto de vistas) completada. Migradas: `post` (con decode de HTML entities en fallback de body), `portfolio-item`, `servicios` (hardcoded), `sobre-nosotros`, `contacto`, `legal-page` (todas leyendo `SitePage.meta_title`/`meta_description`), y las 4 vistas de Automatiza (`index`, `wizard`, `resultado`, `sector`) migradas de `@push('styles')` a `@section` — eliminados los duplicados que habia. Layout gana slot condicional `robots` para `noindex,follow` de wizard/resultado. Ver [`seo-slots.md`](seo-slots.md) para lista final.
 - **2026-09-15** — Fase 0 tarea 6 (JSON-LD) completada. Tres partials en `resources/views/front/partials/json-ld-*.blade.php`: `Organization` (auto sitewide desde el layout), `Product` (push desde `producto.blade.php`), `BreadcrumbList` (push desde vistas con breadcrumb). Producto emite los 3 bloques verificado con curl. Pending para tareas posteriores: `Article` en `post.blade.php`, `FAQPage` auto desde el futuro bloque `faq`, `WebPage`/`CreativeWork` en portfolio-item. Gotcha documentado en [`seo-slots.md`](seo-slots.md): `@context` inline dentro de `{!! json_encode([...]) !!}` corrompe el JSON porque Blade lo compila como directiva del sistema de contexto de Laravel 11+; hay que construir el array en `@php...@endphp`.
+- **2026-09-16** — Fase 0 tarea 8 (mapa de legacy redirects) completada. Se anadieron 9 entradas al `config/legacy_redirects.php` basadas en el informe de Rendimiento de GSC (16 meses, URLs `/secciones/*` con impresiones). Mapping: 4 manuales de MyTrainik (IDs 43, 44, 45, 48 = 580 imp) → landing MyTrainik; ID 39 `productos` (537 imp) → home; ID 16 `soluciones-web` → ancla `/servicios#servicio-webs-corporativas`; ID 24 `precios` (324 imp) → `/servicios`; ID 17 `mision-vision-valores` → `/sobre-nosotros`; ID 13 `reclamaciones` → `/contacto`. Follow-up open: convertir los manuales de MyTrainik en posts de blog para no perder el valor SEO real del contenido (hoy solo preservamos link juice, no la respuesta a la query). Tarea 1 queda parcial: entregado informe de Rendimiento, pendiente el de "Paginas no indexadas" para diagnosticar 404 fuera de `/secciones/*`.

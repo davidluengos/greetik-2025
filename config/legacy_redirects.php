@@ -58,4 +58,29 @@ return [
     37 => ['type' => 'url', 'url' => '/servicios'],
     // Diseño gráfico: /secciones/diseno-grafico-38 → ancla Diseño gráfico
     38 => ['type' => 'url', 'url' => '/servicios#servicio-diseno-grafico'],
+    // --- Entradas añadidas 2026-09-16 desde informe Rendimiento GSC (16 meses) ---
+    // Manuales de MyTrainik (contenido no migrado): 301 a la landing MyTrainik.
+    // /secciones/manual-del-administrador-de-mytrainik-vista-de-un-usuario-43
+    43 => ['type' => 'project', 'id' => 1],
+    // /secciones/manual-del-administrador-de-mytrainik-valoracion-de-los-entrenamientos-y-mensajes-de-los-usuarios-44
+    44 => ['type' => 'project', 'id' => 1],
+    // /secciones/manual-del-administrador-de-mytrainik-registro-de-pagos-45
+    45 => ['type' => 'project', 'id' => 1],
+    // /secciones/manual-del-administrador-de-mytrainik-ejercicios-48
+    48 => ['type' => 'project', 'id' => 1],
+    // Indice de productos (no existe como pagina): a la home, que destaca los 2 productos.
+    // /secciones/productos-39
+    39 => ['type' => 'url', 'url' => '/'],
+    // Soluciones web = servicio de webs corporativas.
+    // /secciones/soluciones-web-16
+    16 => ['type' => 'url', 'url' => '/servicios#servicio-webs-corporativas'],
+    // Precios (no hay pagina de precios): al listado general de servicios.
+    // /secciones/precios-24
+    24 => ['type' => 'url', 'url' => '/servicios'],
+    // Mision, vision, valores: contenido cubierto en sobre-nosotros.
+    // /secciones/mision--vision--valores-y-acciones-17
+    17 => ['type' => 'url', 'url' => '/sobre-nosotros'],
+    // Reclamaciones (no hay pagina legal dedicada): canal actual = contacto.
+    // /secciones/reclamaciones-13
+    13 => ['type' => 'url', 'url' => '/contacto'],
 ];
