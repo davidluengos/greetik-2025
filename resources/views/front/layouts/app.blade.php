@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', \App\Support\SiteBranding::pageTitle('Inicio'))</title>
 
+    {{-- Robots: solo se emite si la vista lo sobrescribe (ej. wizard/resultado con noindex). --}}
+    @hasSection('robots')
+    <meta name="robots" content="@yield('robots')">
+    @endif
+
+    {{-- SEO --}}
+    <meta name="description" content="@yield('meta_description', \App\Support\SiteBranding::defaultDescription())">
+    <link rel="canonical" href="@yield('canonical', url()->current())">
+
+    {{-- Open Graph --}}
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:site_name" content="{{ \App\Support\SiteBranding::siteName() }}">
+    <meta property="og:title" content="@yield('og_title', \App\Support\SiteBranding::siteName())">
+    <meta property="og:description" content="@yield('og_description', \App\Support\SiteBranding::defaultDescription())">
+    <meta property="og:url" content="@yield('og_url', url()->current())">
+    <meta property="og:image" content="@yield('og_image', \App\Support\SiteBranding::defaultOgImage())">
+
+    {{-- Twitter Card --}}
+    <meta name="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
+    <meta name="twitter:title" content="@yield('twitter_title', \App\Support\SiteBranding::siteName())">
+    <meta name="twitter:description" content="@yield('twitter_description', \App\Support\SiteBranding::defaultDescription())">
+    <meta name="twitter:image" content="@yield('twitter_image', \App\Support\SiteBranding::defaultOgImage())">
+
     <link rel="icon" href="{{ \App\Support\SiteBranding::faviconUrl() }}">
     <link rel="shortcut icon" href="{{ \App\Support\SiteBranding::faviconUrl() }}">
     <link href="{{ asset('front/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -27,6 +50,10 @@
     @stack('styles')
 
     <script src="{{ asset('front/js/parallax-slider/modernizr.custom.28468.js') }}"></script>
+
+    {{-- Datos estructurados (JSON-LD) --}}
+    @include('front.partials.json-ld-organization')
+    @stack('json_ld')
   </head>
   <body>
     @include('front.layouts.header')
